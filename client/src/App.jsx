@@ -1,8 +1,11 @@
+import Nav from "./components/Header/Nav"
+
 function App() {
  
   return (
     <>
-     <h1>FitZone</h1>
+     <Nav />
+     <h1>Fit zone</h1>
     </>
   )
 }
