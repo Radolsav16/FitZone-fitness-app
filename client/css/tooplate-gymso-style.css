@@ -199,6 +199,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
     transition: all 0.3s ease;
   }
 
+
   a:hover, 
   a:active, 
   a:focus {
@@ -371,6 +372,11 @@ https://www.tooplate.com/view/2119-gymso-fitness
     min-height: 100vh;
     position: relative;
   }
+
+  .fitzone {
+    color: #ff6600; /* Orange color for FitZone */
+    font-weight: bold;
+}
 
 
   /*---------------------------------------
