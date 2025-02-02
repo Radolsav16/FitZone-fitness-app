@@ -24,7 +24,7 @@ export default function Nav(){
                     </li>
 
                     <li className="nav-item">
-                        <Link to="/fitzone/regitser" className="nav-link smoothScroll">Register</Link>
+                        <Link to="/fitzone/register" className="nav-link smoothScroll">Register</Link>
                     </li>
 
                     <li className="nav-item">

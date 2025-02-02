@@ -4,6 +4,7 @@ import Hero from "./components/Home/Hero"
 import About from "./components/About/About"
 import Footer from "./components/footer/Footer"
 import Register from "./components/register/Register"
+import Login from "./components/login/Login"
 
 function App() {
  
@@ -13,7 +14,8 @@ function App() {
      <Routes>
         <Route path="/" element={<Hero />}/>
         <Route path="/fitzone/about" element={<About />}/>
-        <Route path="/fitzone/regitser" element={<Register />}/>
+        <Route path="/fitzone/register" element={<Register />}/>
+        <Route path="/fitzone/login" element={<Login />}/>
      </Routes>
      <Footer />
     </>
