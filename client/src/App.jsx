@@ -7,6 +7,7 @@ import Register from "./components/register/Register"
 import Login from "./components/login/Login"
 import CreateChallange from "./components/create-challange/CreateChallange"
 import Challenges from "./components/challanges/Challanges"
+import Details from "./components/details/Details"
 
 function App() {
  
@@ -20,6 +21,7 @@ function App() {
         <Route path="/fitzone/login" element={<Login />}/>
         <Route path="/fitzone/create-challange" element={<CreateChallange />}/>
         <Route path="/fitzone/challanges" element={<Challenges />}/>
+        <Route path="/fitzone/challanges/details/:id" element={<Details/>}/>
 
 
      </Routes>

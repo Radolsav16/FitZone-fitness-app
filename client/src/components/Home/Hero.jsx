@@ -18,9 +18,9 @@ export default function Hero(){
                                     <h1 className="text-white">Join <span className='fitzone'>FitZone</span> Your Ultimate Fitness Community</h1>
                                     
 
-                                    <Link to="/register" className="btn custom-btn mt-3" >Register</Link>
+                                    <Link to="/fitzone/register" className="btn custom-btn mt-3" >Register</Link>
 
-                                    <Link to="/login" className="btn custom-btn bordered mt-3">Login</Link>
+                                    <Link to="/fitzone/login" className="btn custom-btn bordered mt-3">Login</Link>
                                    
                               </div>
                          </div>
