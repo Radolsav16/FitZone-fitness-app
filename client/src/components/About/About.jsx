@@ -2,7 +2,7 @@
 export default function About() {
   return (
   <>
-      <div className="relative flex flex-col lg:flex-row items-center justify-center min-h-screen px-8 lg:px-20 gap-12">
+      <div className="relative flex flex-col lg:flex-row items-center justify-center min-h-screen px-8 lg:px-20 gap-12 mt-20">
         {/* Left Side - Text */}
         <div className="lg:w-1/2 text-left">
           <h1 className="text-6xl font-extrabold text-black-500 drop-shadow-lg">
