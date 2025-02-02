@@ -5,6 +5,7 @@ import About from "./components/About/About"
 import Footer from "./components/footer/Footer"
 import Register from "./components/register/Register"
 import Login from "./components/login/Login"
+import CreateChallange from "./components/create-challange/CreateChallange"
 
 function App() {
  
@@ -16,6 +17,8 @@ function App() {
         <Route path="/fitzone/about" element={<About />}/>
         <Route path="/fitzone/register" element={<Register />}/>
         <Route path="/fitzone/login" element={<Login />}/>
+        <Route path="/fitzone/create-challange" element={<CreateChallange />}/>
+
      </Routes>
      <Footer />
     </>
