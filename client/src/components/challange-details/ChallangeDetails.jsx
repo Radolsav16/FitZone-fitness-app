@@ -1,4 +1,4 @@
-export default function Details(){
+export default function ChallangeDetails(){
     const challenge = { id: 2, name: "5K Running Challenge",type:"cardio", difficulty: "advanced", duration:"14",equipment:"none",imageUrl: "https://th.bing.com/th/id/OIP.1DdKsgh7MNkkE45x_BKRiQHaFo?rs=1&pid=ImgDetMain",description:"Burn some calories with our new running challange!"}
     return(
         <>
