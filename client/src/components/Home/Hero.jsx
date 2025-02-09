@@ -1,6 +1,8 @@
+
 import {Link} from 'react-router-dom'
 
 export default function Hero(){
+
     return(
         <>
  <section className="hero d-flex flex-column justify-content-center align-items-center" id="home">
