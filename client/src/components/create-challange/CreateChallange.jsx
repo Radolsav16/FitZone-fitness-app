@@ -1,5 +1,80 @@
+import { useState } from "react";
+import Input from "../default-input-item/Input";
+import SelectElement from "./SelectElement";
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+
+const challangeTypeOptions = [
+  {value:" ",label:"Select challenge type"},
+  {value:"strength",label:"Strength"},
+  {value:"cardio",label:"Cardio"},
+  {value:"flexibility",label:"Flexibility"},
+  {value:"weight_loss",label:"Weight Loss"}
+];
+
+const difficultyOptions = [
+  {value:" ",label:"Select difficulty"},
+  {value:"beginner",label:"Beginner"},
+  {value:"intermediate",label:"Intermediate"},
+  {value:"advanced",label:"Advanced"},
+];
+
+const durationOptions = [
+  {value:" ",label:"Select duration"},
+  {value:"7",label:"7 Days"},
+  {value:"14",label:"14 Days"},
+  {value:"30",label:"30 Days"},
+];
+
+const equipmentOptions = [
+  {value:" ",label:"Select required equipment"},
+  {value:"none",label:"No Equipment"},
+  {value:"dumbbells",label:"Dumbbells"},
+  {value:"resistance_bands",label:"Resistance Bands"},
+  {value:"yoga_mat",label:"Yoga Mat"},
+  {value:"barbell",label:"Barbell"},
+  {value:"treadmill",label:"Treadmill"},
+
+];
 
 export default function CreateChallange() {
+
+  const navigate = useNavigate();
+
+  const [data,setData] = useState({
+    name:"",
+    type:"",
+    difficulty:"",
+    duration:"",
+    equipment:"",
+    image:"",
+    description:""
+  })
+
+
+  const onChange = (e) =>{
+    
+    setData({
+      ...data,
+      [e.target.name] : e.target.value 
+    })
+  }
+
+  const onSubmit = (e)=>{
+    e.preventDefault()
+    try {
+          const res = axios.post('http://localhost:3030/create-challange',data,{
+            headers:{
+              'Content-Type':'application/json'
+            }
+          });
+          navigate('/fitzone/challanges');
+    } catch (err) {
+        navigate('/404');
+    }
+  }
+
+
   return (
     <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
       <div
@@ -17,7 +92,7 @@ export default function CreateChallange() {
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="text-4xl font-semibold tracking-tight text-balance text-gray-900 sm:text-5xl"> Create Challenge 💪</h2>
       </div>
-      <form action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
+      <form  onSubmit= {onSubmit} className="mx-auto mt-16 max-w-xl sm:mt-20">
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div className="sm:col-span-2">
             <label htmlFor="company" className="block text-sm/6 font-semibold text-gray-900">
@@ -30,83 +105,37 @@ export default function CreateChallange() {
                 type="text"
                 autoComplete="organization"
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 border-2 border-gray-500 placeholder:text-gray-400 focus:border-orange-600 focus:ring-2 focus:ring-orange-600 sm:text-sm"
-              
+                onChange={onChange}
               />
             </div>
           </div>
           <div>
   <label className="text-lg font-semibold">Challenge Type</label>
-  <select
-    name="type"
-    className="w-full mt-2 p-2 bg-gray-800 text-white rounded-lg"
-    required
-  >
-    <option value="">Select challenge type</option>
-    <option value="strength">Strength</option>
-    <option value="cardio">Cardio</option>
-    <option value="flexibility">Flexibility</option>
-    <option value="weight_loss">Weight Loss</option>
-  </select>
+  <SelectElement name = {"type"} options={ challangeTypeOptions } onChangeHandler={onChange}/>
 </div>
 
 <div>
   <label className="text-lg font-semibold">Difficulty Level</label>
-  <select
-    name="difficulty"
-    className="w-full mt-2 p-2 bg-gray-800 text-white rounded-lg"
-    required
-  >
-    <option value="">Select difficulty</option>
-    <option value="beginner">Beginner</option>
-    <option value="intermediate">Intermediate</option>
-    <option value="advanced">Advanced</option>
-  </select>
+  <SelectElement name = {"difficulty"} options={ difficultyOptions } onChangeHandler={onChange}/>
+  
 </div>
 
 <div>
   <label className="text-lg font-semibold">Duration</label>
-  <select
-    name="duration"
-    className="w-full mt-2 p-2 bg-gray-800 text-white rounded-lg"
-    required
-  >
-    <option value="">Select duration</option>
-    <option value="7">7 Days</option>
-    <option value="14">14 Days</option>
-    <option value="30">30 Days</option>
-  </select>
+  <SelectElement name={"duration"} options={ durationOptions } onChangeHandler={onChange}/>
 </div>
 
 <div>
   <label className="text-lg font-semibold">Required Equipment</label>
-  <select
-    name="equipment"
-    className="w-full mt-2 p-2 bg-gray-800 text-white rounded-lg"
-    required
-  >
-    <option value="">Select required equipment</option>
-    <option value="none">No Equipment</option>
-    <option value="dumbbells">Dumbbells</option>
-    <option value="resistance_bands">Resistance Bands</option>
-    <option value="yoga_mat">Yoga Mat</option>
-    <option value="barbell">Barbell</option>
-    <option value="treadmill">Treadmill</option>
-  </select>
+  <SelectElement name={"equipment"} options={ equipmentOptions } onChangeHandler={onChange}/>
 </div>
 
 <div className="sm:col-span-2">
-            <label htmlFor="company" className="block text-sm/6 font-semibold text-gray-900">
+            <label htmlFor="image" className="block text-sm/6 font-semibold text-gray-900">
               Image
             </label>
             <div className="mt-2.5">
-              <input
-                id="company"
-                name="company"
-                type="text"
-                autoComplete="organization"
-                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 border-2 border-gray-500 placeholder:text-gray-400 focus:border-orange-600 focus:ring-2 focus:ring-orange-600 sm:text-sm"
-                placeholder="Image Url"
-              />
+             <Input name={"image"} type={"text"} placeholder={"Image"} onChangeHandler={onChange}/>
             </div>
           </div>
 
@@ -123,6 +152,7 @@ export default function CreateChallange() {
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 border-2 border-gray-500 placeholder:text-gray-400 focus:border-orange-600 focus:ring-2 focus:ring-orange-600 sm:text-sm"
                 defaultValue={''}
                 placeholder="Description"
+                onChange={onChange}
               />
             </div>
           </div>
