@@ -1,30 +1,36 @@
-import dotenv from 'dotenv';
-import express from 'express'
-import cors from 'cors'
+import express from 'express';
 import { configDatabase } from './configs/Database.js';
-import router from './configs/Route.js';
+import dotenv from 'dotenv';
+dotenv.config()
+import cors from 'cors'
+import multer from 'multer'
+import { register } from './service/auth.js';
+import { generateToken } from './utils/token.js';
 
-
-dotenv.config();
-
-const PORT = process.env.PORT || 3000;
-const uri = process.env.MONGO_URI;
-
-const server = express();
-
-server.use(express.json())
-server.use(cors())
-
-
-server.use(router)
+const PORT = process.env.PORT;
+const Uri = process.env.MONGO_URI;
 
 
 
+const app = express();
 
-await configDatabase(uri);
+await configDatabase(Uri);
+
+app.use(cors())
+
+const upload = multer({dest :'uploads/'})
+
+app.post('/auth/register',upload.single('file'),async (req, res) => {
+   const imageUrl = `/uploads/${req.file.filename}`;
+    try {
+      const token = await register(req.body,imageUrl);
+
+      res.status(200).json(token)
+    } catch (err) {
+      res.status(500).json(err)
+    }
+
+});
 
 
-
-
-server.listen(PORT,()=> console.log(`Server is running on port ${PORT}`));
-
+app.listen(PORT,()=>console.log(`Server is running on port ${PORT}`))
