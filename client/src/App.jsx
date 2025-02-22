@@ -18,6 +18,8 @@ import Exercises from "./exercises/Exercises";
 import ExerciseDetails from "./components/exercise-details/ExerciseDetails";
 import ChallangeDetails from "./components/challange-details/ChallangeDetails";
 import TargetExercise from "./components/target-exercises/TargetExercises";
+import ErrorPage from "./components/error-page/ErrorPage";
+
 
 function App() {
   return (
@@ -51,6 +53,10 @@ function App() {
         <Route path="/fitzone/exercises" element={<Exercises />} />
         <Route path="/fitzone/exercises/:id" element={<ExerciseDetails />} />
         <Route path="/fitzone/:target/exercises" element={<TargetExercise />} />
+
+        <Route path="/404" element={<ErrorPage />} />
+    
+
 
       </Routes>
       <Footer />
