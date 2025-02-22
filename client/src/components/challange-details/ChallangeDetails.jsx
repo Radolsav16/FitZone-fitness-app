@@ -1,5 +1,29 @@
+import { useState , useEffect } from "react"
+import { useParams } from "react-router-dom";
+import axios from 'axios'
+
 export default function ChallangeDetails(){
-    const challenge = { id: 2, name: "5K Running Challenge",type:"cardio", difficulty: "advanced", duration:"14",equipment:"none",imageUrl: "https://th.bing.com/th/id/OIP.1DdKsgh7MNkkE45x_BKRiQHaFo?rs=1&pid=ImgDetMain",description:"Burn some calories with our new running challange!"}
+   const [data,setData] = useState({})
+
+   const params = useParams();
+
+   const {id} = params;
+
+
+   useEffect(() => {
+    (async ()=>{
+     const res = await axios.get(`http://localhost:3030/challanges/${id}`,{
+       headers:{
+         'Content-Type':'application/json'
+       }
+     });
+     const result = await res.data;
+     setData(result)
+    })()
+   }, []);
+
+
+
     return(
         <>
 <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-20">
@@ -8,22 +32,22 @@ export default function ChallangeDetails(){
         {/* Challenge Image */}
         <div className="w-full md:w-1/3 mb-6 md:mb-0">
           <img
-            src={challenge.imageUrl}
-            alt={challenge.name}
+            src={data.image}
+            alt={data.name}
             className="w-full h-64 object-cover rounded-lg"
           />
         </div>
 
         {/* Challenge Details */}
         <div className="w-full md:w-2/3 md:pl-6">
-          <h1 className="text-3xl font-bold mb-4">{challenge.name}</h1>
-          <p className="text-gray-600 mb-4">{challenge.description}</p>
+          <h1 className="text-3xl font-bold mb-4">{data.name}</h1>
+          <p className="text-gray-600 mb-4">{data.description}</p>
 
           <div className="space-y-4">
-            <p><strong className="font-medium">Type:</strong> {challenge.type}</p>
-            <p><strong className="font-medium">Difficulty:</strong> {challenge.difficulty}</p>
-            <p><strong className="font-medium">Duration:</strong> {challenge.duration} days</p>
-            <p><strong className="font-medium">Equipment:</strong> {challenge.equipment}</p>
+            <p><strong className="font-medium">Type:</strong> {data.type}</p>
+            <p><strong className="font-medium">Difficulty:</strong> {data.difficulty}</p>
+            <p><strong className="font-medium">Duration:</strong> {data.duration} days</p>
+            <p><strong className="font-medium">Equipment:</strong> {data.equipment}</p>
           </div>
 
           {/* Buttons */}

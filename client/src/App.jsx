@@ -26,6 +26,7 @@ function App() {
     <>
       <Nav />
       <Routes>
+
         {/* Static */}
         <Route path="/" element={<Hero />} />
         <Route path="/fitzone/about" element={<About />} />
@@ -54,9 +55,8 @@ function App() {
         <Route path="/fitzone/exercises/:id" element={<ExerciseDetails />} />
         <Route path="/fitzone/:target/exercises" element={<TargetExercise />} />
 
-        <Route path="/404" element={<ErrorPage />} />
+        <Route element={<ErrorPage />} />
     
-
 
       </Routes>
       <Footer />
