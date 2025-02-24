@@ -1,41 +1,11 @@
 import { useState } from "react";
-import Input from "../default-input-item/Input";
+import Input from "../../default-input-item/Input";
 import SelectElement from "./SelectElement";
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { challangeTypeOptions, difficultyOptions, durationOptions, equipmentOptions } from "../../../utils/selectionData";
 
-const challangeTypeOptions = [
-  {value:" ",label:"Select challenge type"},
-  {value:"strength",label:"Strength"},
-  {value:"cardio",label:"Cardio"},
-  {value:"flexibility",label:"Flexibility"},
-  {value:"weight_loss",label:"Weight Loss"}
-];
 
-const difficultyOptions = [
-  {value:" ",label:"Select difficulty"},
-  {value:"beginner",label:"Beginner"},
-  {value:"intermediate",label:"Intermediate"},
-  {value:"advanced",label:"Advanced"},
-];
-
-const durationOptions = [
-  {value:" ",label:"Select duration"},
-  {value:"7",label:"7 Days"},
-  {value:"14",label:"14 Days"},
-  {value:"30",label:"30 Days"},
-];
-
-const equipmentOptions = [
-  {value:" ",label:"Select required equipment"},
-  {value:"none",label:"No Equipment"},
-  {value:"dumbbells",label:"Dumbbells"},
-  {value:"resistance_bands",label:"Resistance Bands"},
-  {value:"yoga_mat",label:"Yoga Mat"},
-  {value:"barbell",label:"Barbell"},
-  {value:"treadmill",label:"Treadmill"},
-
-];
 
 export default function CreateChallange() {
 
@@ -116,7 +86,7 @@ export default function CreateChallange() {
 
 <div>
   <label className="text-lg font-semibold">Difficulty Level</label>
-  <SelectElement name = {"difficulty"} options={ difficultyOptions } onChangeHandler={onChange}/>
+  <SelectElement name = {"difficulty"} options={ difficultyOptions} onChangeHandler={onChange}/>
   
 </div>
 
@@ -127,7 +97,7 @@ export default function CreateChallange() {
 
 <div>
   <label className="text-lg font-semibold">Required Equipment</label>
-  <SelectElement name={"equipment"} options={ equipmentOptions } onChangeHandler={onChange}/>
+  <SelectElement name={"equipment"} options={ equipmentOptions} onChangeHandler={onChange}/>
 </div>
 
 <div className="sm:col-span-2">
