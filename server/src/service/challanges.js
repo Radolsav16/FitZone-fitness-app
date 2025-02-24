@@ -11,3 +11,7 @@ export async function getAllChallanges(){
 export async function getChallange(_id){
     return await Challange.findById({_id}).lean();
 }
+
+export async function editChallange(_id,data) {
+    return await Challange.findByIdAndUpdate(_id,data)
+}

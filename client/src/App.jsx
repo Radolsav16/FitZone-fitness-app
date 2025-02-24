@@ -6,7 +6,7 @@ import About from "./components/About/About";
 import Footer from "./components/footer/Footer";
 import Register from "./components/register/Register";
 import Login from "./components/login/Login";
-import CreateChallange from "./components/create-challange/CreateChallange";
+import CreateChallange from "./components/challanges/create-challange/CreateChallange";
 import Challenges from "./components/challanges/Challanges";
 import Profile from "./components/profile/Profile";
 import MessagingOverview from "./components/message-overview/MessageOverview";
@@ -16,9 +16,10 @@ import CreatePost from "./components/create-post/CreatePost";
 import ExerciseSearch from "./components/exercise-search/ExerciseSearch";
 import Exercises from "./exercises/Exercises";
 import ExerciseDetails from "./components/exercise-details/ExerciseDetails";
-import ChallangeDetails from "./components/challange-details/ChallangeDetails";
+import ChallangeDetails from "./components/challanges/challange-details/ChallangeDetails";
 import TargetExercise from "./components/target-exercises/TargetExercises";
 import ErrorPage from "./components/error-page/ErrorPage";
+import ChallangeEdit from "./components/challanges/challange-edit/ChallangeEdit";
 
 
 function App() {
@@ -37,10 +38,9 @@ function App() {
         {/* Challanges  */}
         <Route path="/fitzone/create-challange" element={<CreateChallange />} />
         <Route path="/fitzone/challanges" element={<Challenges />} />
-        <Route
-          path="/fitzone/challanges/details/:id"
-          element={<ChallangeDetails />}
-        />
+        <Route path="/fitzone/challanges/details/:id" element={<ChallangeDetails />}/>
+        <Route path="/fitzone/challanges/edit/:id" element={<ChallangeEdit/>} />
+
         <Route
           path="/fitzone/message-overview"
           element={<MessagingOverview />}

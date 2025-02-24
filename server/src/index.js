@@ -5,7 +5,7 @@ dotenv.config()
 import cors from 'cors'
 import multer from 'multer'
 import { register } from './service/auth.js';
-import { createChallange, getAllChallanges, getChallange } from './service/challanges.js';
+import { createChallange, editChallange, getAllChallanges, getChallange } from './service/challanges.js';
 
 const PORT = process.env.PORT;
 const Uri = process.env.MONGO_URI;
@@ -60,6 +60,16 @@ app.get('/challanges/:id', async (req, res) => {
     const data = await getChallange(id)
     console.log(data)
     res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json(error)
+  }
+});
+
+app.put('/challanges/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+   await editChallange(id,req.body);
+   res.status(200)
   } catch (error) {
     res.status(500).json(error)
   }

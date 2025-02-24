@@ -1,5 +1,5 @@
 import { useState , useEffect } from "react"
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from 'axios'
 
 export default function ChallangeDetails(){
@@ -53,20 +53,20 @@ export default function ChallangeDetails(){
           {/* Buttons */}
           <div className="mt-6 flex space-x-4">
             {/* Edit Button */}
-            <button
-        
+            <Link
+              to={`/fitzone/challanges/edit/${data._id}`}
               className="px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition duration-300"
             >
               Edit Challenge
-            </button>
+            </Link>
 
             {/* Delete Button */}
-            <button
-              
+            <Link
+              to={`/fitzone/challanges/delete/${data._id}`}
               className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-300"
             >
               Delete Challenge
-            </button>
+            </Link>
           </div>
         </div>
       </div>
