@@ -1,13 +1,22 @@
 import { useState , useEffect } from "react"
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from 'axios'
-
+import DetailButton from "./button/DetailButton";
+import  styles  from './button/Button.module.css'
 export default function ChallangeDetails(){
    const [data,setData] = useState({})
+   const navigate = useNavigate();
+   const isSave = false;
+   const [save,setSave] = useState(isSave);
 
    const params = useParams();
 
    const {id} = params;
+
+   const saveHandler = (e) =>{
+    console.log('Save handler')
+    setSave(!isSave)
+   }
 
 
    useEffect(() => {
@@ -21,6 +30,23 @@ export default function ChallangeDetails(){
      setData(result)
     })()
    }, []);
+
+   useEffect(()=>{
+      if(!save){
+        return;
+      }
+      console.log('Saved!')
+   },[save])
+
+
+   const deleteChallange = async () =>{
+    try {
+      await axios.delete(`http://localhost:3030/challanges/${id}`);
+      navigate('/fitzone/challanges')
+    } catch (err) {
+      navigate('/404');
+    }
+   }
 
 
 
@@ -59,14 +85,10 @@ export default function ChallangeDetails(){
             >
               Edit Challenge
             </Link>
-
-            {/* Delete Button */}
-            <Link
-              to={`/fitzone/challanges/delete/${data._id}`}
-              className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-300"
-            >
-              Delete Challenge
-            </Link>
+            <DetailButton label={"Delete Challange"} onClick={deleteChallange}  />
+            <button className={styles['save-button']} onClick={saveHandler}>
+              {save ? 'Unsave' : 'Save'}
+            </button>
           </div>
         </div>
       </div>
