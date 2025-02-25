@@ -15,3 +15,8 @@ export async function getChallange(_id){
 export async function editChallange(_id,data) {
     return await Challange.findByIdAndUpdate(_id,data)
 }
+
+
+export async  function deleteChallange(_id){
+    return await Challange.findByIdAndDelete(_id);
+}

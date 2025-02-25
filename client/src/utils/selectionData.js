@@ -30,3 +30,12 @@ export const challangeTypeOptions = [
     {value:"treadmill",label:"Treadmill"},
   
   ];
+
+  export const categoryOptions = [
+    {value:" ",label:"Select required category"},
+    {value:"General",label:"General"},
+    {value:"Fitness",label:"Fitness"},
+    {value:"Health",label:"Health"},
+    {value:"Nutrition",label:"Nutrition"},
+    {value:"Motivation",label:"Motivation"},
+  ]

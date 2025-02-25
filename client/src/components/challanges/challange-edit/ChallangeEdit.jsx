@@ -8,7 +8,8 @@ import axios from 'axios'
 
 export default function ChallangeEdit(){
 
-    const [data,setData] = useState({});
+    const navigate = useNavigate();
+
     const [formData,setFormData] = useState({
         name:"",
         type:"",
@@ -20,7 +21,7 @@ export default function ChallangeEdit(){
       })
 
     const params = useParams();
-    const navigate = useNavigate()
+   
 
     const { id } = params;
 
@@ -33,7 +34,7 @@ export default function ChallangeEdit(){
            }
          });
          const result = await res.data;
-         setData(result)
+         setFormData(result)
         })()
        }, []);
 
@@ -53,6 +54,7 @@ export default function ChallangeEdit(){
 
         try {
             await axios.put(`http://localhost:3030/challanges/${id}`,formData);
+            navigate(`/fitzone/challanges/details/${id}`)
         } catch (err) {
             navigate('/404');
         }
@@ -90,29 +92,29 @@ export default function ChallangeEdit(){
                         autoComplete="organization"
                         className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 border-2 border-gray-500 placeholder:text-gray-400 focus:border-orange-600 focus:ring-2 focus:ring-orange-600 sm:text-sm"
                         onChange={onChange}
-                        value={data.name}
+                        value={formData.name}
                       />
                     </div>
                   </div>
                   <div>
           <label className="text-lg font-semibold">Challenge Type</label>
-          <SelectElement name = {"type"} options={ challangeTypeOptions } onChangeHandler={onChange} value={data.type}/>
+          <SelectElement name = {"type"} options={ challangeTypeOptions } onChangeHandler={onChange} value={formData.type}/>
         </div>
         
         <div>
           <label className="text-lg font-semibold">Difficulty Level</label>
-          <SelectElement name = {"difficulty"} options={ difficultyOptions } onChangeHandler={onChange} value={data.difficulty}/>
+          <SelectElement name = {"difficulty"} options={ difficultyOptions } onChangeHandler={onChange} value={formData.difficulty}/>
           
         </div>
         
         <div>
           <label className="text-lg font-semibold">Duration</label>
-          <SelectElement name={"duration"} options={ durationOptions } onChangeHandler={onChange} value={data.duration}/>
+          <SelectElement name={"duration"} options={ durationOptions } onChangeHandler={onChange} value={formData.duration}/>
         </div>
         
         <div>
           <label className="text-lg font-semibold">Required Equipment</label>
-          <SelectElement name={"equipment"} options={ equipmentOptions } onChangeHandler={onChange} value={data.equipment}/>
+          <SelectElement name={"equipment"} options={ equipmentOptions } onChangeHandler={onChange} value={formData.equipment}/>
         </div>
         
         <div className="sm:col-span-2">
@@ -120,7 +122,7 @@ export default function ChallangeEdit(){
                       Image
                     </label>
                     <div className="mt-2.5">
-                     <Input name={"image"} type={"text"} placeholder={"Image"} onChangeHandler={onChange} value={data.image}/>
+                     <Input name={"image"} type={"text"} placeholder={"Image"} onChangeHandler={onChange} value={formData.image}/>
                     </div>
                   </div>
         
@@ -133,12 +135,10 @@ export default function ChallangeEdit(){
                       <textarea
                         id="description"
                         name="description"
-                        rows={4}
                         className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 border-2 border-gray-500 placeholder:text-gray-400 focus:border-orange-600 focus:ring-2 focus:ring-orange-600 sm:text-sm"
-                        defaultValue={''}
                         placeholder="Description"
                         onChange={onChange}
-                        value={data.description}
+                        value={formData.description}
                       />
                     </div>
                   </div>
