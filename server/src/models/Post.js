@@ -5,17 +5,16 @@ const postSchema = new Schema({
     title:String,
     category:String,
     description:String,
+    content:String,
+    image:String,
     author:{
         type:Types.ObjectId,
         ref:'User'
     },
-    date:{
-        type:Date,
-    },
-    content:String,
-    image:String,
     likes:[],
     comments:[]
+},{
+    timestamps:true
 })
 
 const Post = model('Post',postSchema);

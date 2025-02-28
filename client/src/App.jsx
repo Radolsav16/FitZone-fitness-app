@@ -20,6 +20,7 @@ import ChallangeDetails from "./components/challanges/challange-details/Challang
 import TargetExercise from "./components/target-exercises/TargetExercises";
 import ErrorPage from "./components/error-page/ErrorPage";
 import ChallangeEdit from "./components/challanges/challange-edit/ChallangeEdit";
+import EditPost from "./components/post-edit/EditPost";
 
 
 function App() {
@@ -47,15 +48,17 @@ function App() {
         />
         {/* Blog */}
         <Route path="/fitzone/blog" element={<Blog />} />
-        <Route path="/fitzone/blog-details" element={<BlogDetails />} />
+        <Route path="/fitzone/blog-details/:id" element={<BlogDetails />} />
         <Route path="/fitzone/post-create" element={<CreatePost />} />
+        <Route path="/fitzone/post/edit/:id" element={<EditPost/>} />
+
         {/* Exercises */}
         <Route path="/fitzone/exercise-search" element={<ExerciseSearch />} />
         <Route path="/fitzone/exercises" element={<Exercises />} />
         <Route path="/fitzone/exercises/:id" element={<ExerciseDetails />} />
         <Route path="/fitzone/:target/exercises" element={<TargetExercise />} />
 
-        <Route element={<ErrorPage />} />
+        <Route path={"/404"} element={<ErrorPage />} />
     
 
       </Routes>

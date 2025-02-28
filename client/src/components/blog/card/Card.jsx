@@ -2,24 +2,24 @@ import { Link } from 'react-router-dom'
 import styles from '../Blog.module.css'
 
 
-export default function Card(){
+export default function Card({
+    post
+}){
     return(
         <>
             <div className={styles["card"]}>
     <div className={styles["card__header"]}>
       <img
-        src="https://th.bing.com/th/id/OIP.GdKcwSiy3_z4Y9dCCJM8ugHaE7?rs=1&pid=ImgDetMain"
+        src={post.image}
         alt="card__image"
         className={styles["card__image"]}
       />
     </div>
     <div className={styles["card__body"]}>
-      <span className = {styles["tag tag-blue"]}>Technology</span>
-      <h4>What's new in 2022 Tech</h4>
+      <span className = {styles["tag tag-blue"]}>{post.category}</span>
+      <h4>{post.title}</h4>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-        perferendis molestiae non nemo doloribus. Doloremque, nihil! At ea atque
-        quidem!
+        {post.content}
       </p>
     </div>
     <div className={styles["card__footer"]}>
@@ -33,9 +33,9 @@ export default function Card(){
           <h5>Jane Doe</h5>
           <small>2h ago</small>
         </div>
-        <Link to={"/details"} className='view-details-btn'>View Details</Link>
       </div>
     </div>
+    <Link to={`/fitzone/blog-details/${post._id}`} className='view-details-btn'>View Details</Link>
   </div>
         </>
     )
