@@ -5,28 +5,23 @@
 🔗 **Live Demo**: [FitZone on Vercel](https://fitzone-app.vercel.app)  
 
 ## 🚀 Features
-✅ **Authentication** (Register/Login) with MongoDB,  
+✅ **Authentication** (Register/Login) with MongoDB,JWT.
 ✅ **Community Feed** (Posts, Likes, Comments)  
 ✅ **Exercise Library** (Fetched via External API)  
-✅ **Custom Workout Planner** (Users can create & share routines)  
-✅ **Challenges System** (Join & discuss fitness challenges)  
+✅ **Challenges System** (Join & create fitness challenges)  
 ✅ **Messaging System** (Real-time chat)  
-✅ **Notifications** (Likes, Comments, Messages, Challenge Updates)  
 ✅ **Fitness Blog** (Read & comment on fitness articles)  
-✅ **Responsive Design** (Optimized for mobile & desktop)  
-✅ **State Management** (Redux Toolkit)  
-✅ **Cloud Storage** (Google Drive/Dropbox API for image & video uploads)  
-✅ **Deployment** (Hosted on Firebase/Heroku/Vercel)  
+✅ **Responsive Design** (Optimized for mobile & desktop)   
+✅ **Deployment** (Hosted on Firebase)  
 
 ---
 
 ## 🏗️ Tech Stack
-- **Frontend**: React.js (React Router, Redux Toolkit, TailwindCSS)
-- **Backend**: Firebase (Auth, Firestore, Storage) OR Node.js & MongoDB
-- **Database**: Firebase Firestore OR MongoDB (if using Node.js)
-- **Authentication**: Firebase Auth OR Auth0
+- **Frontend**: React.js (React Router, TailwindCSS)
+- **Backend**: Custom Build with Express and Node.js
+- **Database**: MongoDB
+- **Authentication**: JWT
 - **Exercise Data**: ExerciseDB API
-- **Real-time Messaging**: Firebase Firestore
-- **Cloud Storage**: Google Drive API / Dropbox API
-- **Hosting**: Firebase Hosting / Vercel / Heroku
+- **Real-time Messaging**:  Custom Build with Express and Node.js
+- **Hosting**: Firebase Hosting 
 
