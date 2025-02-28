@@ -21,7 +21,7 @@ export default function Challenges() {
   return (
 <>
 <div className="max-w-6xl mx-auto p-6 mt-20">
-  {data.length > 0 ?   <div className="mb-6">
+  {data.length > 0 ?  <div className="mb-6">
         <input
           type="text"
           placeholder="Search challenges..."
