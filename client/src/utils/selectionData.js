@@ -32,7 +32,7 @@ export const challangeTypeOptions = [
   ];
 
   export const categoryOptions = [
-    {value:" ",label:"Select required category"},
+    {value:"",label:"Select required category"},
     {value:"General",label:"General"},
     {value:"Fitness",label:"Fitness"},
     {value:"Health",label:"Health"},

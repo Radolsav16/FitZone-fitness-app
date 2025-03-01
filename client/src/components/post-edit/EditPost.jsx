@@ -4,6 +4,7 @@ import Input from "../default-input-item/Input.jsx";
 import SelectElement from "../challanges/create-challange/SelectElement.jsx";
 import { categoryOptions } from "../../utils/selectionData.js";
 import axios from "axios";
+import { ErrorSetter } from "../../utils/Errors.js";
 
 export default function EditPost() {
   const navigate = useNavigate();
@@ -15,6 +16,9 @@ export default function EditPost() {
     content: "",
     image: "",
   });
+
+  const [errors, SetErrors] = useState({});
+
 
   const params = useParams();
 
@@ -33,6 +37,7 @@ export default function EditPost() {
   }, []);
 
   const onChange = (e) => {
+    SetErrors({});
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -41,6 +46,18 @@ export default function EditPost() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+     if(formData.title === ''){
+          return ErrorSetter(errors,SetErrors,"title","Post Title is required!");
+        } else if(formData.content === ''){
+          return ErrorSetter(errors,SetErrors,"content","Post Content is required!");
+        } else if(formData.description === ''){
+          return ErrorSetter(errors,SetErrors,"description","Post Description is required!");
+        } else if(formData.image === ''){
+          return ErrorSetter(errors,SetErrors,"image","Post Image is required!");
+        }else if(formData.category === ''){
+          return ErrorSetter(errors,SetErrors,"category","Post Category is required!");
+        }
 
     try {
       await axios.put(`http://localhost:3030/blog/post/${id}`, formData);
@@ -66,6 +83,11 @@ export default function EditPost() {
               onChangeHandler={onChange}
               value={formData.title}
             />
+             {errors["title"] && (
+              <p className="mt-2 text-sm text-red-600 font-bold">
+                {errors?.title}
+              </p>
+            )}
           </div>
           <div className="mb-4">
             <label htmlFor="content" className="block text-lg font-bold mb-2">
@@ -78,6 +100,11 @@ export default function EditPost() {
               onChangeHandler={onChange}
               value={formData.content}
             />
+             {errors["content"] && (
+              <p className="mt-2 text-sm text-red-600 font-bold">
+                {errors?.content}
+              </p>
+            )}
           </div>
           <div className="mb-4">
             <label
@@ -96,6 +123,11 @@ export default function EditPost() {
               onChange={onChange}
               value={formData.description}
             />
+              {errors["description"] && (
+              <p className="mt-2 text-sm text-red-600 font-bold">
+                {errors?.description}
+              </p>
+            )}
           </div>
           <div className="mb-4">
             <label htmlFor="imageUrl" className="block text-lg font-bold mb-2">
@@ -108,6 +140,11 @@ export default function EditPost() {
               onChangeHandler={onChange}
               value={formData.image}
             />
+            {errors["image"] && (
+              <p className="mt-2 text-sm text-red-600 font-bold">
+                {errors?.image}
+              </p>
+            )}
           </div>
           <div className="mb-6">
             <label htmlFor="category" className="block text-lg font-bold mb-2">
@@ -119,6 +156,11 @@ export default function EditPost() {
               name={"category"}
               value={formData.category}
             />
+            {errors["category"] && (
+              <p className="mt-2 text-sm text-red-600 font-bold">
+                {errors?.category}
+              </p>
+            )}
           </div>
           <button
             type="submit"
