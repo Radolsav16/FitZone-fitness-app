@@ -6,7 +6,6 @@ export default function SelectElement({name,options = [],onChangeHandler,value})
          <select
     name={name}
     className="w-full mt-2 p-2 bg-gray-800 text-white rounded-lg"
-    required
     onChange={onChangeHandler}
     value={value}
   >

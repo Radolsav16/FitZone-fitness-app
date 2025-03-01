@@ -26,8 +26,6 @@ const challangeSchema = new Schema({
     },
     description:{
         type:String,
-        minLength:20,
-        maxLength:200
     }
 
 })
