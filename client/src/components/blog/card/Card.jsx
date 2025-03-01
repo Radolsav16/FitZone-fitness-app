@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import styles from '../Blog.module.css'
+import { DateConverter } from '../../../utils/DateConverter'
 
 
 export default function Card({
@@ -31,7 +32,7 @@ export default function Card({
         />
         <div className={styles["user__info"]}>
           <h5>Jane Doe</h5>
-          <small>2h ago</small>
+          <small>{DateConverter(post.createdAt)}</small>
         </div>
       </div>
     </div>
