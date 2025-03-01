@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
+import { ErrorSetter } from "../../../utils/Errors";
 
 export default function ChallangeEdit(){
 
@@ -19,6 +20,8 @@ export default function ChallangeEdit(){
         image:"",
         description:""
       })
+
+    const [errors,SetErrors] = useState({})  
 
     const params = useParams();
    
@@ -42,7 +45,7 @@ export default function ChallangeEdit(){
  
 
        const onChange = (e) =>{
-    
+        SetErrors({});
         setFormData({
           ...formData,
           [e.target.name] : e.target.value 
@@ -51,6 +54,24 @@ export default function ChallangeEdit(){
 
     const onSubmit = async (e) =>{
         e.preventDefault();
+       
+        if(formData.name === ''){
+            return ErrorSetter(errors,SetErrors,"name","Challange name is required!");
+        }else if(formData.type === ' '){
+            return ErrorSetter(errors,SetErrors,"type","Challange Type is required!");
+        }else if(formData.duration === ' '){
+            return ErrorSetter(errors,SetErrors,"duration","Challange Duration is required!")
+        }else if(formData.difficulty === ' '){
+            return ErrorSetter(errors,SetErrors,"difficulty","Challange Difficulty is required!")
+        }else if(formData.equipment === ' '){
+            return ErrorSetter(errors,SetErrors,"equipment","Challange Equipment is required!")
+        }else if(formData.image === ''){
+            return ErrorSetter(errors,SetErrors,"image","Challange Image is required!")
+        }else if(formData.description === ''){
+            return ErrorSetter(errors,SetErrors,"description","Challange Description is required!")
+        }
+
+
 
         try {
             await axios.put(`http://localhost:3030/challanges/${id}`,formData);
@@ -94,27 +115,33 @@ export default function ChallangeEdit(){
                         onChange={onChange}
                         value={formData.name}
                       />
+                      {errors["name"] && <p className="mt-2 text-sm text-red-600 font-bold">{errors?.name}</p>}
                     </div>
                   </div>
                   <div>
           <label className="text-lg font-semibold">Challenge Type</label>
-          <SelectElement name = {"type"} options={ challangeTypeOptions } onChangeHandler={onChange} value={formData.type}/>
+          <SelectElement name = {"type"} options={ challangeTypeOptions } onChangeHandler={onChange} value={formData.type} />
+          {errors["type"] && <p className="mt-2 text-sm text-red-600 font-bold">{errors?.type}</p>}
         </div>
         
         <div>
           <label className="text-lg font-semibold">Difficulty Level</label>
           <SelectElement name = {"difficulty"} options={ difficultyOptions } onChangeHandler={onChange} value={formData.difficulty}/>
+          {errors["difficulty"] && <p className="mt-2 text-sm text-red-600 font-bold">{errors?.difficulty}</p>}
           
         </div>
         
         <div>
           <label className="text-lg font-semibold">Duration</label>
           <SelectElement name={"duration"} options={ durationOptions } onChangeHandler={onChange} value={formData.duration}/>
+          {errors["duration"] && <p className="mt-2 text-sm text-red-600 font-bold">{errors?.duration}</p>}
         </div>
         
         <div>
           <label className="text-lg font-semibold">Required Equipment</label>
           <SelectElement name={"equipment"} options={ equipmentOptions } onChangeHandler={onChange} value={formData.equipment}/>
+          {errors["equipment"] && <p className="mt-2 text-sm text-red-600 font-bold">{errors?.equipment}</p>}
+
         </div>
         
         <div className="sm:col-span-2">
@@ -123,6 +150,7 @@ export default function ChallangeEdit(){
                     </label>
                     <div className="mt-2.5">
                      <Input name={"image"} type={"text"} placeholder={"Image"} onChangeHandler={onChange} value={formData.image}/>
+          {errors["image"] && <p className="mt-2 text-sm text-red-600 font-bold">{errors?.image}</p>}
                     </div>
                   </div>
         
@@ -140,7 +168,10 @@ export default function ChallangeEdit(){
                         onChange={onChange}
                         value={formData.description}
                       />
+          {errors["description"] && <p className="mt-2 text-sm text-red-600 font-bold">{errors?.description}</p>}
+
                     </div>
+    
                   </div>
                 </div>
                 <div className="mt-10">

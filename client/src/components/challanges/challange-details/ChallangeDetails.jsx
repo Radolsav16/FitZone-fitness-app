@@ -13,10 +13,7 @@ export default function ChallangeDetails(){
 
    const {id} = params;
 
-   const saveHandler = (e) =>{
-    console.log('Save handler')
-    setSave(!isSave)
-   }
+  
 
 
    useEffect(() => {
@@ -86,8 +83,8 @@ export default function ChallangeDetails(){
               Edit Challenge
             </Link>
             <DetailButton label={"Delete Challange"} onClick={deleteChallange}  />
-            <button className={styles['save-button']} onClick={saveHandler}>
-              {save ? 'Unsave' : 'Save'}
+            <button className={styles['save-button']}>
+             Join
             </button>
           </div>
         </div>
