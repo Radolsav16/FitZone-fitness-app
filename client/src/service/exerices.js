@@ -14,8 +14,8 @@ async function exerciseFetcher(url) {
 }
 
 
-export async function getAllExercises(){
-    const exercises = await exerciseFetcher('https://exercisedb.p.rapidapi.com/exercises?limit=10&offset=0');
+export async function getAllExercises(offset){
+    const exercises = await exerciseFetcher(`https://exercisedb.p.rapidapi.com/exercises?limit=9&offset=${offset}`);
 
     return exercises;
 }

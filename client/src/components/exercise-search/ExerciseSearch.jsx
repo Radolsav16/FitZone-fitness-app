@@ -1,13 +1,7 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function ExerciseSearch() {
-  const navigate = useNavigate();
-
-  const handleNavigation = (muscleGroup) => {
-    navigate(`/exercises/${muscleGroup}`);
-  };
-
   return (
     <div className="max-w-4xl mx-auto p-8 text-center mt-20">
       <h1 className="text-4xl font-bold mb-8">Exercise Library 🏋️</h1>

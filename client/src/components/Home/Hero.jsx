@@ -1,8 +1,9 @@
+import { Link } from 'react-router-dom'
 
-import {Link} from 'react-router-dom'
+
 
 export default function Hero(){
-
+   
     return(
         <>
  <section className="hero d-flex flex-column justify-content-center align-items-center" id="home">
@@ -47,7 +48,7 @@ export default function Hero(){
                 </div>
 
                 <div className="d-flex flex-column justify-content-center ml-lg-auto mr-lg-5 col-lg-5 col-md-6 col-12">
-                    <h2 className="mb-3 text-white" >Explore Our Blog for Fitness Inspiration and Tips</h2>
+                    <h2 className="mb-3 text-white" >Explore Our Blog for Fitness</h2>
 
                     <h6 className="mb-4 text-white">Stay always informed!</h6>
 

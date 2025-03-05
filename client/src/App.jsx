@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
 import Nav from "./components/Header/Nav";
-import Hero from "./components/Home/Hero";
+import Hero from "./components/home/Hero";
 import About from "./components/About/About";
 import Footer from "./components/footer/Footer";
 import Register from "./components/register/Register";
@@ -21,6 +21,8 @@ import TargetExercise from "./components/target-exercises/TargetExercises";
 import ErrorPage from "./components/error-page/ErrorPage";
 import ChallangeEdit from "./components/challanges/challange-edit/ChallangeEdit";
 import EditPost from "./components/post-edit/EditPost";
+
+
 
 
 function App() {
