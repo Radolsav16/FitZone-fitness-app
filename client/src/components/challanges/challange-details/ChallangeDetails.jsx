@@ -2,7 +2,7 @@ import { useState , useEffect } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from 'axios'
 import DetailButton from "./button/DetailButton";
-import  styles  from './button/Button.module.css'
+import  styles  from './Button.module.css'
 export default function ChallangeDetails(){
    const [data,setData] = useState({})
    const navigate = useNavigate();

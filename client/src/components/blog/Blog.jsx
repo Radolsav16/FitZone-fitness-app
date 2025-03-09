@@ -55,8 +55,6 @@ export default function Blog() {
       SetDesplayPost([...data]);
     }
 
-    console.log(displayedPost)
-
   },[data,searchParams])
 
 
