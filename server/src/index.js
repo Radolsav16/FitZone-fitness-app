@@ -7,6 +7,7 @@ import multer from 'multer'
 import { register } from './service/auth.js';
 import { createChallange, deleteChallange, editChallange, getAllChallanges, getChallange } from './service/challanges.js';
 import { createPost, deletePost, editPost, getAllPosts, getPost } from './service/blog.js';
+import { createComment, getAllComments } from './service/comments.js';
 
 const PORT = process.env.PORT;
 const Uri = process.env.MONGO_URI;
@@ -140,5 +141,23 @@ app.delete('/blog/post/:id', async (req, res) => {
   }
 });
 
+
+app.get('/blog/comments',async (req, res) => {
+  try {
+   const data = await getAllComments();
+   res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json(error)
+  }
+})
+
+app.post('/blog/comments', async (req, res) => {
+  try {
+    await createComment(req.body)
+    res.status(204).json({message:"Succesfully added post!"});
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+});
 
 app.listen(PORT,()=>console.log(`Server is running on port ${PORT}`))

@@ -39,3 +39,11 @@ export const challangeTypeOptions = [
     {value:"Nutrition",label:"Nutrition"},
     {value:"Motivation",label:"Motivation"},
   ]
+
+  export const sortOptions = [
+    { name: 'General', href: '/fitzone/blog'},
+    { name: 'Fitness', href: '/fitzone/blog?sortedBy=fitness'},
+    { name: 'Health', href: '/fitzone/blog?sortedBy=health'},
+    { name: 'Nutrition', href: '/fitzone/blog?sortedBy=nutrition'},
+    { name: 'Motivation', href: '/fitzone/blog?sortedBy=motivation'},
+  ]
