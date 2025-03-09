@@ -20,3 +20,7 @@ export async function editPost(_id,data) {
 export async  function deletePost(_id){
     return await Post.findByIdAndDelete(_id);
 }
+
+export async  function pushComment(_id,comment){
+    return await Post.findByIdAndUpdate(_id,{$push:{comments:comment}},{new:true})
+}
