@@ -49,7 +49,7 @@ function App() {
           element={<MessagingOverview />}
         />
         {/* Blog */}
-        <Route path="/fitzone/blog" element={<Blog />} />
+        <Route path="/fitzone/blog/*" element={<Blog />} />
         <Route path="/fitzone/blog-details/:id" element={<BlogDetails />} />
         <Route path="/fitzone/post-create" element={<CreatePost />} />
         <Route path="/fitzone/post/edit/:id" element={<EditPost/>} />
@@ -60,7 +60,7 @@ function App() {
         <Route path="/fitzone/exercises/:id" element={<ExerciseDetails />} />
         <Route path="/fitzone/:target/exercises" element={<TargetExercise />} />
 
-        <Route path={"/404"} element={<ErrorPage />} />
+        <Route path={"*"} element={<ErrorPage />} />
     
 
       </Routes>
