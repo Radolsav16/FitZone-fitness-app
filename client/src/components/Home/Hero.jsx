@@ -1,4 +1,8 @@
 import { Link } from 'react-router-dom'
+import BMISection from './BMISection'
+import PricingSection from '../pricing-section/PricingSection'
+import UsersSection from '../users-section/UsersSection'
+
 
 
 
@@ -18,7 +22,7 @@ export default function Hero(){
 
                                     <h6>Stronger Together!</h6>
 
-                                    <h1 className="text-white">Join <span className='fitzone'>FitZone</span> Your Ultimate Fitness Community</h1>
+                                    <h1 className="text-white">Join <span className='fitzone'>FitZone</span> Ultimate Fitness Application</h1>
                                     
 
                                     <Link to="/fitzone/register" className="btn custom-btn mt-3" >Register</Link>
@@ -31,6 +35,7 @@ export default function Hero(){
                     </div>
                </div>
      </section>
+
 
 
      <section className="feature" id="feature">
@@ -60,6 +65,10 @@ export default function Hero(){
                </div>
             </div>
     </section>
+
+    <BMISection />
+    <PricingSection />
+    <UsersSection />
         </>
     )
 }

@@ -21,6 +21,7 @@ import TargetExercise from "./components/target-exercises/TargetExercises";
 import ErrorPage from "./components/error-page/ErrorPage";
 import ChallangeEdit from "./components/challanges/challange-edit/ChallangeEdit";
 import EditPost from "./components/post-edit/EditPost";
+import BMICalculator from "./components/bmi-calculator/BMICalculator";
 
 
 
@@ -59,6 +60,9 @@ function App() {
         <Route path="/fitzone/exercises" element={<Exercises />} />
         <Route path="/fitzone/exercises/:id" element={<ExerciseDetails />} />
         <Route path="/fitzone/:target/exercises" element={<TargetExercise />} />
+
+        <Route path="/fitzone/bmi-calculator" element={<BMICalculator />} />
+
 
         <Route path={"*"} element={<ErrorPage />} />
     
