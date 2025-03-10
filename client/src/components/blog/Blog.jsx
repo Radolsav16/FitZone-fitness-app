@@ -61,32 +61,32 @@ export default function Blog() {
   return (
     <>
       <div className={styles["container"]}>
-        <Menu as="div" className="relative inline-block text-left">
-                            <div>
-                                <MenuButton className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                                    Sort
-                                </MenuButton>
-                            </div>
-        
-                            <MenuItems
-                                transition
-                                className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white ring-1 shadow-2xl ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
-                            >
-                                <div className="py-1">
-                                    {sortOptions.map((option) => (
-                                        <MenuItem key={option.name}>
-                                            <Link
-                                                to={option.href}
-                                                className={'text-gray-500 block px-4 py-2 text-sm data-focus:bg-gray-100 data-focus:outline-hidden'}
-                                            >
-                                                {option.name}
-                                            </Link>
-                                        </MenuItem>
-                                    ))}
-                                </div>
-                            </MenuItems>
-                        </Menu>
-        
+      <Menu as="div" className="relative inline-block text-left">
+    <div>
+        <MenuButton className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900 focus:outline-none focus-visible:outline-none">
+            Sort
+        </MenuButton>
+    </div>
+
+    <MenuItems
+        transition
+        className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white ring-1 shadow-2xl ring-black/5 transition focus:outline-none data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+    >
+        <div className="py-1">
+            {sortOptions.map((option) => (
+                <MenuItem key={option.name}>
+                    <Link
+                        to={option.href}
+                        className="text-gray-500 block px-4 py-2 text-sm data-focus:bg-gray-100 focus:outline-none"
+                    >
+                        {option.name}
+                    </Link>
+                </MenuItem>
+            ))}
+        </div>
+    </MenuItems>
+</Menu>
+
         {displayedPost.length ? (
           displayedPost.map((post) => (
             <>

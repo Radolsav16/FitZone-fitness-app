@@ -6,7 +6,7 @@ import cors from 'cors'
 import multer from 'multer'
 import { register } from './service/auth.js';
 import { createChallange, deleteChallange, editChallange, getAllChallanges, getChallange } from './service/challanges.js';
-import { createPost, deletePost, editPost, getAllPosts, getPost } from './service/blog.js';
+import { createPost, deletePost, editPost, getAllPosts, getPost, pushComment } from './service/blog.js';
 import { createComment, getAllComments } from './service/comments.js';
 
 const PORT = process.env.PORT;
@@ -152,7 +152,9 @@ app.get('/blog/comments',async (req, res) => {
 })
 
 app.post('/blog/comments', async (req, res) => {
+
   try {
+    await pushComment(req.body.postId,req.body.comment);
     await createComment(req.body)
     res.status(204).json({message:"Succesfully added post!"});
   } catch (error) {
