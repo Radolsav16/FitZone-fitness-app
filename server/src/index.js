@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config()
 import cors from 'cors'
 import multer from 'multer'
-import { register } from './service/auth.js';
+import { login, register } from './service/auth.js';
 import { createChallange, deleteChallange, editChallange, getAllChallanges, getChallange } from './service/challanges.js';
 import { createPost, deletePost, editPost, getAllPosts, getPost, pushComment } from './service/blog.js';
 import { createComment, getAllComments } from './service/comments.js';
@@ -42,6 +42,15 @@ app.post('/auth/register',upload.single('file'),async (req, res) => {
     } catch (err) {
       res.status(500).json(err.message)
     }
+});
+
+app.post('/auth/login',upload.none(),async (req, res) => {
+   try {
+     const user = await login(req.body);
+     res.status(200).json(user)
+   } catch (err) {
+     res.status(500).json(err.message)
+   }
 });
 
 app.get('/auth/logout',async (req, res) => {
