@@ -8,14 +8,20 @@ import { register } from './service/auth.js';
 import { createChallange, deleteChallange, editChallange, getAllChallanges, getChallange } from './service/challanges.js';
 import { createPost, deletePost, editPost, getAllPosts, getPost, pushComment } from './service/blog.js';
 import { createComment, getAllComments } from './service/comments.js';
+import path from 'path'
+
 
 const PORT = process.env.PORT;
 const Uri = process.env.MONGO_URI;
 
 
 
+
 const app = express();
+
+app.use(express.urlencoded({extended:false}))
 app.use(express.json());
+
 
 await configDatabase(Uri);
 
@@ -23,16 +29,17 @@ app.use(cors())
 
 const upload = multer({dest :'uploads/'})
 
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+
+
 app.post('/auth/register',upload.single('file'),async (req, res) => {
    const imageUrl = `/uploads/${req.file.filename}`;
     try {
-      const token = await register(req.body,imageUrl);
-
-      res.status(200).json(token)
+      const user = await register(req.body,imageUrl);
+      res.status(200).json(user)
     } catch (err) {
-      res.status(500).json(err)
+      res.status(500).json(err.message)
     }
-
 });
 
 

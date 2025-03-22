@@ -2,12 +2,23 @@ import { Link } from 'react-router-dom'
 import BMISection from './BMISection'
 import PricingSection from '../pricing-section/PricingSection'
 import UsersSection from '../users-section/UsersSection'
+import EnterWeigth from '../enter-weigth/EnterWeigth'
+import EnterHeigth from '../enter-heigth/EnterHeigth'
+import EnterAge from '../enter-age/EnterAge'
+import EnterGender from '../enter-gender/EnterGender'
+import TrainingPackageForum from '../training-package-forum/TrainingPackageForum'
+import { useContext } from 'react'
+import { UserContext } from '../../contexts/UserContext'
+
+
 
 
 
 
 export default function Hero(){
-   
+    const {imageUrl}  = useContext(UserContext)
+
+    console.log(imageUrl)
     return(
         <>
  <section className="hero d-flex flex-column justify-content-center align-items-center" id="home">
@@ -69,6 +80,8 @@ export default function Hero(){
     <BMISection />
     <PricingSection />
     <UsersSection />
+    <TrainingPackageForum />
+        <img src={imageUrl} alt="" />
         </>
     )
 }
