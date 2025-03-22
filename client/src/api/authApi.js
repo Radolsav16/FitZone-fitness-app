@@ -1,5 +1,6 @@
+import { UserContext } from "../contexts/UserContext";
 import { fetchApi } from "../utils/requester";
-import { useEffect , useState } from "react";
+import { useContext, useEffect , useState } from "react";
 
 
 const baseUrl = 'http://localhost:3030/auth';
@@ -54,6 +55,25 @@ export const useRegister = () => {
     }
 
     return { onRegister , fileChangeHandler,file,preview,errors,SetErrors,dataState,handleDataOnChange}
+}
+
+
+export const useLogout = () =>{
+  const {accessToken , userLogoutHandler} = useContext(UserContext)
+
+  useEffect(()=>{
+    if(!accessToken){
+      return
+    }
+  
+      fetchApi.get(urlPaths.logout,{'X-Authorization':accessToken});
+      userLogoutHandler()
+   
+   
+
+  },[accessToken,userLogoutHandler])
+
+  return { isLogOut : !!accessToken }
 }
 
 

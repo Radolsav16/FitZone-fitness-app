@@ -9,10 +9,12 @@ import { createChallange, deleteChallange, editChallange, getAllChallanges, getC
 import { createPost, deletePost, editPost, getAllPosts, getPost, pushComment } from './service/blog.js';
 import { createComment, getAllComments } from './service/comments.js';
 import path from 'path'
+import { checkToken } from './utils/token.js';
 
 
 const PORT = process.env.PORT;
 const Uri = process.env.MONGO_URI;
+const JWT_SECRET = process.env.JWT_SECRET
 
 
 
@@ -40,6 +42,17 @@ app.post('/auth/register',upload.single('file'),async (req, res) => {
     } catch (err) {
       res.status(500).json(err.message)
     }
+});
+
+app.get('/auth/logout',async (req, res) => {
+  const token = req.headers['x-authorization'];
+  const isValidToken = checkToken(token,JWT_SECRET);
+
+  if(isValidToken){
+    res.status(204)
+  }else{
+    res.status(401).json()
+  }
 });
 
 

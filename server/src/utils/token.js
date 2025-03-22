@@ -1,4 +1,4 @@
-import jsw from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 export function generateToken(data,secret){
 
@@ -10,7 +10,12 @@ export function generateToken(data,secret){
     }
 
     
-    const token = jsw.sign(payload,secret,{expiresIn:'2h'});
+    const token = jwt.sign(payload,secret,{expiresIn:'2h'});
 
     return token;
+}
+
+
+export function checkToken(token,secret){
+    return jwt.verify(token,secret);
 }
