@@ -23,8 +23,8 @@ const requester = async (method,url,data,headers = {}) => {
 }
 
 
-async function get(url){
-    return await requester('GET',url)
+async function get(url,headers){
+    return await requester('GET',url,null,headers)
 }
 
  async function post(url,data,headers){

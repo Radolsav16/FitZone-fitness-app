@@ -28,6 +28,7 @@ import EnterAge from "./components/enter-age/EnterAge";
 import EnterGender from "./components/enter-gender/EnterGender";
 import { useContext, useState } from "react";
 import { UserContext } from "./contexts/UserContext";
+import { Logout } from "./components/logout/Logout";
 
 
 
@@ -59,6 +60,9 @@ const userLogoutHandler = () => {
         <Route path="/fitzone/register" element={<Register />} />
         <Route path="/fitzone/login" element={<Login />} />
         <Route path="/fitzone/profile" element={<Profile />} />
+        <Route path="/fitzone/logout" element={<Logout />} />
+
+
         <Route path="/fitzone/stats/weigth" element={<EnterWeigth/>} />
         <Route path="/fitzone/stats/heigth" element={<EnterHeigth/>} />
         <Route path="/fitzone/stats/age" element={<EnterAge />} />
