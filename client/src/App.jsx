@@ -22,13 +22,33 @@ import ErrorPage from "./components/error-page/ErrorPage";
 import ChallangeEdit from "./components/challanges/challange-edit/ChallangeEdit";
 import EditPost from "./components/post-edit/EditPost";
 import BMICalculator from "./components/bmi-calculator/BMICalculator";
+import EnterWeigth from "./components/enter-weigth/EnterWeigth";
+import EnterHeigth from "./components/enter-heigth/EnterHeigth";
+import EnterAge from "./components/enter-age/EnterAge";
+import EnterGender from "./components/enter-gender/EnterGender";
+import { useContext, useState } from "react";
+import { UserContext } from "./contexts/UserContext";
 
 
 
 
 function App() {
+  const [authData,SetAuthData] = useState({});
+
+  const userLoginHandler = (data) => {
+    SetAuthData(data);
+};
+
+const userLogoutHandler = () => {
+    SetAuthData({});
+};
+
+
+  
   return (
     <>
+    <UserContext.Provider value={{...authData,userLoginHandler,userLogoutHandler}} >
+
       <Nav />
       <Routes>
 
@@ -39,6 +59,14 @@ function App() {
         <Route path="/fitzone/register" element={<Register />} />
         <Route path="/fitzone/login" element={<Login />} />
         <Route path="/fitzone/profile" element={<Profile />} />
+        <Route path="/fitzone/stats/weigth" element={<EnterWeigth/>} />
+        <Route path="/fitzone/stats/heigth" element={<EnterHeigth/>} />
+        <Route path="/fitzone/stats/age" element={<EnterAge />} />
+        <Route path="/fitzone/stats/gender" element={<EnterGender />} />
+      
+
+
+
         {/* Challanges  */}
         <Route path="/fitzone/create-challange" element={<CreateChallange />} />
         <Route path="/fitzone/challanges" element={<Challenges />} />
@@ -69,6 +97,7 @@ function App() {
 
       </Routes>
       <Footer />
+      </UserContext.Provider>
     </>
   );
 }

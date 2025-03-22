@@ -1,131 +1,77 @@
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { ErrorSetter } from "../../utils/Errors";
-import axios from "axios";
-import { ImageToFile } from "../../utils/ImageToFile";
-import { useNavigate } from "react-router-dom";
-import { setTokenToLocalStorage } from "../../utils/localStorage";
+import { UserCircleIcon } from "@heroicons/react/24/solid";
+
+import { Link, useNavigate } from "react-router";
+
 import Input from "../default-input-item/Input";
+import { useRegister } from "../../api/authApi";
+import { useContext } from "react";
+import { ImageToFile } from "../../utils/ImageToFile";
+import { UserContext } from "../../contexts/UserContext";
+import { ErrorSetter } from "../../utils/Errors";
 
 export default function Register() {
-  const [preview, setPreview] = useState();
-  const [file, setFile] = useState();
-  const [defaultFile, setDefaultFile] = useState();
-  const [data, setFormData] = useState({});
-  const [errors, SetErrors] = useState({});
-
-  const defaultImage = "/src/assets/DefaultProfileImage.png";
   const navigate = useNavigate();
+  const { userLoginHandler } = useContext(UserContext);
+  const {
+    onRegister,
+    fileChangeHandler,
+    file,
+    preview,
+    errors,
+    SetErrors,
+    handleDataOnChange,
+    dataState,
+  } = useRegister();
 
-  const fileChangeHandler = (e) => {
-    setFile(e.target.files[0]);
-  };
+  const image = "/src/assets/DefaultProfileImage.png";
 
-  useEffect(() => {
-    if (!file) {
-      return;
-    }
-    setPreview(URL.createObjectURL(file));
-  }, [file]);
+  const registerHandler = async (formData) => {
+    const dataEntries = Object.fromEntries(formData);
 
-  const handleDataOnChange = (event) => {
-    SetErrors({});
-    setFormData({
-      ...data,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  const onSubmitHandler = async (e) => {
-    e.preventDefault();
-
-    if (!data.name) {
-      ErrorSetter(errors, SetErrors, "name", "Name is required!");
-      return;
-    } else if (data.name.split("").length < 3) {
-      ErrorSetter(
-        errors,
-        SetErrors,
-        "name",
-        "Name is shuold be at least 3 characters!"
-      );
-      return;
-    }
-
-    if (!data.email) {
-      ErrorSetter(errors, SetErrors, "email", "Email is required!");
-      return;
-    } else if (data.email.split("").length < 10) {
-      ErrorSetter(
-        errors,
-        SetErrors,
-        "email",
-        "Email is shuold be at least 10 characters!"
-      );
-      return;
-    }
-
-    if (!data.password) {
-      ErrorSetter(errors, SetErrors, "password", "Password is required!");
-      return;
-    } else if (data.password.split("").length < 9) {
-      ErrorSetter(
+    if (!dataEntries.name) {
+      return ErrorSetter(errors, SetErrors, "name", "Name is required!");
+    } else if (!dataEntries.email) {
+      return ErrorSetter(errors, SetErrors, "email", "Email is required!");
+    } else if (!dataEntries.password) {
+      return ErrorSetter(
         errors,
         SetErrors,
         "password",
-        "Email is shuold be at least 9 characters!"
+        "Password is required!"
       );
-      return;
-    }
-
-    if (!data.repeatPassword) {
-      ErrorSetter(
+    } else if (!dataEntries.repeatPassword) {
+      return ErrorSetter(
         errors,
         SetErrors,
-        "repeatPassword",
+        "password",
         "Repeat Password is required!"
       );
-      return;
-    }
-
-    if (data.repeatPassword !== data.password) {
-      ErrorSetter(errors, SetErrors, "password", "Password should match!");
-      return;
-    }
-
-    if (!file) {
-      setDefaultFile(
-        await ImageToFile(defaultImage, "DefaultProfilePicture.png")
+    } else if (dataEntries.repeatPassword !== dataEntries.password) {
+      return ErrorSetter(
+        errors,
+        SetErrors,
+        "password",
+        "Passwords should match!"
       );
     }
 
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("email", data.email);
-    formData.append("password", data.password);
+    const data = new FormData();
 
     if (!file) {
-      formData.append("file", defaultFile);
+      data.append("file", await ImageToFile(image, "ProfileImage.png"));
     } else {
-      formData.append("file", file);
+      data.append("file", file);
     }
 
-    try {
-      const res = await axios.post(
-        "http://localhost:3030/auth/register",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      const token = res.data;
-      setTokenToLocalStorage(token);
-      navigate("/");
-    } catch (err) {
-      navigate("/404");
-    }
+    data.append("name", dataEntries.name);
+    data.append("email", dataEntries.email);
+    data.append("password", dataEntries.password);
+
+    const user = await onRegister(data);
+
+    userLoginHandler(user);
+
+    navigate("/");
   };
 
   return (
@@ -136,7 +82,7 @@ export default function Register() {
         </h2>
       </div>
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form onSubmit={onSubmitHandler} className="space-y-6">
+        <form className="space-y-6" action={registerHandler}>
           <div>
             <div className="flex items-center justify-between">
               <label
@@ -147,17 +93,11 @@ export default function Register() {
               </label>
             </div>
             <div className="mt-2">
-              {/* <input
-                id="name"
-                name="name"
-                type="name"
-                onChange={handleDataOnChange}
-                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 border-2 border-gray-500 placeholder:text-gray-400 focus:border-orange-600 focus:ring-2 focus:ring-orange-600 sm:text-sm"
-              /> */}
               <Input
                 name={"name"}
                 type={"text"}
                 onChangeHandler={handleDataOnChange}
+                value={dataState.name}
               />
               {errors["name"] && (
                 <p className="mt-2 text-sm text-red-600">{errors?.name}</p>
@@ -177,6 +117,7 @@ export default function Register() {
                 name={"email"}
                 type={"email"}
                 onChangeHandler={handleDataOnChange}
+                value={dataState.email}
               />
               {errors["email"] && (
                 <p className="mt-2 text-sm text-red-600">{errors?.email}</p>
@@ -220,20 +161,17 @@ export default function Register() {
                 type={"password"}
                 onChangeHandler={handleDataOnChange}
               />
-
-              {errors["repeatPassword"] && (
-                <p className="mt-2 text-sm text-red-600">
-                  {errors?.repeatPassword}
-                </p>
-              )}
             </div>
           </div>
-
-          <div className="flex flex-col items-center">
-            <label className="block text-sm font-medium text-gray-700">
-              Upload Profile Picture
+          <div className="col-span-full">
+            <label
+              htmlFor="photo"
+              className="block text-sm/6 font-medium text-gray-900"
+            >
+              Photo
             </label>
-            <div className="mt-1 flex items-center p-15">
+
+            <div className="mt-2 flex items-center gap-x-3">
               {preview ? (
                 <img
                   src={preview}
@@ -241,17 +179,16 @@ export default function Register() {
                   className="h-20 w-20 rounded-full object-cover"
                 />
               ) : (
-                <div className="h-20 w-20 rounded-full bg-gray-200 flex items-center justify-center">
-                  <img
-                    src={defaultImage}
-                    className="h-20 w-20 rounded-full object-cover"
-                  />
-                </div>
+                <UserCircleIcon
+                  aria-hidden="true"
+                  className="size-20 text-gray-300"
+                />
               )}
+
               <input
                 type="file"
                 onChange={fileChangeHandler}
-                className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50"
               />
             </div>
           </div>

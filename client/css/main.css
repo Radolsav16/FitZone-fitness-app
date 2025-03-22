@@ -59,9 +59,6 @@
   }
 
 
-  /*---------------------------------------
-     TYPOGRAPHY              
-  -----------------------------------------*/
 
   h1,h2,h3,h4,h5,h6 {
     font-weight: var(--font-weight-thin);
@@ -331,6 +328,62 @@
     top: 8px;
   }
 
+  .profile-image {
+    display: flex; /* Ensures proper alignment inside the navbar */
+    align-items: center; /* Vertically aligns the image with other links */
+    margin-left: 10px; /* Adds some spacing to separate it from the links */
+  }
+  
+  .profile-image .profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover; /* Ensures the image fits nicely */
+    border: 2px solid var(--white-color); /* Adds a subtle border */
+    transition: transform 0.3s ease, border-color 0.3s ease; /* Smooth animations */
+  }
+  
+  .profile-image .profile-img:hover {
+    transform: scale(1.1); /* Slight zoom-in effect on hover */
+    border-color: var(--primary-color); /* Changes border color on hover */
+  }
+  
+  .navbar-nav .nav-item {
+    display: flex;
+    align-items: center; /* Ensures consistent vertical alignment for all items */
+  }
+
+  .nav-item.logout {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logout-icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 12px; /* Spacing between icon and text */
+    color: var(--white-color); /* Matches other nav links */
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  .logout-text {
+    color: var(--white-color);
+    font-size: var(--menu-font-size);
+    font-weight: var(--font-weight-normal);
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-item.logout:hover .logout-icon {
+    transform: scale(1.2); /* Subtle zoom effect */
+    color: var(--primary-color); /* Highlighted color on hover */
+  }
+  
+  .nav-item.logout:hover .logout-text {
+    color: var(--primary-color); /* Highlighted text color on hover */
+  }
+  
+  
   /*---------------------------------------
      HERO              
   -----------------------------------------*/
