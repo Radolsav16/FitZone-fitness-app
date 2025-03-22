@@ -17,23 +17,6 @@ export const useRegister = () => {
 
       const [preview,SetPreview] = useState();
       const [file,SetFile] = useState();
-      const [errors,SetErrors] = useState({});
-      const [dataState,SetDataState] = useState({
-        name:"",
-        email:"",
-        password:"",
-        repeatPassword:""
-      });
-
-      const handleDataOnChange = (event) => {
-        SetErrors({})
-    SetDataState({
-      ...dataState,
-      [event.target.name]: event.target.value,
-    });
-  };
-  
-     
 
     
       const fileChangeHandler = (e) => {
@@ -54,7 +37,7 @@ export const useRegister = () => {
 
     }
 
-    return { onRegister , fileChangeHandler,file,preview,errors,SetErrors,dataState,handleDataOnChange}
+    return { onRegister , fileChangeHandler,file,preview}
 }
 
 
@@ -74,6 +57,14 @@ export const useLogout = () =>{
   },[accessToken,userLogoutHandler])
 
   return { isLogOut : !!accessToken }
+}
+
+export const useLogin = () =>{
+
+    const onLogin = (data) =>{
+      return  fetchApi.post(urlPaths.login,data,{'Content-Type':'multipart/form-data'})
+    }
+  return { onLogin }
 }
 
 

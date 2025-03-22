@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { ImageToFile } from "../../utils/ImageToFile";
 import { UserContext } from "../../contexts/UserContext";
 import { ErrorSetter } from "../../utils/Errors";
+import { useFormState } from "../../hooks/FormStateHook";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -17,11 +18,14 @@ export default function Register() {
     fileChangeHandler,
     file,
     preview,
-    errors,
-    SetErrors,
-    handleDataOnChange,
-    dataState,
   } = useRegister();
+
+  const {errors  , SetErrors , dataState , handleDataOnChange} = useFormState({
+    name:"",
+    email:"",
+    password:"",
+    repeatPassword:""
+  })
 
   const image = "/src/assets/DefaultProfileImage.png";
 

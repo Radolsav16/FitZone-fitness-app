@@ -13,12 +13,17 @@ const requester = async (method,url,data,headers = {}) => {
       }else{
         config.data = data;
       }
+
+      try {
+        const res = await axios(config);
       
-      const res = await axios(config);
+        return res.data;
+        
+      } catch (error) {
+        throw Error(error.message)
+      }
       
-  
-      
-      return res.data;
+     
 
 }
 

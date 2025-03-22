@@ -1,49 +1,107 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
+import { useFormState } from "../../hooks/FormStateHook";
+import Input from "../default-input-item/Input";
+import { useLogin } from "../../api/authApi";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
+import { ErrorSetter } from "../../utils/Errors";
 
-export default function Register(){
-    return(
-        <>
+export default function Login() {
+  const navigate = useNavigate();
+  const { userLoginHandler } = useContext(UserContext);
+  const { errors, SetErrors, handleDataOnChange, dataState } = useFormState({
+    email: "",
+    password: "",
+  });
+
+  const { onLogin } = useLogin();
+
+  const LoginHandler = async (formData) => {
+    const dataEntries = Object.fromEntries(formData);
+
+    if (!dataEntries.email) {
+      return ErrorSetter(errors, SetErrors, "email", "Email is required!");
+    } else if (!dataEntries.password) {
+      return ErrorSetter(
+        errors,
+        SetErrors,
+        "password",
+        "Password is required!"
+      );
+    }
+
+    const data = new FormData();
+
+    data.append("email", dataEntries.email);
+    data.append("password", dataEntries.password);
+
+    try {
+      const user = await onLogin(data);
+      userLoginHandler(user);
+
+      navigate("/");
+    } catch (error) {
+      return ErrorSetter(
+        errors,
+        SetErrors,
+        "password",
+        "Password is incorrect!"
+      );
+    }
+  };
+
+  return (
+    <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 mt-12">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-          Login to FitZone 
+            Login to FitZone
           </h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form action={LoginHandler} className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
+              <label
+                htmlFor="email"
+                className="block text-sm/6 font-medium text-gray-900"
+              >
                 Email address
               </label>
               <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 border-2 border-gray-500 placeholder:text-gray-400 focus:border-orange-600 focus:ring-2 focus:ring-orange-600 sm:text-sm"
-                 
+                <Input
+                  name={"email"}
+                  type={"email"}
+                  onChangeHandler={handleDataOnChange}
+                  value={dataState.email}
                 />
+                {errors["email"] && (
+                  <p className="mt-2 text-sm text-red-600">{errors?.email}</p>
+                )}
               </div>
             </div>
 
             <div>
               <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
+                <label
+                  htmlFor="password"
+                  className="block text-sm/6 font-medium text-gray-900"
+                >
                   Password
                 </label>
               </div>
               <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
-                  autoComplete="current-password"
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 border-2 border-gray-500 placeholder:text-gray-400 focus:border-orange-600 focus:ring-2 focus:ring-orange-600 sm:text-sm"
+                <Input
+                  name={"password"}
+                  type={"password"}
+                  onChangeHandler={handleDataOnChange}
+                  value={dataState.password}
                 />
+                {errors["password"] && (
+                  <p className="mt-2 text-sm text-red-600">
+                    {errors?.password}
+                  </p>
+                )}
               </div>
             </div>
             <div>
@@ -57,12 +115,17 @@ export default function Register(){
           </form>
 
           <p className="mt-10 text-center text-sm/6 text-gray-500">
-          Don't have an account?
-            <Link to="/fitzone/register" className="font-semibold text-black-600 hover:text-black-500">
-              {" "} Sign in
+            Don't have an account?
+            <Link
+              to="/fitzone/register"
+              className="font-semibold text-black-600 hover:text-black-500"
+            >
+              {" "}
+              Sign in
             </Link>
           </p>
         </div>
       </div>
     </>
-  )}
+  );
+}
