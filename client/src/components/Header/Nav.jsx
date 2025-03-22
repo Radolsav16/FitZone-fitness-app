@@ -1,9 +1,8 @@
-import { useContext } from 'react'
 import {Link } from 'react-router-dom'
-import { UserContext } from '../../contexts/UserContext'
+import { useUserContext } from '../../contexts/UserContext'
 
 export default function Nav(){
-    const { email , imageUrl } = useContext(UserContext)
+    const {email , imageUrl} = useUserContext()
 
     return(
         <>

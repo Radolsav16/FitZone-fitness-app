@@ -26,30 +26,18 @@ import EnterWeigth from "./components/enter-weigth/EnterWeigth";
 import EnterHeigth from "./components/enter-heigth/EnterHeigth";
 import EnterAge from "./components/enter-age/EnterAge";
 import EnterGender from "./components/enter-gender/EnterGender";
-import { useContext, useState } from "react";
-import { UserContext } from "./contexts/UserContext";
+
 import { Logout } from "./components/logout/Logout";
+import { UserProvider } from "./providers/UserProvider";
 
 
 
 
 function App() {
-  const [authData,SetAuthData] = useState({});
-
-  const userLoginHandler = (data) => {
-    SetAuthData(data);
-};
-
-const userLogoutHandler = () => {
-    SetAuthData({});
-};
-
-
-  
+ 
   return (
     <>
-    <UserContext.Provider value={{...authData,userLoginHandler,userLogoutHandler}} >
-
+    <UserProvider>
       <Nav />
       <Routes>
 
@@ -101,7 +89,7 @@ const userLogoutHandler = () => {
 
       </Routes>
       <Footer />
-      </UserContext.Provider>
+      </UserProvider>
     </>
   );
 }

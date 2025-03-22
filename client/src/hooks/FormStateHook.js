@@ -5,7 +5,8 @@ import { useState } from "react";
 export const useFormState = (stateForm) =>{
 
      const [errors,SetErrors] = useState({});
-          const [dataState,SetDataState] = useState(stateForm);
+     const [dataState,SetDataState] = useState(stateForm);
+    
     
           const handleDataOnChange = (event) => {
             SetErrors({})
@@ -15,5 +16,5 @@ export const useFormState = (stateForm) =>{
             });
         }
 
-    return  {handleDataOnChange , dataState , SetDataState , errors,SetErrors }
+    return  {handleDataOnChange , dataState , SetDataState , errors,SetErrors}
 }
