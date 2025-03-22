@@ -7,7 +7,7 @@ import EnterHeigth from '../enter-heigth/EnterHeigth'
 import EnterAge from '../enter-age/EnterAge'
 import EnterGender from '../enter-gender/EnterGender'
 import TrainingPackageForum from '../training-package-forum/TrainingPackageForum'
-import { useContext } from 'react'
+
 import { UserContext } from '../../contexts/UserContext'
 
 
@@ -16,9 +16,6 @@ import { UserContext } from '../../contexts/UserContext'
 
 
 export default function Hero(){
-    const {imageUrl}  = useContext(UserContext)
-
-    console.log(imageUrl)
     return(
         <>
  <section className="hero d-flex flex-column justify-content-center align-items-center" id="home">
@@ -81,7 +78,6 @@ export default function Hero(){
     <PricingSection />
     <UsersSection />
     <TrainingPackageForum />
-        <img src={imageUrl} alt="" />
         </>
     )
 }

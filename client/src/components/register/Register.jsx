@@ -4,15 +4,14 @@ import { Link, useNavigate } from "react-router";
 
 import Input from "../default-input-item/Input";
 import { useRegister } from "../../api/authApi";
-import { useContext } from "react";
 import { ImageToFile } from "../../utils/ImageToFile";
-import { UserContext } from "../../contexts/UserContext";
+import { useUserContext } from "../../contexts/UserContext";
 import { ErrorSetter } from "../../utils/Errors";
 import { useFormState } from "../../hooks/FormStateHook";
 
 export default function Register() {
   const navigate = useNavigate();
-  const { userLoginHandler } = useContext(UserContext);
+  const {userLoginHandler } = useUserContext()
   const {
     onRegister,
     fileChangeHandler,
@@ -71,11 +70,17 @@ export default function Register() {
     data.append("email", dataEntries.email);
     data.append("password", dataEntries.password);
 
-    const user = await onRegister(data);
+    try{
+      const user = await onRegister(data);
 
     userLoginHandler(user);
 
     navigate("/");
+    } catch(err){
+      return ErrorSetter(errors, SetErrors, "email", "User with this email already exist!");
+    }
+
+    
   };
 
   return (

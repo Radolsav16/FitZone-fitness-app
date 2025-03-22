@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 
 export const UserContext = createContext({
     email:"",
@@ -8,3 +8,10 @@ export const UserContext = createContext({
     userLoginHandler:()=>null,
     userLogoutHandler:()=>null
 })
+
+export const useUserContext = () =>{
+    const data = useContext(UserContext);
+
+    
+    return data;
+}

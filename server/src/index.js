@@ -49,7 +49,7 @@ app.post('/auth/login',upload.none(),async (req, res) => {
      const user = await login(req.body);
      res.status(200).json(user)
    } catch (err) {
-     res.status(500).json(err.message)
+     res.status(404).json(err)
    }
 });
 
