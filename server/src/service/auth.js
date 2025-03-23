@@ -31,6 +31,8 @@ export async function login(data){
 export async function register(data,imageUrl){
     const isUser = await User.findOne({email:data.email});
 
+
+
     if(isUser){
         throw Error('User with this email already exist!');
     }

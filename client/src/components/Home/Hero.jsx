@@ -1,21 +1,23 @@
 import { Link } from 'react-router-dom'
+
+import { useUserContext } from '../../contexts/UserContext'
 import BMISection from './BMISection'
-import PricingSection from '../pricing-section/PricingSection'
 import UsersSection from '../users-section/UsersSection'
-import EnterWeigth from '../enter-weigth/EnterWeigth'
-import EnterHeigth from '../enter-heigth/EnterHeigth'
-import EnterAge from '../enter-age/EnterAge'
-import EnterGender from '../enter-gender/EnterGender'
-import TrainingPackageForum from '../training-package-forum/TrainingPackageForum'
+import RecentlyPost from '../recently-posts/RecentlyPost'
 
-import { UserContext } from '../../contexts/UserContext'
-
-
+import HeroRecipes from '../hero-recipes/HeroRecipes'
+import HeroExercise from '../hero-exercises/HeroExercises'
+import HeroProgramm from '../hero-programm/HeroProgramm'
+import HeroCreatePost from '../hero-create-post/HeroCreatePost'
+import HeroJoinChallanges from '../hero-join-challanges/HeroJoinChallanges'
+import HeroRecipePost from '../hero-recipe-post/HeroRecipePost'
+import HeroFeature from '../hero-feature/HeroFeature'
 
 
 
 
 export default function Hero(){
+    const { email , name } = useUserContext()
     return(
         <>
  <section className="hero d-flex flex-column justify-content-center align-items-center" id="home">
@@ -27,15 +29,24 @@ export default function Hero(){
 
                          <div className="col-lg-8 col-md-10 mx-auto col-12">
                               <div className="hero-text mt-5 text-center">
+                              <h6>Stronger Together!</h6>
 
-                                    <h6>Stronger Together!</h6>
-
-                                    <h1 className="text-white">Join <span className='fitzone'>FitZone</span> Ultimate Fitness Application</h1>
+                                {email ? 
+                                <>
+                                    <h1 className="text-white">Welcome Back ,<span className="hero-name">{name}</span>!</h1>
+                                    <h2 class="subtitle">Your daily dose of inspiration awaits: fresh recipes, energizing workouts, and thrilling challenges that spark excitement!</h2>
+                                    </>: 
+                                    <>
+                                    <h1 className="text-white">Join FitZone Ultimate Fitness Application!</h1>
                                     
 
                                     <Link to="/fitzone/register" className="btn custom-btn mt-3" >Register</Link>
 
                                     <Link to="/fitzone/login" className="btn custom-btn bordered mt-3">Login</Link>
+                                    </>}
+
+                                   
+
                                    
                               </div>
                          </div>
@@ -46,38 +57,31 @@ export default function Hero(){
 
 
 
-     <section className="feature" id="feature">
-        <div className="container">
-            <div className="row">
+    
 
-                <div className="d-flex flex-column justify-content-center ml-lg-auto mr-lg-5 col-lg-5 col-md-6 col-12">
-                    <h2 className="mb-3 text-white" >Are You Ready to Push Your Limits?</h2>
+    {email ? 
+    <>
+    <RecentlyPost /> 
+    <HeroCreatePost />
+    <HeroJoinChallanges />
+    <HeroProgramm />
+   <HeroRecipePost />
+    
 
-                    <h6 className="mb-4 text-white" >Take on the Challenge! </h6>
+    </>
+     :
+    <>
+   <HeroFeature />
+   
+    <HeroProgramm />
+    <HeroExercise />
 
-                    <p>Join our community and take on exciting fitness challenges that will motivate and inspire you to achieve your goals. Explore a variety of challenges designed for all fitness levels and connect with like-minded individuals.</p>
-
-                    <Link to="/fitzone/challanges" className="btn custom-btn bg-color mt-3" data-toggle="modal" data-target="#membershipForm">See Challenges</Link>
-                </div>
-
-                <div className="d-flex flex-column justify-content-center ml-lg-auto mr-lg-5 col-lg-5 col-md-6 col-12">
-                    <h2 className="mb-3 text-white" >Explore Our Blog for Fitness</h2>
-
-                    <h6 className="mb-4 text-white">Stay always informed!</h6>
-
-                    <p>Dive into our blog for the latest fitness tips, expert advice, and inspiring stories. Whether you're looking for workout routines, nutrition guidance, or motivational content, our blog has everything you need to stay on track and achieve your fitness goals.</p>
-                    <Link to="/fitzone/blog" className="btn custom-btn bg-color mt-3" data-toggle="modal" data-target="#membershipForm">Blog</Link>
-                </div>
-
-
-               </div>
-            </div>
-    </section>
-
-    <BMISection />
-    <PricingSection />
+  
+    </>
+    }
+  
     <UsersSection />
-    <TrainingPackageForum />
+
         </>
     )
 }

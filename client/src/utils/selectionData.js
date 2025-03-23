@@ -47,3 +47,28 @@ export const challangeTypeOptions = [
     { name: 'Nutrition', href: '/fitzone/blog?sortedBy=nutrition'},
     { name: 'Motivation', href: '/fitzone/blog?sortedBy=motivation'},
   ]
+
+export const stats = [
+  { id: 1, name: 'Total Weight Lost Globally in lbs', value: '4.5 million' },
+  { id: 2, name: 'Average Body Fat Percentage (all users)', value: '19%' },
+  { id: 3, name: 'Average Improvement in Strength', value: '+ 25 lbs' },
+  { id: 4, name: 'Average Daily Calories Burned (per user)', value: '350 kcal' },
+  { id: 5, name: 'Average Working Out Time Per Week', value: '5 hours' },
+  { id: 6, name: 'Challenges Participation ', value: '67%' },
+];
+  
+export const selectionExercise = [
+  { name: 'Triceps', href: '/fitzone/triceps/exercises'},
+  { name: 'Biceps', href: '/fitzone/biceps/exercises'},
+  { name: 'Back', href: '/fitzone/lats/exercises'},
+  { name: 'Leg', href: '/fitzone/quads/exercises'},
+  { name: 'Core/Abs Exercises', href: '/fitzone/abs/exercises'},
+  { name: 'Delts', href: '/fitzone/delts/exercises'}
+]
+
+export const selectionRecipes = [
+  { name: 'Desserts 🍫', href: '/fitzone/recipes/desserts'},
+  { name: 'Main 🍳', href: '/fitzone/recipes/main'},
+  { name: 'Snacks 🥞 ', href: '/fitzone/recipes/snacks'},
+  { name: 'Beverages 🧃', href: '/fitzone/recipes/bevarages'},
+]
