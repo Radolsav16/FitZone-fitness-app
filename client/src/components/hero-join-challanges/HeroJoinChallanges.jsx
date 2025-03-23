@@ -1,3 +1,5 @@
+import { Link } from "react-router"
+
 export default function HeroJoinChallanges(){
     return (
         <>
@@ -18,9 +20,17 @@ export default function HeroJoinChallanges(){
           <p className="text-lg md:text-xl font-medium mb-8">
             Push your limits, achieve milestones, and compete with the community! Join thrilling fitness challenges tailored just for you.
           </p>
-          <button className="bg-black hover:bg-gray-800 text-white py-4 px-10 rounded-md text-lg font-bold shadow-lg transition-transform transform hover:scale-105">
+          <Link 
+          to={'/fitzone/challenges'}
+          className="bg-black hover:bg-gray-800 text-white py-4 px-10 rounded-md text-lg font-bold shadow-lg transition-transform transform hover:scale-105 mt-5">
             Join Challenges
-          </button>
+          </Link>
+
+          <Link 
+          to={'/fitzone/create-challenge'}
+          className="bg-white hover:bg-gray-800 text-black py-4 px-10 rounded-md text-lg font-bold shadow-lg transition-transform transform hover:scale-105 ml-5 mt-5">
+            Create Challenge
+          </Link>
         </div>
 
        
@@ -30,10 +40,8 @@ export default function HeroJoinChallanges(){
       {/* Featured Challenges Section */}
       <div className="container mx-auto mt-16">
         <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold text-white">Explore Challenges</h2>
-          <p className="text-blavk-200 mt-2">
-            Check out our most joined challanges and take the next step in your fitness journey!
-          </p>
+          <h2 className="text-4xl font-bold text-black">Most Joined Challenges</h2>
+  
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Challenge Card 1 */}

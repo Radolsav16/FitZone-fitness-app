@@ -58,10 +58,10 @@ function App() {
 
 
         {/* Challanges  */}
-        <Route path="/fitzone/create-challange" element={<CreateChallange />} />
-        <Route path="/fitzone/challanges" element={<Challenges />} />
-        <Route path="/fitzone/challanges/details/:id" element={<ChallangeDetails />}/>
-        <Route path="/fitzone/challanges/edit/:id" element={<ChallangeEdit/>} />
+        <Route path="/fitzone/create-challenge" element={<CreateChallange />} />
+        <Route path="/fitzone/challenges" element={<Challenges />} />
+        <Route path="/fitzone/challenges/details/:id" element={<ChallangeDetails />}/>
+        <Route path="/fitzone/challenges/edit/:id" element={<ChallangeEdit/>} />
 
         <Route
           path="/fitzone/message-overview"
