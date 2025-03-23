@@ -45,15 +45,15 @@ export default function Nav(){
 
 
         <li className="nav-item">
-          <Link to="/fitzone/challanges" className="nav-link smoothScroll">Programs</Link>
+          <Link to="/fitzone/programms" className="nav-link smoothScroll">Programs</Link>
         </li>
 
         <li className="nav-item">
-          <Link to="/fitzone/challanges" className="nav-link smoothScroll">Exercises</Link>
+          <Link to="/fitzone/exercise-search" className="nav-link smoothScroll">Exercises</Link>
         </li>
 
         <li className="nav-item">
-          <Link to="/fitzone/challanges" className="nav-link smoothScroll">Challanges</Link>
+          <Link to="/fitzone/challenges" className="nav-link smoothScroll">Challanges</Link>
         </li>
 
       </ul>
