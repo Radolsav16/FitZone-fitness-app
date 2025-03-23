@@ -36,7 +36,7 @@ export default function Card({
         </div>
       </div>
     </div>
-    <Link to={`/fitzone/blog-details/${post._id}`} className='view-details-btn'>View Details</Link>
+    <Link to={`/fitzone/blog-details/${post._id}`} className="inline-block m-4 text-primary font-semibold hover:underline"> Read More →</Link>
   </div>
         </>
     )

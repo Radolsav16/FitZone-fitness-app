@@ -1,7 +1,7 @@
 import { useEffect , useState } from "react";
-import { getAllExercises } from "../service/exerices.js";
+import { getAllExercises } from "../../service/exerices.js";
 import { Link } from "react-router-dom";
-import Pagination from "../components/pagination/Pagination.jsx";
+import Pagination from "../pagination/Pagination.jsx";
 
 
 export default function Exercise() {

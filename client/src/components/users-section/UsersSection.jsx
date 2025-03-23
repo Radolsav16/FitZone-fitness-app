@@ -1,10 +1,6 @@
-const stats = [
-    { id: 1, name: 'Total Weight Lost Globally in lbs', value: '4.5 million' },
-    { id: 2, name: 'Average Body Fat Percentage (all users)', value: '19%' },
-    { id: 3, name: 'Average Improvement in Strength', value: '+ 25 lbs' },
-  ]
-  
-  export default function UsersSection() {
+import { stats } from "../../utils/selectionData"
+
+export default function UsersSection() {
     return (
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">

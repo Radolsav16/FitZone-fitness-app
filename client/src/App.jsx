@@ -13,8 +13,7 @@ import MessagingOverview from "./components/message-overview/MessageOverview";
 import Blog from "./components/blog/Blog";
 import BlogDetails from "./components/blog-details/BlogDetails";
 import CreatePost from "./components/create-post/CreatePost";
-import ExerciseSearch from "./components/exercise-search/ExerciseSearch";
-import Exercises from "./exercises/Exercises";
+import Exercises from "./components/exercises/Exercises";
 import ExerciseDetails from "./components/exercise-details/ExerciseDetails";
 import ChallangeDetails from "./components/challanges/challange-details/ChallangeDetails";
 import TargetExercise from "./components/target-exercises/TargetExercises";
@@ -22,13 +21,13 @@ import ErrorPage from "./components/error-page/ErrorPage";
 import ChallangeEdit from "./components/challanges/challange-edit/ChallangeEdit";
 import EditPost from "./components/post-edit/EditPost";
 import BMICalculator from "./components/bmi-calculator/BMICalculator";
-import EnterWeigth from "./components/enter-weigth/EnterWeigth";
-import EnterHeigth from "./components/enter-heigth/EnterHeigth";
-import EnterAge from "./components/enter-age/EnterAge";
-import EnterGender from "./components/enter-gender/EnterGender";
+
 
 import { Logout } from "./components/logout/Logout";
 import { UserProvider } from "./providers/UserProvider";
+import Recipe from "./components/recipe/Recipe";
+import SelectionSearch from "./components/exercise-search/SelectionSearch";
+import { selectionExercise, selectionRecipes } from "./utils/selectionData";
 
 
 
@@ -51,11 +50,10 @@ function App() {
         <Route path="/fitzone/logout" element={<Logout />} />
 
 
-        <Route path="/fitzone/stats/weigth" element={<EnterWeigth/>} />
-        <Route path="/fitzone/stats/heigth" element={<EnterHeigth/>} />
-        <Route path="/fitzone/stats/age" element={<EnterAge />} />
-        <Route path="/fitzone/stats/gender" element={<EnterGender />} />
+  
       
+        <Route path="/fitzone/recipes-search" element={<SelectionSearch  title={"Recipes Category 🥪"} subtitle={"Select a recipe category to explore amazing recipes!"} selection={selectionRecipes} />} />
+
 
 
 
@@ -76,7 +74,7 @@ function App() {
         <Route path="/fitzone/post/edit/:id" element={<EditPost/>} />
 
         {/* Exercises */}
-        <Route path="/fitzone/exercise-search" element={<ExerciseSearch />} />
+        <Route path="/fitzone/exercise-search" element={<SelectionSearch title={'Exercise Library 🏋️'} subtitle={'Select a muscle group to explore exercises tailored for it.'} selection={selectionExercise} />} />
         <Route path="/fitzone/exercises" element={<Exercises />} />
         <Route path="/fitzone/exercises/:id" element={<ExerciseDetails />} />
         <Route path="/fitzone/:target/exercises" element={<TargetExercise />} />
