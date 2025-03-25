@@ -1,4 +1,6 @@
 import Challange from "../models/Challanges.js";
+import Participant from "../models/Participants.js";
+import User from "../models/User.js";
 
 export async function createChallange(data){
     return await Challange.create(data)
@@ -18,5 +20,17 @@ export async function editChallange(_id,data) {
 
 
 export async  function deleteChallange(_id){
+    await Participant.deleteMany({challangeId:_id})
     return await Challange.findByIdAndDelete(_id);
+}
+
+
+
+export async  function saveChallange(userId,challangeId){
+
+    const user = await User.findById({_id:userId});
+
+    user.savedChallanges.push(challangeId);
+
+    return user.save();
 }

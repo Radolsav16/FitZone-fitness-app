@@ -34,7 +34,7 @@ export default function Hero(){
                                 {email ? 
                                 <>
                                     <h1 className="text-white">Welcome Back ,<span className="hero-name">{name}</span>!</h1>
-                                    <h2 class="subtitle">Your daily dose of inspiration awaits: fresh recipes, energizing workouts, and thrilling challenges that spark excitement!</h2>
+                                    <h2 className="subtitle">Your daily dose of inspiration awaits: fresh recipes, energizing workouts, and thrilling challenges that spark excitement!</h2>
                                     </>: 
                                     <>
                                     <h1 className="text-white">Join FitZone Ultimate Fitness Application!</h1>
@@ -72,7 +72,6 @@ export default function Hero(){
      :
     <>
    <HeroFeature />
-   
     <HeroProgramm />
     <HeroExercise />
 

@@ -1,6 +1,13 @@
 import { Link } from "react-router"
 
+import HeroJoinChallangesCard from "./hero-join-challanges-card/HeroJoinChallangesCard"
+import { useLatestParticipants } from "../../api/participantApi"
+
 export default function HeroJoinChallanges(){
+   const  {challanges} = useLatestParticipants()
+
+
+    
     return (
         <>
          <section className="relative bg-orange-500 text-black py-20 px-6">
@@ -36,69 +43,28 @@ export default function HeroJoinChallanges(){
        
        
       </div>
-
-      {/* Featured Challenges Section */}
-      <div className="container mx-auto mt-16">
-        <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold text-black">Most Joined Challenges</h2>
   
-        </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Challenge Card 1 */}
-          <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300">
-            <img
-              src="https://th.bing.com/th/id/OIP.S0YPMqSDSoGYYb4Zk_atagHaD4?rs=1&pid=ImgDetMain"
-              alt="Challenge 1"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-xl font-semibold text-black">30-Day Fitness Challenge</h3>
-              <p className="text-gray-600 mt-2">
-                Achieve your fitness goals with structured workouts for 30 days!
-              </p>
-              <button className="mt-4 bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors">
-                View Details
-              </button>
-            </div>
-          </div>
+      {challanges.length > 0 && 
+      <>
+      <div className="container mx-auto mt-16">
+        {challanges.userId && 
+        <>
+        <div className="text-center mb-8">
+    <h2 className="text-4xl font-bold text-black">See Latest Joiners 💪</h2>
+  </div>
+  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-          {/* Challenge Card 2 */}
-          <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300">
-            <img
-              src="https://th.bing.com/th/id/OIP.S0YPMqSDSoGYYb4Zk_atagHaD4?rs=1&pid=ImgDetMain"
-              alt="Challenge 2"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-xl font-semibold text-black">5K Running Challenge</h3>
-              <p className="text-gray-600 mt-2">
-                Train, compete, and conquer the 5K challenge with the community.
-              </p>
-              <button className="mt-4 bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors">
-                View Details
-              </button>
-            </div>
-          </div>
-
-          {/* Challenge Card 3 */}
-          <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300">
-            <img
-              src="https://th.bing.com/th/id/OIP.S0YPMqSDSoGYYb4Zk_atagHaD4?rs=1&pid=ImgDetMain"
-              alt="Challenge 3"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-xl font-semibold text-black">Strength Training Challenge</h3>
-              <p className="text-gray-600 mt-2">
-                Build your strength and endurance with this 4-week program!
-              </p>
-              <button className="mt-4 bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors">
-                View Details
-              </button>
-            </div>
-          </div>
-        </div>
+      {
+      challanges.map(c => <HeroJoinChallangesCard challange = {c} key={c._id}/>)
+      }
       </div>
+  
+      </>
+      }
+  
+      </div>
+      
+      </>}
     </section>
         </>
     )

@@ -1,7 +1,6 @@
-import { useState } from "react";
+
 import Input from "../../default-input-item/Input";
 import SelectElement from "./SelectElement";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
   challangeTypeOptions,
@@ -10,100 +9,76 @@ import {
   equipmentOptions,
 } from "../../../utils/selectionData";
 import { ErrorSetter } from "../../../utils/Errors";
+import { useCreateChallange } from "../../../api/challangeApi";
+import { useUserContext } from "../../../contexts/UserContext";
 
 export default function CreateChallange() {
   const navigate = useNavigate();
+  const {id} = useUserContext()
 
-  const [data, setData] = useState({
-    name: "",
-    type: "",
-    difficulty: "",
-    duration: "",
-    equipment: "",
-    image: "",
-    description: "",
-  });
+  const {handleDataOnChange , SetErrors , errors , createChallange,dataState} = useCreateChallange()
 
-  const [errors, SetErrors] = useState({});
+ 
 
-  const onChange = (e) => {
-    SetErrors({});
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const createChallangeHandler = async (formData) =>{
+      const data = Object.fromEntries(formData);
+   
+      if (!data.name) {
+        return ErrorSetter(
+          errors,
+          SetErrors,
+          "name",
+          "Challange name is required!"
+        );
+      } else if (data.type === ' ') {
+        
+        return ErrorSetter(
+          errors,
+          SetErrors,
+          "type",
+          "Challange Type is required!"
+        );
+      } else if (data.difficulty === " ") {
+        return ErrorSetter(
+          errors,
+          SetErrors,
+          "difficulty",
+          "Challange Difficulty is required!"
+        );
+      } else if (data.duration === " ") {
+        return ErrorSetter(
+          errors,
+          SetErrors,
+          "duration",
+          "Challange Duration is required!"
+        );
+      }else if (data.equipment === " ") {
+        return ErrorSetter(
+          errors,
+          SetErrors,
+          "equipment",
+          "Challange Equipment is required!"
+        );
+      } else if (!data.image) {
+        return ErrorSetter(
+          errors,
+          SetErrors,
+          "image",
+          "Challange Image is required!"
+        );
+      } else if (!data.description) {
+        return ErrorSetter(
+          errors,
+          SetErrors,
+          "description",
+          "Challange Description is required!"
+        );
+      }
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+      await createChallange(data,id)
 
-    
-
-
-    if (data.name === "") {
-      return ErrorSetter(
-        errors,
-        SetErrors,
-        "name",
-        "Challange name is required!"
-      );
-    } else if (data.type === "") {
-      return ErrorSetter(
-        errors,
-        SetErrors,
-        "type",
-        "Challange Type is required!"
-      );
-    } else if (data.difficulty === "") {
-      return ErrorSetter(
-        errors,
-        SetErrors,
-        "difficulty",
-        "Challange Difficulty is required!"
-      );
-    } else if (data.duration === "") {
-      return ErrorSetter(
-        errors,
-        SetErrors,
-        "duration",
-        "Challange Duration is required!"
-      );
-    }else if (data.equipment === "") {
-      return ErrorSetter(
-        errors,
-        SetErrors,
-        "equipment",
-        "Challange Equipment is required!"
-      );
-    } else if (data.image === "") {
-      return ErrorSetter(
-        errors,
-        SetErrors,
-        "image",
-        "Challange Image is required!"
-      );
-    } else if (data.description === "") {
-      return ErrorSetter(
-        errors,
-        SetErrors,
-        "description",
-        "Challange Description is required!"
-      );
-    }
-
-
-
-    try {
-      const res = axios.post("http://localhost:3030/create-challange", data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      navigate("/fitzone/challanges");
-    } catch (err) {
-      navigate("/404");
-    }
-  };
+      navigate('/fitzone/challenges');
+  }
 
 
   return (
@@ -126,14 +101,14 @@ export default function CreateChallange() {
           Create Challenge 💪
         </h2>
       </div>
-      <form onSubmit={onSubmit} className="mx-auto mt-16 max-w-xl sm:mt-20">
+      <form action={createChallangeHandler} className="mx-auto mt-16 max-w-xl sm:mt-20">
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div className="sm:col-span-2">
             <label
               htmlFor="company"
               className="block text-sm/6 font-semibold text-gray-900"
             >
-              Challange Name
+              Challenge Name
             </label>
             <div className="mt-2.5">
               <input
@@ -142,7 +117,8 @@ export default function CreateChallange() {
                 type="text"
                 autoComplete="organization"
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 border-2 border-gray-500 placeholder:text-gray-400 focus:border-orange-600 focus:ring-2 focus:ring-orange-600 sm:text-sm"
-                onChange={onChange}
+                onChange={handleDataOnChange}
+                value={dataState.name}
               />
               {errors["name"] && (
                 <p className="mt-2 text-sm text-red-600 font-bold">
@@ -156,7 +132,8 @@ export default function CreateChallange() {
             <SelectElement
               name={"type"}
               options={challangeTypeOptions}
-              onChangeHandler={onChange}
+              onChangeHandler={handleDataOnChange}
+              value={dataState.type}
             />
             {errors["type"] && (
               <p className="mt-2 text-sm text-red-600 font-bold">
@@ -170,7 +147,9 @@ export default function CreateChallange() {
             <SelectElement
               name={"difficulty"}
               options={difficultyOptions}
-              onChangeHandler={onChange}
+              onChangeHandler={handleDataOnChange}
+              value={dataState.difficulty}
+
             />
             {errors["difficulty"] && (
               <p className="mt-2 text-sm text-red-600 font-bold">
@@ -184,7 +163,8 @@ export default function CreateChallange() {
             <SelectElement
               name={"duration"}
               options={durationOptions}
-              onChangeHandler={onChange}
+              onChangeHandler={handleDataOnChange}
+              value={dataState.duration}
             />
             {errors["duration"] && (
               <p className="mt-2 text-sm text-red-600 font-bold">
@@ -198,7 +178,8 @@ export default function CreateChallange() {
             <SelectElement
               name={"equipment"}
               options={equipmentOptions}
-              onChangeHandler={onChange}
+              onChangeHandler={handleDataOnChange}
+              value={dataState.equipment}
             />
             {errors["equipment"] && (
               <p className="mt-2 text-sm text-red-600 font-bold">
@@ -219,7 +200,8 @@ export default function CreateChallange() {
                 name={"image"}
                 type={"text"}
                 placeholder={"Image"}
-                onChangeHandler={onChange}
+                onChangeHandler={handleDataOnChange}
+                value={dataState.image}
               />
               {errors["image"] && (
                 <p className="mt-2 text-sm text-red-600 font-bold">
@@ -242,9 +224,9 @@ export default function CreateChallange() {
                 name="description"
                 rows={4}
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 border-2 border-gray-500 placeholder:text-gray-400 focus:border-orange-600 focus:ring-2 focus:ring-orange-600 sm:text-sm"
-                defaultValue={""}
                 placeholder="Description"
-                onChange={onChange}
+                onChange={handleDataOnChange}
+                value={dataState.description}
               />
               {errors["description"] && (
                 <p className="mt-2 text-sm text-red-600 font-bold">

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function HeroExercise(){
     return(
         <>
@@ -11,9 +13,11 @@ export default function HeroExercise(){
           <p className="text-lg md:text-xl mb-8">
             Discover the best exercises tailored for all fitness levels. From strength training to flexibility, enhance your workout routine with our expert-guided plans.
           </p>
-          <button className="bg-black hover:bg-gray-800 text-orange-500 py-3 px-10 rounded-md text-lg font-semibold shadow-md transition-transform transform hover:scale-105">
+          <Link 
+          to={'/fitzone/exercise-search'}
+          className="bg-black hover:bg-gray-800 text-orange-500 py-3 px-10 rounded-md text-lg font-semibold shadow-md transition-transform transform hover:scale-105">
             Browse Exercises
-          </button>
+          </Link>
         </div>
 
         {/* Image */}

@@ -20,6 +20,7 @@ export async function login(data){
     const token = generateToken(user,secret)
 
     return {
+        id:user._id,
         name:user.name,
         email:user.email,
         imageUrl:user.imageUrl,
@@ -47,6 +48,7 @@ export async function register(data,imageUrl){
     const token = generateToken(user,secret)
 
     return {
+        id:user._id,
         name:user.name,
         email:user.email,
         imageUrl:user.imageUrl,

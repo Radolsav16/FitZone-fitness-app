@@ -15,7 +15,7 @@ export default function HeroFeature(){
         
                             <p>Join our community and take on exciting fitness challenges that will motivate and inspire you to achieve your goals. Explore a variety of challenges designed for all fitness levels and connect with like-minded individuals.</p>
         
-                            <Link to="/fitzone/challanges" className="btn custom-btn bg-color mt-3" data-toggle="modal" data-target="#membershipForm">See Challenges</Link>
+                            <Link to="/fitzone/challenges" className="btn custom-btn bg-color mt-3" data-toggle="modal" data-target="#membershipForm">See Challenges</Link>
                         </div>
         
                         <div className="d-flex flex-column justify-content-center ml-lg-auto mr-lg-5 col-lg-5 col-md-6 col-12">

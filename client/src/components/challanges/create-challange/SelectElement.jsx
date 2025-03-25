@@ -8,8 +8,9 @@ export default function SelectElement({name,options = [],onChangeHandler,value})
     className="w-full mt-2 p-2 bg-gray-800 text-white rounded-lg"
     onChange={onChangeHandler}
     value={value}
+
   >
-    {options.map(option => <OptionElement value={option.value} label={option.label} key={option.value} />)}
+    {options.map(option => <OptionElement value={option.value} label={option.label} key={option.value}  />)}
   </select>
         </>
     )

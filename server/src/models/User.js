@@ -17,7 +17,11 @@ const userSchema = new Schema({
     },
     imageUrl:{
         type:String
-    }
+    },
+    savedChallanges:[{
+        type:Types.ObjectId,
+        ref:'Challange'
+    }]
 
 })
 
