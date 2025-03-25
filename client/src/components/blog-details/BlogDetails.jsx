@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import axios  from "axios";
-import DetailButton from "../challanges/challange-details/button/DetailButton";
 import { DateConverter } from "../../utils/DateConverter";
 
 
@@ -153,7 +152,7 @@ export default function BlogDetails() {
           onChange={(e)=>setComment(e.target.value)}
         />
 
-            <DetailButton label={'Post Comment'} onClick={postComment}/>
+            <button  className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-300">Post Comment</button>
       </div>
       </>
       :""}

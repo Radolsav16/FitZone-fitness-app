@@ -1,17 +1,32 @@
 import {Link} from 'react-router-dom'
 import { FaBookmark } from "react-icons/fa";
-import { useState } from 'react';
+
+import { useUserContext } from '../../contexts/UserContext';
+import { useSaveChallange } from '../../api/challangeApi'
 
 export default function ChallangeCard({
     challenge
 }){
-  const [saved,setSaved] = useState(false)
-    return(
+
+  const { email , id } = useUserContext()
+  const {setSaved , saved , saveChallange} = useSaveChallange(id,challenge._id)
+
+
+
+  const saveHandler = async () =>{
+    
+      await saveChallange();
+      setSaved(true)
+  }
+    
+  return(
         <>
-         <div className="relative bg-white text-black rounded-lg shadow-lg overflow-hidden w-80 border-4 ">
-      {/* Save Icon */}
+  <div className="relative bg-white text-black rounded-lg shadow-lg overflow-hidden w-80 border-4 ">
+       
+        {email &&  
+     <>
       <button
-        onClick={() => setSaved(!saved)}
+        onClick={saveHandler}
         className="absolute top-4 right-4 p-2 rounded-full border-2  transition"
         style={{
           backgroundColor: saved ? "black" : "white",
@@ -21,8 +36,11 @@ export default function ChallangeCard({
         <FaBookmark size={27} />
       </button>
 
-      {/* Image */}
-      <img
+     
+      </>
+      }
+    
+    <img
         src={challenge.image}
         alt={challenge.title}
         className="w-full h-48 object-cover border-b-4 border-black"

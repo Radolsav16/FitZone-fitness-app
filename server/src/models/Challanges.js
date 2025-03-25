@@ -26,6 +26,10 @@ const challangeSchema = new Schema({
     },
     description:{
         type:String,
+    },
+    ownerId:{
+        type:Types.ObjectId,
+        ref:'User'
     }
 
 })

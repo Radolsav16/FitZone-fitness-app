@@ -5,11 +5,12 @@ dotenv.config()
 import cors from 'cors'
 import multer from 'multer'
 import { login, register } from './service/auth.js';
-import { createChallange, deleteChallange, editChallange, getAllChallanges, getChallange } from './service/challanges.js';
+import { createChallange, deleteChallange, editChallange, getAllChallanges, getChallange, saveChallange} from './service/challanges.js';
 import { createPost, deletePost, editPost, getAllPosts, getPost, pushComment } from './service/blog.js';
 import { createComment, getAllComments } from './service/comments.js';
 import path from 'path'
 import { checkToken } from './utils/token.js';
+import { getLatestParticipants,  getParticipants, getUserParticipateCount, joinChallange } from './service/participants.js';
 
 
 const PORT = process.env.PORT;
@@ -101,7 +102,7 @@ app.put('/challanges/:id', async (req, res) => {
    await editChallange(id,req.body);
    res.status(204).json({message:"Succefully updated challange!"})
   } catch (error) {
-    res.status(500).json(error)
+    res.status(404).json({message:'Challange Not Found'})
   }
 });
 
@@ -111,6 +112,63 @@ app.delete('/challanges/:id', async (req, res) => {
   try {
    await deleteChallange(id);
    res.status(204).json({message:"Succefully delete challange!"})
+  } catch (error) {
+    res.status(500).json(error)
+  }
+});
+
+app.post('/join-challange/:userId/:challangeId', async (req, res) => {
+  const { userId , challangeId } = req.params
+  try {
+   const challange = await joinChallange(challangeId,userId,req.body.message);
+   res.status(200).json(challange)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+});
+
+app.get('/challange-participants/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+   const participants = await getParticipants(id);
+
+   res.status(200).json(participants)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+});
+
+app.post('/challange-save/:userId/:challangeId', async (req, res) => {
+  const { userId , challangeId} = req.params
+  
+
+  try {
+   await saveChallange(userId,challangeId);
+   res.status(200).json({message:"Succesfull save challange"})
+  } catch (error) {
+    res.status(500).json(error)
+  }
+});
+
+
+app.get('/latest-participants-challanges', async (req, res) => {
+  try {
+   const challanges = await getLatestParticipants();
+
+   res.status(200).json(challanges)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+});
+
+
+app.get('/user-participant-count/:userId', async (req, res) => {
+  const {userId} = req.params;
+  
+  try {
+   const count = await getUserParticipateCount(userId);
+
+   res.status(200).json(count)
   } catch (error) {
     res.status(500).json(error)
   }
