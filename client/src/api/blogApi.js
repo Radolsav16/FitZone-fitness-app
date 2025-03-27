@@ -104,3 +104,31 @@ export const useDeletePost = (id) =>{
 
   return {deletePost ,cancel , showModal , setShowModal}
 }
+
+
+export const useDetailsPost = (postId,userId) =>{
+  const [showComments,setShowComments] = useState(false);
+  const [comments,setComments] = useState([]);
+  const [addComment,setAddComment] = useState(false);
+
+  useEffect(()=>{
+    (async()=>{
+      const result = await fetchApi.get(baseUrl + `/blog/comments/${postId}`,{'Content-Type':'application/json'})
+      setComments(result)
+    })()
+  },[])
+
+  const comment = async (comment) =>{
+    const result = await  fetchApi.post(baseUrl + '/blog/comment/',{postId,userId,comment},{'Content-Type':'application/json'})
+    setComments(oldState => [...oldState , result]);
+  }
+
+  return {
+    showComments,
+    setShowComments,
+    comment,
+    comments,
+    setAddComment,
+    addComment
+  }
+}

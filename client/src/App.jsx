@@ -28,12 +28,13 @@ import { UserProvider } from "./providers/UserProvider";
 import Recipe from "./components/recipe/Recipe";
 import SelectionSearch from "./components/exercise-search/SelectionSearch";
 import { selectionExercise, selectionRecipes } from "./utils/selectionData";
+import { useScroll } from "./utils/scroll";
 
 
 
 
 function App() {
- 
+    useScroll()
   return (
     <>
     <UserProvider>
