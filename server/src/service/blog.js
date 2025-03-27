@@ -26,3 +26,19 @@ export async  function deletePost(_id){
 export async  function pushComment(_id,comment){
     return await Post.findByIdAndUpdate(_id,{$push:{comments:comment}},{new:true})
 }
+
+
+export async  function likePost(postId,userId){
+    const post = await Post.findById(postId)
+
+    post.likes.push(userId)
+
+    return post.save();
+}
+
+
+export async  function getLikes(postId){
+    const post = await Post.findById(postId).lean();
+    const likes = post.likes.length
+    return likes;
+}

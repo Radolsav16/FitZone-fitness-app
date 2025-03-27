@@ -132,3 +132,31 @@ export const useDetailsPost = (postId,userId) =>{
     addComment
   }
 }
+
+export const useLikePost = (postId,userId) =>{
+
+  const [isLiked,setIsLiked] = useState(false);
+  const [likes,setLikes] = useState(Number)
+
+
+  useEffect(()=>{
+    (async ()=>{
+      const result = await fetchApi.get(baseUrl + `/blog/likes/${postId}/`,{'Content-Type':'application/json'})
+      setLikes(result);
+    })()
+  },[postId])
+
+
+
+  const like = () =>{
+    fetchApi.get(baseUrl + `/blog/like/${postId}/${userId}`,{'Content-Type':'application/json'})
+    setIsLiked(true);
+    setLikes(oldState => oldState + 1);
+  }
+
+  return {
+    like,
+    isLiked,
+    likes
+  }
+}
