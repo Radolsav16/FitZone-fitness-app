@@ -1,134 +1,166 @@
-import { useState } from "react";
 import { categoryOptions } from "../../utils/selectionData";
 import SelectElement from "../challanges/create-challange/SelectElement";
-import Input from "../default-input-item/Input";
+
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
 import { ErrorSetter } from "../../utils/Errors";
+import { useFormState } from "../../hooks/FormStateHook";
+import { useCreatePost } from "../../api/blogApi";
+import { useUserContext } from "../../contexts/UserContext";
 
 
 export default function CreatePost() {
 
   const navigate = useNavigate();
+  const {id} = useUserContext()
 
-  const [data,setData] = useState({
+  const {dataState , errors ,SetErrors,handleDataOnChange} = useFormState({
     title:"",
-    category:"",
-    description:"",
     content:"",
     image:"",
+    description:"",
+    category:""
   })
 
-  const [errors, SetErrors] = useState({});
+  const {createPost} = useCreatePost()
+  
 
 
-
-  const onChange = (e) =>{
-    SetErrors({});
-    setData({
-      ...data,
-      [e.target.name] : e.target.value 
-    })
-  }
-
-  const onSubmit = async (e)=>{
-    e.preventDefault()
+  const createPostHanlder = async (formData)=>{
+    const data = Object.fromEntries(formData);
+    
 
     if(data.title === ''){
       return ErrorSetter(errors,SetErrors,"title","Post Title is required!");
-    } else if(data.content === ''){
-      return ErrorSetter(errors,SetErrors,"content","Post Content is required!");
     } else if(data.description === ''){
-      return ErrorSetter(errors,SetErrors,"description","Post Description is required!");
+      return ErrorSetter(errors,SetErrors,"description","Description is required!");
+    } else if(data.content === ''){
+      return ErrorSetter(errors,SetErrors,"content","Content is required!");
     } else if(data.image === ''){
-      return ErrorSetter(errors,SetErrors,"image","Post Image is required!");
+      return ErrorSetter(errors,SetErrors,"image","Image is required!");
     }else if(data.category === ''){
-      return ErrorSetter(errors,SetErrors,"category","Post Category is required!");
+      return ErrorSetter(errors,SetErrors,"category","Category is required!");
     }
 
 
-    try {
-        await axios.post('http://localhost:3030/blog/create-post',data);
-        navigate('/fitzone/blog')
-    } catch (err) {
-        navigate('/404')  
-    }
+    await createPost(data,id);
+    navigate('/fitzone/blog')
   }
 
   
   return (
-    <div className="max-w-4xl mx-auto p-6 mt-20">
-      <h1 className="text-4xl font-bold mb-6">Create a New Post 📝</h1>
-      <form  className="bg-white p-6 rounded-lg shadow-md" onSubmit={onSubmit}>
-        <div className="mb-4">
-          <label htmlFor="title" className="block text-lg font-bold mb-2">
-            Post Title
-          </label>
-          <Input type={"text"} name={"title"} placeholder={"Enter the post title"} onChangeHandler={onChange}/>
-          {errors["title"] && (
-              <p className="mt-2 text-sm text-red-600 font-bold">
-                {errors?.title}
-              </p>
-            )}
-        </div>
-        <div className="mb-4">
-          <label htmlFor="content" className="block text-lg font-bold mb-2">
-            Content
-          </label>
-          <Input type={"text"} name={"content"} placeholder={"Enter the content"} onChangeHandler={onChange}/>
-          {errors["content"] && (
-              <p className="mt-2 text-sm text-red-600 font-bold">
-                {errors?.content}
-              </p>
-            )}
-        </div>
-        <div className="mb-4">
-          <label htmlFor="description" className="block text-lg font-bold mb-2">
-            Description
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            rows="4"
-            className="w-full p-2 border rounded-md"
-            placeholder="Write the post description"
-            onChange={onChange}
-          />
-           {errors["description"] && (
-              <p className="mt-2 text-sm text-red-600 font-bold">
-                {errors?.description}
-              </p>
-            )}
-        </div>
-        <div className="mb-4">
-          <label htmlFor="imageUrl" className="block text-lg font-bold mb-2">
-            Image URL
-          </label>
-          <Input type={"text"} name={"image"} placeholder={"Enter the Image Url"} onChangeHandler={onChange}/>
-          {errors["image"] && (
-              <p className="mt-2 text-sm text-red-600 font-bold">
-                {errors?.image}
-              </p>
-            )}
-        </div>
-        <div className="mb-6">
-          <label htmlFor="category" className="block text-lg font-bold mb-2">
-            Category
-          </label>
-          <SelectElement options={categoryOptions} onChangeHandler={onChange} name={"category"}/>
-          {errors["category"] && (
-              <p className="mt-2 text-sm text-red-600 font-bold">
-                {errors?.category}
-              </p>
-            )}
-        </div>
-        <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-black shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Create Post
-              </button>
-      </form>
-    </div>
+    <div className="max-w-4xl mx-auto p-6 mt-20 bg-gray-50 rounded-lg shadow-lg mt-20">
+  
+  
+    
+    <form className="bg-white p-8 rounded-lg shadow-md" action={createPostHanlder}>
+   
+      <div className="mb-4">
+        <label htmlFor="title" className="block text-lg font-bold mb-2 text-gray-700">
+          Post Title
+        </label>
+        <input
+          type="text"
+          name="title"
+          placeholder="Enter the post title"
+          onChange={handleDataOnChange}
+          value={dataState.title}
+          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        {errors["title"] && (
+            <p className="mt-2 text-sm text-red-600 font-bold">
+              {errors?.title}
+            </p>
+          )}
+      </div>
+  
+      {/* Description */}
+      <div className="mb-4">
+        <label htmlFor="description" className="block text-lg font-bold mb-2 text-gray-700">
+          Description
+        </label>
+        
+        <textarea
+          id="description"
+          name="description"
+          placeholder="Enter a short description"
+          value={dataState.description}
+          onChange={handleDataOnChange}
+          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        ></textarea>
+          {errors["description"] && (
+            <p className="mt-2 text-sm text-red-600 font-bold">
+              {errors?.description}
+            </p>
+          )}
+      </div>
+  
+      {/* Content */}
+      <div className="mb-4">
+        <label htmlFor="content" className="block text-lg font-bold mb-2 text-gray-700">
+          Content
+        </label>
+        <textarea
+          id="content"
+          name="content"
+          placeholder="Enter the main content of your post"
+          rows="5"
+          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 border-2 border-gray-500"
+          value={dataState.content}
+          onChange={handleDataOnChange}
+        ></textarea>
+         {errors["content"] && (
+            <p className="mt-2 text-sm text-red-600 font-bold">
+              {errors?.content}
+            </p>
+          )}
+      </div>
+  
+      {/* Image URL */}
+      <div className="mb-4">
+        <label htmlFor="imageUrl" className="block text-lg font-bold mb-2 text-gray-700">
+          Image URL
+        </label>
+        <input
+          type="text"
+          name="image"
+          placeholder="Enter the Image Url"
+          value={dataState.imageUrl}
+          onChange={handleDataOnChange}
+          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        
+        />
+         {errors["image"] && (
+            <p className="mt-2 text-sm text-red-600 font-bold">
+              {errors?.image}
+            </p>
+          )}
+      </div>
+  
+      {/* Category */}
+      <div className="mb-6">
+        <label htmlFor="category" className="block text-lg font-bold mb-2 text-gray-700">
+          Category
+        </label>
+        <SelectElement
+          options={categoryOptions}
+          onChangeHandler={handleDataOnChange}
+          name="category"
+        />
+         {errors["category"] && (
+            <p className="mt-2 text-sm text-red-600 font-bold">
+              {errors?.category}
+            </p>
+          )}
+      </div>
+  
+      {/* Submit Button */}
+      <button
+        type="submit"
+        className="flex w-full justify-center rounded-md bg-indigo-600 px-4 py-2 text-lg font-semibold text-white shadow-md hover:bg-indigo-500 transition duration-300"
+      >
+        Create Post
+      </button>
+    </form>
+  </div>
   );
 }

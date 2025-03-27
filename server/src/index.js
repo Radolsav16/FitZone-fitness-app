@@ -178,7 +178,7 @@ app.get('/user-participant-count/:userId', async (req, res) => {
 app.post('/blog/create-post', async (req, res) => {
   try {
     await createPost(req.body)
-    res.status(204).json({message:"Succesfully added post!"});
+    res.status(200).json({message:"Succesfully added post!"});
   } catch (error) {
     console.log(error.message)
     res.status(500).json({message:error.message})

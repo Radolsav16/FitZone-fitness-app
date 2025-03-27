@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
-import Nav from "./components/Header/Nav";
+import Nav from "./components/header/Nav";
 import Hero from "./components/home/Hero";
 import About from "./components/About/About";
 import Footer from "./components/footer/Footer";
@@ -67,8 +67,9 @@ function App() {
           path="/fitzone/message-overview"
           element={<MessagingOverview />}
         />
+
         {/* Blog */}
-        <Route path="/fitzone/blog/*" element={<Blog />} />
+        <Route path="/fitzone/blog" element={<Blog />} />
         <Route path="/fitzone/blog-details/:id" element={<BlogDetails />} />
         <Route path="/fitzone/post-create" element={<CreatePost />} />
         <Route path="/fitzone/post/edit/:id" element={<EditPost/>} />

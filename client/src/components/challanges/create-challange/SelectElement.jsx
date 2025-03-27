@@ -5,7 +5,8 @@ export default function SelectElement({name,options = [],onChangeHandler,value})
         <>
          <select
     name={name}
-    className="w-full mt-2 p-2 bg-gray-800 text-white rounded-lg"
+     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white"
+
     onChange={onChangeHandler}
     value={value}
 
