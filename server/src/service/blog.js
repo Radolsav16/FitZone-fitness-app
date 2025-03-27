@@ -1,3 +1,4 @@
+import Comment from "../models/Comments.js";
 import Post from "../models/Post.js";
 
 export async function createPost(data){
@@ -18,6 +19,7 @@ export async function editPost(_id,data) {
 
 
 export async  function deletePost(_id){
+    await Comment.deleteMany({postId : _id})
     return await Post.findByIdAndDelete(_id);
 }
 
