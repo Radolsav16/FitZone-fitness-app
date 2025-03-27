@@ -6,7 +6,7 @@ import cors from 'cors'
 import multer from 'multer'
 import { login, register } from './service/auth.js';
 import { createChallange, deleteChallange, editChallange, getAllChallanges, getChallange, saveChallange} from './service/challanges.js';
-import { createPost, deletePost, editPost, getAllPosts, getPost, pushComment } from './service/blog.js';
+import { createPost, deletePost, editPost, getAllPosts, getLikes, getPost, likePost, pushComment } from './service/blog.js';
 import { createComment, getAllComments } from './service/comments.js';
 import path from 'path'
 import { checkToken } from './utils/token.js';
@@ -243,6 +243,26 @@ app.post('/blog/comment/', async (req, res) => {
   try {
     const comment = await createComment(req.body)
     res.status(200).json(comment);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+});
+
+app.get('/blog/like/:postId/:userId', async (req, res) => {
+  const {postId , userId} = req.params
+  try {
+     const post = await likePost(postId,userId)
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+});
+
+app.get('/blog/likes/:postId/', async (req, res) => {
+  const {postId} = req.params
+  try {
+     const likes = await getLikes(postId)
+    res.status(200).json(likes);
   } catch (error) {
     res.status(500).json({message:error.message})
   }

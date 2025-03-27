@@ -1,10 +1,17 @@
 import { Link } from "react-router-dom"
 import { DateConverter } from "../../../utils/DateConverter"
+import { useUserContext } from "../../../contexts/UserContext"
+import { useLikePost } from "../../../api/blogApi"
+
 
 export default function BlogCard({
     post
 }){
-   console.log(post)
+  const {id:userId} = useUserContext()
+  const {like ,isLiked,likes} = useLikePost(post._id,userId)
+  
+  console.log(likes)
+   
     return(
         <>
     
@@ -41,9 +48,11 @@ export default function BlogCard({
     >
       Read More
     </Link>
-
     <div className="flex items-center space-x-4 mt-4">
+
+    {(userId && userId != post.author._id && !isLiked) &&  
     <button
+      onClick={like}  
       className="flex items-center px-4 py-2 bg-white-500 text-black rounded-full hover:bg-white-600 transition"
     >
       <svg
@@ -56,10 +65,13 @@ export default function BlogCard({
       </svg>
       Like
     </button>
-      <p className="text-sl text-gray-600">
-        <strong>20</strong> likes
+      
+   }
+    <p className="text-sl text-gray-600">
+        <strong>{likes}</strong> likes
       </p>
-    </div>
+
+      </div> 
   </div>
 </div>
 

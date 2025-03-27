@@ -3,7 +3,7 @@ import { useEffect } from "react"
 export const useScroll = () =>{
 
     useEffect(()=>{
-        const clickHanlder = (event) =>{
+        const scrollHanlder = (event) =>{
         if(event.target.tagName !== 'A'){
             return
         }
@@ -13,10 +13,12 @@ export const useScroll = () =>{
             })
         }
 
-        window.addEventListener('click',clickHanlder);
+        window.addEventListener('click',scrollHanlder);
+        window.addEventListener('submit',scrollHanlder);
+
 
         return () =>{
-            document.removeEventListener("click", clickHanlder);
+            document.removeEventListener("click", scrollHanlder);
         }
     })
 }

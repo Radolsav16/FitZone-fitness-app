@@ -6,6 +6,8 @@ import PostCreateCaller from "./post-create-caller/PostCreateCaller";
 export default function Blog() {
   const { posts } = usePosts();
 
+  
+
   return (
     <>
       <div className="p-8 bg-gray-100 mt-20">

@@ -5,6 +5,7 @@ import IsSureModal from "../is-sure-modal/IsSureModal";
 import { MessageSquare, Edit, Trash } from "lucide-react";
 import { useUserContext } from "../../contexts/UserContext";
 
+
 export default function BlogDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -174,13 +175,13 @@ export default function BlogDetails() {
                     </p>
                     <button
                       className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
-                      onClick={() => setAddComment(true)}
+                      onClick={userId ? () => setAddComment(true):() => navigate('/fitzone/login')}
                     >
                       Add a Comment
                     </button>
                   </div>
 
-                  {(userId, addComment) && (
+                  {(userId && addComment) && (
                     <>
                       <div className="bg-white p-4 rounded-lg shadow-md">
                         <form action={commentHandler}>
