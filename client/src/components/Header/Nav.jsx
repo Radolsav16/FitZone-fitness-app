@@ -35,7 +35,7 @@ export default function Nav(){
         </li>
 
            <li className="nav-item">
-          <Link to="/fitzone/challanges" className="nav-link smoothScroll">Blog</Link>
+          <Link to="/fitzone/blog" className="nav-link smoothScroll">Blog</Link>
         </li>
 
         <li className="nav-item">

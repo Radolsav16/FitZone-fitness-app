@@ -32,9 +32,11 @@ export default function ChallangeDetails(){
 
  {showModal &&  <IsSureModal 
  cancel = {cancel}
-  deleteChallange = {deleteChallange}
+  deleteFunc = {deleteChallange}
   navigatePath={'/fitzone/challenges'}
-  text={'Are you sure you  want to delete this challenge?'} />}
+  text={'Are you sure you  want to delete this challenge?'}
+  preText={"Delete Challenge"}
+  />}
 
   {showJoinForm ? <JoinChallanges 
   toggleJoin={toggleJoin} 
