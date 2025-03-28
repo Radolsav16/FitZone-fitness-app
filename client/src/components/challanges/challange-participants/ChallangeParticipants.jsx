@@ -1,3 +1,4 @@
+import { Link } from "react-router"
 export default function ChallangeParticipants({
     participates
 }){
@@ -15,11 +16,12 @@ export default function ChallangeParticipants({
             key={p.userId._id}
             className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center"
           >
-            <img
+          
+            <Link to={`/fitzone/profile/${p.userId._id}`}><img
               src={p.userId.imageUrl}
               alt={p.userId.name}
               className="w-24 h-24 rounded-full mb-4 object-cover"
-            />
+            /></Link>
             <h3 className="text-lg font-semibold text-gray-800">
               {p.userId.name}
             </h3>

@@ -1,6 +1,11 @@
 import Participant from "../models/Participants.js";
+import User from "../models/User.js";
 
 export async function  joinChallange(challangeId,userId,message) {
+    const user = await User.findById({_id:userId})
+    user.joinedChallanges.push(challangeId);
+    await user.save();
+
     const newParticipant =  await Participant.create({challangeId,userId,message})
     return await Participant.findById({_id:newParticipant._id}).populate('userId').lean();
 }

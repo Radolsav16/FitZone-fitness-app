@@ -136,12 +136,15 @@ export default function ChallangeDetails(){
 
         
 
-{[...participates.map(p => p.userId)].slice(-3).map(participate => <img
+{[...participates.map(p => p.userId)].slice(-3).map(participate => 
+
+<Link to={`/fitzone/profile/${participate._id}`}><img
     key={participate._id}
     src={participate.imageUrl}
     alt={participate.name}
     className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm"
   />
+  </Link>
 )}
 
 

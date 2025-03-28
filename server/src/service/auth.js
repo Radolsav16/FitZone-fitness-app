@@ -55,3 +55,7 @@ export async function register(data,imageUrl){
         accessToken:token
     };
 }
+
+export async function getUser(userId){
+    return await User.findById({_id:userId}).populate('likedPost').populate('savedChallanges').populate('joinedChallanges');
+}

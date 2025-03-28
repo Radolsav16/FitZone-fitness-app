@@ -21,7 +21,16 @@ const userSchema = new Schema({
     savedChallanges:[{
         type:Types.ObjectId,
         ref:'Challange'
+    }],
+    likedPost:[{
+        type:Types.ObjectId,
+        ref:'Post'
+    }],
+    joinedChallanges:[{
+        type:Types.ObjectId,
+        ref:'Challange'
     }]
+
 
 })
 
