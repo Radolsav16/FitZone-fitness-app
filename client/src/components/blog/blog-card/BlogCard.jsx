@@ -27,11 +27,12 @@ export default function BlogCard({
   <div className="p-4">
     {/* User Info Section */}
     <div className="flex items-center mb-4">
-      <img
+      <Link to={`/fitzone/profile/${post.author._id}`}><img
         src={post.author.imageUrl}
         alt="User Profile"
         className="w-10 h-10 rounded-full object-cover mr-3"
       />
+      </Link>
       <p className="text-sm text-gray-600">
         By <span className="font-bold">{post.author.name}</span> on {DateConverter(post.createdAt)}
       </p>

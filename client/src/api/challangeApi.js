@@ -9,6 +9,7 @@ const baseUrl = 'http://localhost:3030';
 export const useChallanges =  () => {
 
     const [challanges, setChallanges] = useState([]);
+  
 
     useEffect(() => {
      (async ()=>{
@@ -20,7 +21,7 @@ export const useChallanges =  () => {
 
     
     return {
-        challanges
+        challanges,
     }
 }
 
@@ -133,10 +134,10 @@ export const useDeleteChallange = (id) =>{
 }
 
 
-export const useJoinChallange = () =>{
+export const useJoinChallange = (userId) =>{
   const [showJoinForm,setShowJoinForm] = useState(false);
   const [isJoin,setIsJoin] = useState(false);
-
+ 
   const toggleJoin = () => {
     setShowJoinForm(!showJoinForm);
   }
@@ -152,7 +153,7 @@ export const useJoinChallange = () =>{
     showJoinForm,
     toggleJoin,
     isJoin,
-    setIsJoin
+    setIsJoin,
   }
 }
 
@@ -160,14 +161,64 @@ export const useJoinChallange = () =>{
 export const useSaveChallange = (userId,challangeId) =>{
   const [saved,setSaved] = useState(false)
 
-  const saveChallange = () =>{
-     fetchApi.post(baseUrl + `/challange-save/${userId}/${challangeId}`)
+
+  useEffect(()=>{
+    (async()=>{
+      const result = await fetchApi.get(baseUrl + `/saved-challanges/${userId}`,{'Content-Type':'application/json'})
+      if(result.includes(challangeId)){
+        return setSaved(true);
+      }
+    })()
+  },[userId])
+
+
+  const saveChallange = async () =>{
+     await fetchApi.post(baseUrl + `/challange-save/${userId}/${challangeId}`)
+     setSaved(true);
   }
   
   
   return {
     saveChallange,
     saved,
-    setSaved
+  }
+}
+
+
+export const useUserSavedChallanges = (userId) =>{
+  const  [userSavedChallanges,setUserSavedChallanges] = useState(Number)
+
+
+
+  useEffect(() => {
+   (async ()=>{
+    const result = await fetchApi.get(baseUrl + `/saved-challanges/${userId}`,{'Content-Type':'application/json'});
+    setUserSavedChallanges(result.length)
+   })()
+  }, [userId]);
+
+  
+
+  return {
+    userSavedChallanges,
+    setUserSavedChallanges
+  }
+}
+
+export const useUserJoinedChallanges = (userId) =>{
+  const  [userJoinedchallanges,setUserJoinedChallanges] = useState(Number)
+
+
+
+  useEffect(() => {
+   (async ()=>{
+    const result = await fetchApi.get(baseUrl + `/joined-challanges/${userId}`,{'Content-Type':'application/json'});
+    setUserJoinedChallanges(result.length)
+   })()
+  }, [userId]);
+
+  return {
+    userJoinedchallanges,
+    setUserJoinedChallanges
   }
 }

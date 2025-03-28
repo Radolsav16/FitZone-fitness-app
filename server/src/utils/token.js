@@ -10,7 +10,7 @@ export function generateToken(data,secret){
     }
 
     
-    const token = jwt.sign(payload,secret,{expiresIn:'2h'});
+    const token = jwt.sign(payload,secret);
 
     return token;
 }

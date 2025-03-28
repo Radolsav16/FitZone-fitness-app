@@ -14,6 +14,16 @@ export async function getChallange(_id){
     return await Challange.findById({_id}).lean();
 }
 
+export async function getUserChallangesCount(userId){
+    const user =  await User.findById({_id:userId});
+    return user.joinedChallanges;
+}
+
+export async function getSaveChallangesCount(userId){
+    const user =  await User.findById({_id:userId});
+    return user.savedChallanges;
+}
+
 export async function editChallange(_id,data) {
     return await Challange.findByIdAndUpdate(_id,data)
 }

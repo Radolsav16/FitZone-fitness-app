@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
-import { useUserParticipants } from "../../../api/participantApi";
+import { useUserJoinedChallanges } from "../../../api/challangeApi";
 
 export default function JoinChallanges({
   toggleJoin,
@@ -11,12 +11,14 @@ export default function JoinChallanges({
 }) {
   const navigate = useNavigate();
   const { id } = useUserContext();
+  const {setUserJoinedChallanges} = useUserJoinedChallanges(id)
 
 
   const joinChallangeHandler = async (formData) => {
     const { message } = Object.fromEntries(formData);
     const participant = await joinChallange(id, challangeId, message);
     setParticipants(oldState => [...oldState,participant]);
+    setUserJoinedChallanges(oldState => oldState + 1);
     toggleJoin();
     navigate(`/fitzone/challenges/details/${challangeId}`);
   };

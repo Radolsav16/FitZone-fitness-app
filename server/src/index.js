@@ -4,8 +4,8 @@ import dotenv from 'dotenv';
 dotenv.config()
 import cors from 'cors'
 import multer from 'multer'
-import { login, register } from './service/auth.js';
-import { createChallange, deleteChallange, editChallange, getAllChallanges, getChallange, saveChallange} from './service/challanges.js';
+import { getUser, login, register } from './service/auth.js';
+import { createChallange, deleteChallange, editChallange, getAllChallanges, getChallange, getSaveChallangesCount, getUserChallangesCount, saveChallange} from './service/challanges.js';
 import { createPost, deletePost, editPost, getAllPosts, getLikes, getPost, likePost, pushComment } from './service/blog.js';
 import { createComment, getAllComments } from './service/comments.js';
 import path from 'path'
@@ -116,6 +116,27 @@ app.delete('/challanges/:id', async (req, res) => {
     res.status(500).json(error)
   }
 });
+
+
+app.get('/joined-challanges/:userId',async (req, res) => {
+  const { userId } = req.params
+  try {
+   const challangesCount = await getUserChallangesCount(userId);
+   res.status(200).json(challangesCount)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+})
+
+app.get('/saved-challanges/:userId',async (req, res) => {
+  const { userId } = req.params
+  try {
+   const challanges = await getSaveChallangesCount(userId);
+   res.status(200).json(challanges)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+})
 
 app.post('/join-challange/:userId/:challangeId', async (req, res) => {
   const { userId , challangeId } = req.params
@@ -267,5 +288,16 @@ app.get('/blog/likes/:postId/', async (req, res) => {
     res.status(500).json({message:error.message})
   }
 });
+
+app.get('/user/:userId/', async (req, res) => {
+  const {userId} = req.params
+  try {
+     const user = await getUser(userId)
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+});
+
 
 app.listen(PORT,()=>console.log(`Server is running on port ${PORT}`))

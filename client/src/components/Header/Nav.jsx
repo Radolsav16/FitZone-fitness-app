@@ -4,7 +4,7 @@ import { useUserContext } from '../../contexts/UserContext'
 
 
 export default function Nav(){
-    const {email , imageUrl} = useUserContext()
+    const {email , imageUrl , id} = useUserContext()
 
     return(
         <>
@@ -62,7 +62,7 @@ export default function Nav(){
     <div className="navbar-icons d-flex align-items-center">
 
   {email ?  <>
-    <Link to="/fitzone/profile" className="nav-link profile-image">
+    <Link to={`/fitzone/profile/${id}`} className="nav-link profile-image">
           <img
             src={imageUrl}
             alt="Profile"

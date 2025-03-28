@@ -47,13 +47,16 @@ function App() {
         {/* User*/}
         <Route path="/fitzone/register" element={<Register />} />
         <Route path="/fitzone/login" element={<Login />} />
-        <Route path="/fitzone/profile" element={<Profile />} />
+        <Route path="/fitzone/profile/:id" element={<Profile />} />
         <Route path="/fitzone/logout" element={<Logout />} />
 
 
   
       
-        <Route path="/fitzone/recipes-search" element={<SelectionSearch  title={"Recipes Category 🥪"} subtitle={"Select a recipe category to explore amazing recipes!"} selection={selectionRecipes} />} />
+        <Route path="/fitzone/recipes-search" element={<SelectionSearch  
+        title={"Recipes Category 🥪"} 
+        subtitle={"Select a recipe category to explore amazing recipes!"}
+        selection={selectionRecipes} />} />
 
 
 

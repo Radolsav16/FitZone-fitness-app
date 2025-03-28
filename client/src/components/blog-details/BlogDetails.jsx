@@ -47,11 +47,11 @@ export default function BlogDetails() {
       <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-2xl overflow-hidden mt-20">
         {/* Creator Info */}
         <div className="flex items-center gap-4 mb-6">
-          <img
+          <Link to={`/fitzone/profile/${post.author?._id}`}><img
             src={post.author?.imageUrl}
             alt={post.author?.name}
             className="w-9 h-10 rounded-full"
-          />
+          /></Link>
           <div>
             <h3 className="text-lg font-semibold">{post.author?.name}</h3>
             <p className="text-sm text-gray-500">
@@ -116,11 +116,13 @@ export default function BlogDetails() {
                         key={c._id}
                         className="flex items-start space-x-4 border-b pb-2"
                       >
+                         <Link to={`/fitzone/profile/${c.userId?._id}`}>
                         <img
                           src={c.userId?.imageUrl}
                           alt={c.userId?.name}
                           className="w-9 h-10 rounded-full"
                         />
+                        </Link>
                         <div>
                           <p className="font-bold">{c.userId?.name}</p>
                           <p>{c.comment}</p>

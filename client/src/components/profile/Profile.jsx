@@ -1,79 +1,113 @@
+import { Link, useNavigate, useParams } from "react-router"
+import { useUserContext } from "../../contexts/UserContext"
+import { useUser } from "../../api/userApi"
+
 export default function Profile(){
+    const {id} = useParams()
+    const {user} = useUser(id)
+    const navigate = useNavigate()
+
+    const {id : currUser,userLogoutHandler} = useUserContext()
+    
+
+    const joinedChallenges = [];
+    
+    
+
+    
+
+
+
+    
+     
     return(
         <>
-          <div className="max-w-4xl mx-auto p-6 mt-20 space-y-12">
-  {/* Profile Header */}
-  <div className="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
-    <div className="flex items-center p-6 bg-gray-800">
-      <img
-        src="https://th.bing.com/th/id/OIP.hCfHyL8u8XAbreXuaiTMQgHaHZ?rs=1&pid=ImgDetMain"
-        alt="Profile"
-        className="w-24 h-24 rounded-full border-4 border-orange-500 object-cover"
-      />
-      <div className="ml-6">
-        <h2 className="text-2xl font-bold text-white">Georgi</h2>
-        <p className="text-gray-400">gogo@gmail.com</p>
+    <div className="max-w-4xl mx-auto p-6 bg-gray-100 rounded-lg shadow-md mt-20">
+       <div className="flex items-center mb-8">
+        <img
+          src={user.imageUrl}
+          alt={user.name}
+          className="w-24 h-24 rounded-full object-cover border-2 border-blue-500"
+        />
+        <div className="ml-6">
+          <h1 className="text-2xl font-bold text-gray-800">{user.name}</h1>
+          <p className="text-gray-600">{user.email}</p>
+        </div>
       </div>
-    </div>
 
-    <div className="p-6">
-      <h3 className="text-xl font-semibold text-white mb-4">About Me</h3>
-      <p className="text-gray-300">Motivated Person</p>
-    </div>
+      <div className="mb-6">
+        <h2 className="text-xl font-bold text-gray-800 mb-4">Liked Posts</h2>
+        {user.likedPost?.length > 0 ? (
+          <ul className="space-y-2">
+            {user.likedPost.map((post) => (
+              <Link to={`/fitzone/blog-details/${post?._id}`}>
+              <li key={post._id} className="p-4 bg-white rounded-lg shadow-sm border">
+                <p className="font-bold text-gray-700">{post?.title}</p>
+                <p className="text-gray-500">{post?.description}</p>
+              </li>
+              </Link>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-gray-500">No liked posts yet.</p>
+        )}
+      </div> 
+      { <div className="mb-6">
+        <h2 className="text-xl font-bold text-gray-800 mb-4">Saved Challenges</h2>
+        {user.savedChallenges?.length > 0 ? (
+          <ul className="space-y-2">
+            {user.savedChallenges.map((challenge, index) => (
+              <li key={index} className="p-4 bg-white rounded-lg shadow-sm border">
+                <p className="font-bold text-gray-700">{challenge?.title}</p>
+                <p className="text-gray-500">{challenge?.description}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-gray-500">No saved challenges yet.</p>
+        )}
+      </div> }
 
-    <div className="p-6 border-t border-gray-700 flex justify-end">
-      <button className="px-6 py-2 bg-orange-500 text-white font-bold rounded-lg hover:bg-orange-600 transition">
-        Edit Profile
-      </button>
-    </div>
-  </div>
+      
+       <div className="mb-6">
+        <h2 className="text-xl font-bold text-gray-800 mb-4">Joined Challenges</h2>
+        {joinedChallenges.length > 0 ? (
+          <ul className="space-y-2">
+            {joinedChallenges.map((challenge, index) => (
+              <li key={index} className="p-4 bg-white rounded-lg shadow-sm border">
+                <p className="font-bold text-gray-700">{challenge.title}</p>
+                <p className="text-gray-500">{challenge.description}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-gray-500">No joined challenges yet.</p>
+        )}
+      </div>
 
-  {/* Saved Challenges Section */}
-  <div className="bg-gray-900 rounded-lg shadow-lg p-6">
-    <h3 className="text-2xl font-semibold text-white mb-4">Saved Challenges</h3>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {[1, 2].map((challenge) => (
-        <div key={challenge} className="bg-gray-800 p-4 rounded-lg flex space-x-4">
-          <img
-            src="https://via.placeholder.com/100"
-            alt="Challenge"
-            className="w-24 h-24 rounded object-cover"
-          />
-          <div>
-            <h4 className="text-lg font-bold text-orange-500">Challenge #{challenge}</h4>
-            <p className="text-gray-400">This is a short description of the challenge.</p>
-            <button className="mt-2 text-orange-400 hover:text-orange-300 transition">
-              View Details
-            </button>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
 
-  {/* Liked Posts Section */}
-  <div className="bg-gray-900 rounded-lg shadow-lg p-6">
-    <h3 className="text-2xl font-semibold text-white mb-4">Liked Posts</h3>
-    <div className="space-y-6">
-      {[1, 2, 3].map((post) => (
-        <div key={post} className="bg-gray-800 p-4 rounded-lg flex space-x-4">
-          <img
-            src="https://via.placeholder.com/100"
-            alt="Post"
-            className="w-24 h-24 rounded object-cover"
-          />
-          <div>
-            <h4 className="text-lg font-bold text-orange-500">Post Title #{post}</h4>
-            <p className="text-gray-400">This is a preview of the post content.</p>
-            <button className="mt-2 text-orange-400 hover:text-orange-300 transition">
-              View Post
-            </button>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-</div>
+        {user._id === currUser &&   
+        <div className="flex justify-end">
+        <button
+          // onClick={onLeaveAccount}
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+        >
+          Edit
+        </button>
+        <button
+          onClick={()=>{
+            userLogoutHandler()
+             navigate('/')}}
+          className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition ml-3"
+        >
+          Leave Account
+        </button>
+      </div>
+    
+}
+</div> 
+ 
+   
 
         </>
     )
