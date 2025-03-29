@@ -1,24 +1,24 @@
 import { useNavigate } from "react-router";
+import { useProducts } from "../../../api/productApi";
 
 export default function IsSureModal({
     cancel,
     deleteFunc,
     text,
     navigatePath,
-    preText
+    preText,
 }){
     const navigate = useNavigate()
-
     
     return(
         <>
            <div className="flex justify-center items-center min-h-screen">
-      <button 
+      {/* <button 
         className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
         onClick={deleteFunc}
       >
-        Delete Challenge
-      </button>
+        
+      </button> */}
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-6 rounded-2xl shadow-lg w-96">
             <div className="flex justify-between items-center mb-4">

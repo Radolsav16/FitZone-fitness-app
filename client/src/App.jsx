@@ -29,6 +29,9 @@ import ChallangeDetails from "./components/challanges/challange-details/Challang
 
 import { UserProvider } from "./providers/UserProvider";
 import { useScroll } from "./utils/scroll";
+import AdminPanel from "./components/admin/AdminPanel";
+import AdminProductsForm from "./components/admin/admin-products-form/AdminProductsForm";
+import AdminEdit from "./components/admin/admin-edit/AdminEdit";
 
 function App() {
   useScroll();
@@ -68,6 +71,10 @@ function App() {
           <Route path="/fitzone/blog-details/:id" element={<BlogDetails />} />
           <Route path="/fitzone/post-create" element={<CreatePost />} />
           <Route path="/fitzone/post/edit/:id" element={<EditPost />} />
+
+          <Route path="/fitzone/admin" element={<AdminPanel/>} />
+          <Route path="/fitzone/add-product" element={<AdminProductsForm/>} />
+          <Route path='/fitzone/product/edit/:id' element={<AdminEdit />}/>
 
           {/* Exercises */}
           <Route path="/fitzone/exercises/:id" element={<ExerciseDetails />} />\
