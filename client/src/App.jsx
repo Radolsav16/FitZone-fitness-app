@@ -32,6 +32,9 @@ import { useScroll } from "./utils/scroll";
 import AdminPanel from "./components/admin/AdminPanel";
 import AdminProductsForm from "./components/admin/admin-products-form/AdminProductsForm";
 import AdminEdit from "./components/admin/admin-edit/AdminEdit";
+import Shop from "./pages/Shop";
+import ShopDetails from "./components/shop/shop-details/ShopDetails";
+import Checkout from "./components/shop/checkout/CheckOut";
 
 function App() {
   useScroll();
@@ -75,6 +78,13 @@ function App() {
           <Route path="/fitzone/admin" element={<AdminPanel/>} />
           <Route path="/fitzone/add-product" element={<AdminProductsForm/>} />
           <Route path='/fitzone/product/edit/:id' element={<AdminEdit />}/>
+
+
+          <Route path="/fitzone/shop" element = {<Shop />}/>
+          <Route path="/fitzone/shop/details" element = {<ShopDetails />}/>
+          <Route path="/fitzone/shop/checkout" element = {<Checkout />}/>
+
+
 
           {/* Exercises */}
           <Route path="/fitzone/exercises/:id" element={<ExerciseDetails />} />\

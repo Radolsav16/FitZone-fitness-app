@@ -18,11 +18,11 @@ export default function HeroBeginOverlay(){
 
                     {email ? 
                     <>
-                        <h1 className="text-white">Welcome Back ,<span className="hero-name">{name}</span>!</h1>
-                        <h2 className="subtitle">Your daily dose of inspiration awaits: fresh recipes, energizing workouts, and thrilling challenges that spark excitement!</h2>
+                        <h1 className="text-white">Welcome, <span className="hero-name">{name}</span>!</h1>
+     
                         </>: 
                         <>
-                        <h1 className="text-white">Join FitZone Ultimate Fitness Application!</h1>
+                        <h1 className="text-white">Join FitZone Fitness Application!</h1>
                         
 
                         <Link to="/fitzone/register" className="btn custom-btn mt-3" >Register</Link>

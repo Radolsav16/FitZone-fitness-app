@@ -11,7 +11,8 @@ import { createComment, getAllComments } from './service/comments.js';
 import path from 'path'
 import { checkToken } from './utils/token.js';
 import { getLatestParticipants,  getParticipants, getUserParticipateCount, joinChallange } from './service/participants.js';
-import { createProduct, deleteProduct, editProduct, getAllProduct, getProduct } from './service/products.js';
+import { createProduct, deleteProduct, editProduct, getAllProduct, getProduct, mostSellProduct } from './service/products.js';
+import { createTestimonial, getThreeTestimonails } from './service/testimonials.js';
 
 
 const PORT = process.env.PORT;
@@ -329,6 +330,8 @@ app.get('/products/:id', async (req, res) => {
   }
 });
 
+
+
 app.put('/product/:id', async (req, res) => {
   const {id} = req.params
   try  {
@@ -350,5 +353,32 @@ app.delete('/product/:id', async (req, res) => {
 });
 
 
+app.get('/most-sell-products/', async (req, res) => {
+  const {id} = req.params
+  try {
+     const product = await mostSellProduct(id)
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+});
+
+app.post('/create-testimonial', async (req, res) => {
+  try {
+     await createTestimonial(req.body)
+    res.status(200).json({message:'Succesfull send testimonials'});
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+});
+
+app.get('/testimonials', async (req, res) => {
+  try {
+     const testimonials = await getThreeTestimonails(req.body)
+    res.status(200).json(testimonials);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+});
 
 app.listen(PORT,()=>console.log(`Server is running on port ${PORT}`))
