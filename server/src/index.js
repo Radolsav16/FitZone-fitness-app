@@ -11,6 +11,7 @@ import { createComment, getAllComments } from './service/comments.js';
 import path from 'path'
 import { checkToken } from './utils/token.js';
 import { getLatestParticipants,  getParticipants, getUserParticipateCount, joinChallange } from './service/participants.js';
+import { createProduct, deleteProduct, editProduct, getAllProduct, getProduct } from './service/products.js';
 
 
 const PORT = process.env.PORT;
@@ -298,6 +299,56 @@ app.get('/user/:userId/', async (req, res) => {
     res.status(500).json({message:error.message})
   }
 });
+
+app.post('/create-product/', async (req, res) => {
+
+  try {
+   await createProduct(req.body);
+   res.status(200).json({message:"Succesfull create product"})
+  } catch (error) {
+    res.status(500).json(error)
+  }
+});
+
+app.get('/products/', async (req, res) => {
+  try {
+     const products = await getAllProduct()
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+});
+
+app.get('/products/:id', async (req, res) => {
+  const {id} = req.params
+  try {
+     const product = await getProduct(id)
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+});
+
+app.put('/product/:id', async (req, res) => {
+  const {id} = req.params
+  try  {
+   await editProduct(id,req.body);
+   res.status(200).json({message:"Succesfull edit product"})
+  } catch (error) {
+    res.status(500).json(error)
+  }
+});
+
+app.delete('/product/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+   await deleteProduct(id);
+   res.status(204).json({message:"Succefully delete product!"})
+  } catch (error) {
+    res.status(500).json(error)
+  }
+});
+
 
 
 app.listen(PORT,()=>console.log(`Server is running on port ${PORT}`))

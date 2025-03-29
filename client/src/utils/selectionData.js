@@ -72,3 +72,12 @@ export const selectionRecipes = [
   { name: 'Snacks 🥞 ', href: '/fitzone/recipes/snacks'},
   { name: 'Beverages 🧃', href: '/fitzone/recipes/bevarages'},
 ]
+
+export const selectionCategoryOptions = [
+{value:"",label:"Select required category"},
+{value:"Gym",label:"Gym Equipment"},
+{value:"Accessories",label:"Accessories"},
+{value:"Cardio",label:"Cardio Equipment"},
+{value:"Nutrition",label:"Nutrition"},
+{value:"Wearables",label:"Wearables"}, 
+]

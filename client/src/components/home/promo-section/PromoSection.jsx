@@ -8,7 +8,7 @@ export default function PromoSection() {
           <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
             <div className="sm:max-w-lg">
               <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Take your summer workouts to the next level
+              Take your workouts to the next level
               </h1>
               <p className="mt-4 text-xl text-gray-500">
               With our products and essentials your goals are closer than ever!
