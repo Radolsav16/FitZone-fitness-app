@@ -1,29 +1,26 @@
-import { useEffect , useState } from "react";
-import { getAllExercises } from "../../service/exerices.js";
-import { Link } from "react-router-dom";
-import Pagination from "../util/pagination/Pagination.jsx";
+import { useEffect , useState  } from "react";
+import { Link, useParams } from "react-router-dom";
+import { getTargetMuscleExercises } from "../../../service/exerices.js";
 
-
-export default function Exercise() {
+export default function TargetExercise() {
 
     const [exercises,SetExercises] = useState([]);
-    const [page,SetCurrentPage] = useState(1);
-    const [offset,SetOffset] = useState(0);
+
+    const params = useParams();
+
+    const target = params.target;
 
     useEffect(()=>{
         (async () =>{
-            const exercises = await getAllExercises(offset);
+            const exercises = await getTargetMuscleExercises(target);
+            console.log(exercises)
             SetExercises(exercises)
-            SetOffset(page - 1 * 9)
         })()
-    },[page])
-
-  
+    },[])
 
   return (
-    <>
     <div className="max-w-6xl mx-auto p-8 mt-20">
-      <h1 className="text-4xl font-bold text-center mb-8">All Exercises 🏋️</h1>
+      <h1 className="text-4xl font-bold text-center mb-8">{target}</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {exercises.map((exercise) => (
           <div key={exercise.id} className="bg-white shadow-lg rounded-lg p-6">
@@ -42,7 +39,5 @@ export default function Exercise() {
         ))}
       </div>
     </div>
-   <Pagination  SetCurrentPage = {SetCurrentPage} page={page}/>
-   </>
   );
 }

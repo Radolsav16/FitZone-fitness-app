@@ -1,9 +1,12 @@
 import { useState , useEffect } from "react"
 import { fetchApi } from "../utils/requester";
 import { useFormState } from "../hooks/FormStateHook";
+import { useLoadingContext } from "../contexts/LoadingContext";
 
 
 const baseUrl = 'http://localhost:3030';
+
+
 
 
 export const useChallanges =  () => {
@@ -13,9 +16,11 @@ export const useChallanges =  () => {
 
     useEffect(() => {
      (async ()=>{
-
+      
       const result = await fetchApi.get(baseUrl + '/challanges',{'Content-Type':'application/json'});
       setChallanges(result)
+
+  
      })()
     }, []);
 

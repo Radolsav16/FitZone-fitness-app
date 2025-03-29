@@ -1,6 +1,10 @@
 import axios from "axios";
 
+
+
+
 const requester = async (method,url,data,headers = {}) => {
+  
     const config = {
         method,
         url,
@@ -16,14 +20,11 @@ const requester = async (method,url,data,headers = {}) => {
 
       try {
         const res = await axios(config);
-      
-        return res.data;
         
+        return res.data;
       } catch (error) {
         throw Error(error.message)
       }
-      
-     
 
 }
 

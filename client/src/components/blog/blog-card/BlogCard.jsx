@@ -40,7 +40,7 @@ export default function BlogCard({
 
     {/* Title and Content */}
     <h2 className="text-xl font-bold text-gray-800 mb-2">{post.title}</h2>
-    <p className="text-gray-700 mb-4">{post.content}</p>
+    <p className="text-gray-700 mb-4">{post.description}</p>
 
     {/* Read More Button */}
     <Link

@@ -5,7 +5,7 @@ export default function BlogFilters(){
     return(
         <>
 
-<div className="flex flex-wrap justify-center gap-4 mb-6 mt-20">
+<div className="flex flex-wrap justify-center gap-4 mb-6">
   {filters.map((topic, index) => (
     <button
       key={index}
