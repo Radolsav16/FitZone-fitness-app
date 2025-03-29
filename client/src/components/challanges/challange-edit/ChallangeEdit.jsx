@@ -1,5 +1,5 @@
 import SelectElement from "../create-challange/SelectElement";
-import Input from "../../default-input-item/Input";
+import Input from "../../util/default-input-item/Input";
 import {
   challangeTypeOptions,
   difficultyOptions,

@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { useChallange, useDeleteChallange, useJoinChallange } from "../../../api/challangeApi";
-import IsSureModal from "../../is-sure-modal/IsSureModal";
+import IsSureModal from "../../util/is-sure-modal/IsSureModal";
 import { useUserContext } from "../../../contexts/UserContext";
 import JoinChallanges from "../join-challanges/JoinChallanges";
 import CreateChallangeCaller from "../create-challange-caller/CreateChallangeCaller";

@@ -1,0 +1,70 @@
+.hero {
+    background-image: url('../images/hero-bg.jpg');
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  .hero-name{
+    color:rgba(255, 255, 255, 0.412); /* A dark gray for readability */
+  }
+
+  .subtitle {
+    font-size: 1.8rem; /* Adjusts the font size */
+    font-weight: bold; /* Makes the text bold */
+    color:rgba(255, 255, 255, 0.815); /* A dark gray for readability */
+    text-align: center; /* Centers the text */
+    line-height: 1.5; /* Improves spacing between lines */
+  }
+
+  .hero-section {
+    background-image: url('https://img.freepik.com/premium-photo/flat-lay-composition-vegetables-with-copyspace_23-2148190210.jpg?w=1800'); /* Replace with your image */
+    background-size: cover;
+    background-position: center;
+    padding: 100px 20px;
+    text-align: center;
+  }
+  
+  .hero-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark transparent overlay */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Adds depth */
+    color: white;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 20px;
+    text-transform: uppercase; /* Stylish emphasis */
+  }
+  
+  .hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    line-height: 1.8;
+  }
+  
+  .hero-button {
+    background-color: #FF9800; /* Vibrant orange */
+    color: white;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+  }
+  
+  .hero-button:hover {
+    background-color: #E67E22; /* Slightly darker orange */
+    transform: scale(1.05); /* Subtle growth on hover */
+  }
+  

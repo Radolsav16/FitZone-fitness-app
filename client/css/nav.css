@@ -1,0 +1,256 @@
+.navbar {
+    background: var(--dark-color);
+    padding: 1rem;
+  }
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.navbar-brand {
+    color: var(--white-color);
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-weight-bold);
+    line-height: normal;
+    padding-top: 0;
+}
+
+.nav-item .nav-link {
+    display: block;
+    color: var(--white-color);
+    font-size: var(--menu-font-size);
+    font-weight: var(--font-weight-normal);
+    text-transform: uppercase;
+    padding: 2px 6px;
+}
+
+.nav-item .nav-link.active,
+.nav-item .nav-link:hover {
+    color: var(--primary-color);
+}
+
+.navbar .social-icon li a {
+    color: var(--white-color);
+}
+
+.navbar-toggler {
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    margin: 0 10px 0 0;
+    width: 30px;
+    height: 35px;
+    outline: none;
+}
+
+.navbar-toggler:focus {
+    outline: none;
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+    background: transparent;
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before,
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
+    transition: top 300ms 50ms ease, -webkit-transform 300ms 350ms ease;
+    transition: top 300ms 50ms ease, transform 300ms 350ms ease;
+    transition: top 300ms 50ms ease, transform 300ms 350ms ease, -webkit-transform 300ms 350ms ease;
+    top: 0;
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
+    transform: rotate(45deg);
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
+    transform: rotate(-45deg);
+}
+
+.navbar-toggler .navbar-toggler-icon {
+    background: var(--primary-color);
+    transition: background 10ms 300ms ease;
+    display: block;
+    width: 30px;
+    height: 2px;
+    position: relative;
+}
+
+.navbar-toggler .navbar-toggler-icon::before,
+.navbar-toggler .navbar-toggler-icon::after {
+    transition: top 300ms 350ms ease, -webkit-transform 300ms 50ms ease;
+    transition: top 300ms 350ms ease, transform 300ms 50ms ease;
+    transition: top 300ms 350ms ease, transform 300ms 50ms ease, -webkit-transform 300ms 50ms ease;
+    position: absolute;
+    right: 0;
+    left: 0;
+    background: var(--primary-color);
+    width: 30px;
+    height: 2px;
+    content: '';
+}
+
+.navbar-toggler .navbar-toggler-icon::before {
+    top: -8px;
+}
+
+.navbar-toggler .navbar-toggler-icon::after {
+    top: 8px;
+}
+
+.profile-image {
+    display: flex;
+    align-items: center;
+    margin-left: 10px; /* Space from other items */
+}
+
+.profile-image .profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover; /* Ensures proper image fit */
+    border: 2px solid var(--white-color); /* Subtle border */
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.profile-image .profile-img:hover {
+    transform: scale(1.1); /* Zoom effect */
+    border-color: var(--primary-color); /* Border changes color on hover */
+}
+
+/* Navbar items alignment */
+.navbar-nav .nav-item {
+    display: flex;
+    align-items: center; /* Vertically align all navbar items */
+}
+
+.nav-item.logout {
+    display: flex;
+    align-items: center;
+}
+
+.logout-icon {
+    width: 25px;
+    height: 25px;
+    color: var(--white-color);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.nav-item.logout:hover .logout-icon {
+    transform: scale(1.2);
+    color: var(--primary-color);
+}
+
+.nav-item:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 10;
+}
+
+.dropdown-item {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: orangered; /* Blue background on hover */
+  color: #fff; /* White text on hover */
+}
+
+/* Bag link and icon alignment */
+.bag-link {
+    display: flex;
+    align-items: center; /* Aligns icon and cart count vertically */
+    position: relative; /* Makes the cart count position relative */
+    color: var(--white-color);
+}
+
+.bag-icon {
+    width: 25px;
+    height: 25px;
+    color: var(--white-color); /* Ensure visibility */
+    transition: transform 0.3s, color 0.3s;
+}
+
+.cart-count {
+    position: absolute;
+    top: 0; /* Align cart count with the top of the icon */
+    right: -10px; /* Shift slightly to the right */
+    transform: translateY(-25%);
+    background: var(--primary-color); /* Highlight with primary color */
+    color: var(--white-color);
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%; /* Circular badge */
+}
+
+
+
+/* Mobile Menu Styling */
+.mobile-menu {
+  position: absolute;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  background-color: #171819;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  z-index: 1000;
+  padding: 20px; /* Added padding for content spacing */
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color:  #f13a12; /* Orange background */
+  color: black; /* Black text */
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.close-btn:hover {
+  background-color: #f13a12; /* Slightly darker orange on hover */
+  color: white; /* White text on hover */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Menu List */
+.menu-list {
+  list-style: none;
+  margin: 20px 0;
+  padding: 0;
+}
+
+/* Menu Items */
+.menu-item {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.logout{
+    color: red;
+    font-weight: bold;
+}
+
