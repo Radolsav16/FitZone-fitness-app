@@ -105,3 +105,19 @@ export const useDeleteProduct = () =>{
 
   return {deleteProduct ,cancel , showModal , setShowModal}
 }
+
+export const useMostBuyingProducts = () =>{
+  const [products, setProducts] = useState([]);
+  
+  useEffect(() => {
+    (async () => {
+      const result = await fetchApi.get(baseUrl + '/most-sell-products/',{'Content-Type':'application/json'});
+      setProducts(result);
+    })();
+  },[]);
+
+  return {
+    products,
+    setProducts
+  };
+}

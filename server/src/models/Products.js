@@ -22,6 +22,9 @@ const productsSchema = new Schema({
   rating: {
     type:Number
   },
+  sells:{
+    type:Number
+  },
   reviews: [{
     type:Types.ObjectId
   }],

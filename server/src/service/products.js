@@ -20,3 +20,8 @@ export async function editProduct(_id,data) {
 export async  function deleteProduct(_id){
     return await Product.findByIdAndDelete(_id);
 }
+
+
+export async function  mostSellProduct() {
+    return  await Product.find().sort({ sells : -1 }).limit(3).lean();   
+}
