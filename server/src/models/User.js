@@ -29,6 +29,15 @@ const userSchema = new Schema({
     joinedChallanges:[{
         type:Types.ObjectId,
         ref:'Challange'
+    }],
+    cart:[{
+        productId:{
+            type:String,
+            ref:'Product'
+        },
+        quantity:{
+            type:Number,
+        }
     }]
 
 

@@ -5,21 +5,27 @@ import { useFormState } from "../hooks/FormStateHook";
 const baseUrl = 'http://localhost:3030';
 
 
-export const useProducts = () => {
-    const [products, setProducts] = useState([]);
-  
-    useEffect(() => {
-      (async () => {
-        const result = await fetchApi.get(`http://localhost:3030/products`);
-        setProducts(result);
-      })();
-    },[]);
-  
-    return {
-      products,
-      setProducts
-    };
+export const useProducts = (currPage) => {
+  const [products, setProducts] = useState([]);
+ 
+
+  useEffect(() => {
+    (async () => {
+      const result = await fetchApi.get(`http://localhost:3030/products`,{
+        'Content-Type':'applciation/json'
+      },{
+        page:currPage,limit:9
+      });
+      setProducts(result);
+    })();
+  },[currPage]);
+
+  return {
+    products,
+    setProducts
   };
+};
+
 
 
   export const useProduct = (id) => {

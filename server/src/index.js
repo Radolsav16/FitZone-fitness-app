@@ -13,6 +13,7 @@ import { checkToken } from './utils/token.js';
 import { getLatestParticipants,  getParticipants, getUserParticipateCount, joinChallange } from './service/participants.js';
 import { createProduct, deleteProduct, editProduct, getAllProduct, getProduct, mostSellProduct } from './service/products.js';
 import { createTestimonial, getThreeTestimonails } from './service/testimonials.js';
+import { addToCart, getCart } from './service/cart.js';
 
 
 const PORT = process.env.PORT;
@@ -312,13 +313,24 @@ app.post('/create-product/', async (req, res) => {
 });
 
 app.get('/products/', async (req, res) => {
+  const page = Number(req.query.page);
+  const limit = Number(req.query.limit);
+
+ 
+
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
+
+
+  
   try {
-     const products = await getAllProduct()
+     const products = await getAllProduct(startIndex,endIndex)
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({message:error.message})
   }
 });
+
 
 app.get('/products/:id', async (req, res) => {
   const {id} = req.params
@@ -380,5 +392,27 @@ app.get('/testimonials', async (req, res) => {
     res.status(500).json({message:error.message})
   }
 });
+
+app.post('/add-to-cart/:userId/:productId',async (req,res) => {
+  const {userId, productId} = req.params
+  const {quantity} = req.body;
+  try {
+    await addToCart(userId,productId,quantity)
+   res.status(200).json({message:'Succesfull added'});
+ } catch (error) {
+   res.status(500).json({message:error.message})
+ }
+})
+
+app.get('/cart/:userId',async (req,res) => {
+  const {userId} = req.params
+  try {
+    const cart = await getCart(userId)
+    console.log(cart)
+   res.status(200).json(cart);
+ } catch (error) {
+   res.status(500).json({message:error.message})
+ }
+})
 
 app.listen(PORT,()=>console.log(`Server is running on port ${PORT}`))

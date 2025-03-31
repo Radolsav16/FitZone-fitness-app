@@ -6,6 +6,7 @@ export const UserContext = createContext({
     name:"",
     imageUrl:"",
     accessToken:"",
+    cart:[],
     userLoginHandler:()=>null,
     userLogoutHandler:()=>null
 })

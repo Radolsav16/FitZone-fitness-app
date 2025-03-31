@@ -73,11 +73,32 @@ export const selectionRecipes = [
   { name: 'Beverages 🧃', href: '/fitzone/recipes/bevarages'},
 ]
 
+
+export const subCategories = [
+  { name: "Accessories", href: "/fitzone/shop/accessories" },
+  { name: "Martial Arts Gear", href: "/fitzone/shop/martial-arts-gear" },
+  { name: "Supplements", href: "/fitzone/shop/supplements" },
+  { name: "Training Apparel", href: "/fitzone/shop/training-apparel" },
+  { name: "Strength Equipment", href: "/fitzone/shop/strength-equipment" },
+  { name: "Endurance Tools", href: "/fitzone/shop/endurance-tools" },
+  { name: "Recovery Equipment", href: "/fitzone/shop/recovery-equipment" },
+  { name: "Outdoor Gear", href: "/fitzone/shop/outdoor-gear" },
+  { name: "Cardio Machines", href: "/fitzone/shop/cardio-machines" },
+  { name: "Gym Essentials", href: "/fitzone/shop/gym-essentials" },
+];
+
+
+
 export const selectionCategoryOptions = [
 {value:"",label:"Select required category"},
-{value:"Gym",label:"Gym Equipment"},
-{value:"Accessories",label:"Accessories"},
-{value:"Cardio",label:"Cardio Equipment"},
-{value:"Nutrition",label:"Nutrition"},
-{value:"Wearables",label:"Wearables"}, 
+{value:"gym-essentials",label:"Gym Essentials"},
+{value:"accessories",label:"Accessories"},
+{value:"cardio-machines",label:"Cardio Machines"},
+{value:"supplements",label:"supplements"},
+{value:"martial-arts-gear",label:"Martial Arts Gear"}, 
+{value: "training-apparel", label: "Training Apparel"},
+{ value: "strength-equipment", label:"Strength Equipment"},
+{ value: "endurance-tools", label: "Endurance-Tools" },
+{ value: "recovery-equipment", label: "Recovery-Equipment" },
+{ value: "Outdoor Gear", label: "Outdoor Gear" },
 ]

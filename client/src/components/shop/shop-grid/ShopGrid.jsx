@@ -1,51 +1,19 @@
-const products = [
-  {
-    id: 1,
-    name: "Product 1",
-    price: "$10.00",
-    image: "https://th.bing.com/th/id/OIP.Dx51gSVcS2slj-NEcZmI0gHaHu?rs=1&pid=ImgDetMain", // Replace with actual image URL
-  },
-  {
-    id: 2,
-    name: "Product 2",
-    price: "$20.00",
-    image: "https://th.bing.com/th/id/OIP.Dx51gSVcS2slj-NEcZmI0gHaHu?rs=1&pid=ImgDetMain", // Replace with actual image URL
-  },
-  {
-    id: 3,
-    name: "Product 3",
-    price: "$30.00",
-    image: "https://th.bing.com/th/id/OIP.Dx51gSVcS2slj-NEcZmI0gHaHu?rs=1&pid=ImgDetMain", // Replace with actual image URL
-  },
-  {
-      id: 1,
-      name: "Product 1",
-      price: "$10.00",
-      image: "https://th.bing.com/th/id/OIP.Dx51gSVcS2slj-NEcZmI0gHaHu?rs=1&pid=ImgDetMain", // Replace with actual image URL
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: "$20.00",
-      image: "https://th.bing.com/th/id/OIP.Dx51gSVcS2slj-NEcZmI0gHaHu?rs=1&pid=ImgDetMain", // Replace with actual image URL
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      price: "$30.00",
-      image: "https://th.bing.com/th/id/OIP.Dx51gSVcS2slj-NEcZmI0gHaHu?rs=1&pid=ImgDetMain", // Replace with actual image URL
-    }
-];
+import { useProducts } from "../../../api/productApi";
 
 
-export default function ShopGrid(){
+export default function ShopGrid({ setProductId, setShowPreview, page }){
+  const { products } = useProducts(page)
   return(
     <>
     <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 {products.map((product) => (
    <div
-   key={product.id}
-   className="border p-4 rounded shadow-lg flex flex-col items-center"
+   key={product._id}
+   className="border p-4 rounded shadow-lg flex flex-col items-center cursor-pointer"
+   onClick={()=>{
+    setProductId(product?._id);
+    setShowPreview(true);
+   }}
  >
    <img
      src={product.image}
@@ -53,8 +21,11 @@ export default function ShopGrid(){
      className="w-full h-auto rounded mb-4"
    />
    <h2 className="text-lg font-bold">{product.name}</h2>
-   <p className="text-gray-700">{product.price}</p>
-   <button className="bg-blue-500 text-white px-4 py-2 mt-2 rounded flex items-center">
+   <p className="text-gray-700">${product.price.toFixed(2)}</p>
+   <button className="bg-blue-500 text-white px-4 py-2 mt-2 rounded flex items-center" onClick={()=>{
+    setProductId(product?._id);
+    setShowPreview(true);
+   }}>
      <svg
        xmlns="http://www.w3.org/2000/svg"
        fill="none"

@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 
-const requester = async (method,url,data,headers = {}) => {
+const requester = async (method,url,data,headers = {},params) => {
   
     const config = {
         method,
@@ -11,9 +11,10 @@ const requester = async (method,url,data,headers = {}) => {
         headers,
       };
 
+  
 
       if (method === 'GET' || method === 'DELETE') {
-        config.params = data;
+        config.params = params ? params : data;
       }else{
         config.data = data;
       }
@@ -29,8 +30,8 @@ const requester = async (method,url,data,headers = {}) => {
 }
 
 
-async function get(url,headers){
-    return await requester('GET',url,null,headers)
+async function get(url,headers,params){
+    return await requester('GET',url,null,headers,params)
 }
 
  async function post(url,data,headers){

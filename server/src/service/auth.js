@@ -24,7 +24,8 @@ export async function login(data){
         name:user.name,
         email:user.email,
         imageUrl:user.imageUrl,
-        accessToken:token
+        accessToken:token,
+        cart:user.cart
     };
     
 }
@@ -52,7 +53,8 @@ export async function register(data,imageUrl){
         name:user.name,
         email:user.email,
         imageUrl:user.imageUrl,
-        accessToken:token
+        accessToken:token,
+        cart:user.cart
     };
 }
 

@@ -4,6 +4,8 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import ShopGrid from "../components/shop/shop-grid/ShopGrid";
 import ShopPreview from "../components/shop/shop-preview/ShopPreview";
+import { useAddToCart, useShop } from "../api/shopApi";
+import { useUserContext } from "../contexts/UserContext";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -21,6 +23,25 @@ const sortOptions = [
 
 
 export default function Shop() {
+  const {
+    cancel,
+    setPage,
+    page,
+    lastPage,
+    showPreview,
+    productId,
+    setProductId,
+    setShowPreview,
+  } = useShop()
+  const {id , userLoginHandler} = useUserContext()
+  const { addToCart } = useAddToCart(id)
+
+
+  const addToCartHandler = (data) =>{
+    addToCart(id,data);
+    
+  }
+
   return (
     <>
       <div className="bg-white mt-20">
@@ -76,19 +97,28 @@ export default function Shop() {
               <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                 <ShopFilters />
             
-                <ShopGrid />     
+                <ShopGrid  page={page} setProductId = {setProductId} setShowPreview={setShowPreview}/>  
+
+                {showPreview &&  <ShopPreview   productId={productId}
+                    cancel={cancel}
+                    addToCart={addToCartHandler}/>}
+
                 </div>
                 <div className="flex justify-end items-center space-x-4 mt-4 w-full pr-6 md:justify-end justify-center">
   <button
     className="bg-blue-500 text-white px-6 py-3 text-xl rounded flex items-center"
+      disabled={page === 1 ? true : false}
+      onClick={() => setPage((oldState) => oldState - 1)}
   >
     <span>{`<`}</span>
   </button>
-  <span className="text-gray-700 font-bold text-xl">
-    Page 1 of 20
+  <span className="text-gray-700 font-bold text-xl" >
+    Page {page} of {lastPage}
   </span>
   <button
     className="bg-blue-500 text-white px-6 py-3 text-xl rounded flex items-center"
+    disabled={page === lastPage}
+    onClick={() => setPage((oldState) => oldState + 1)}
   >
     <span>{`>`}</span>
   </button>
