@@ -26,8 +26,8 @@ export default function MobileNav({ close }) {
             </Link>
           </li>
           <li>
-            <Link to={"/fitzone/store"} className="menu-item" onClick={close}>
-              Store
+            <Link to={"/fitzone/shop"} className="menu-item" onClick={close}>
+              Shop
             </Link>
           </li>
           <li>

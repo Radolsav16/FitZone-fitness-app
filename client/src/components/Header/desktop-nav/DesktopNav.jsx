@@ -28,7 +28,7 @@ export default function DesktopNav() {
           </li>
 
           <li className="nav-item relative">
-            <Link to="/fitzone/store" className="nav-link smoothScroll">
+            <Link to="/fitzone/shop" className="nav-link smoothScroll">
               Store
             </Link>
             <ul className="dropdown-menu hidden absolute left-0 mt-2 bg-white shadow-lg rounded-lg">

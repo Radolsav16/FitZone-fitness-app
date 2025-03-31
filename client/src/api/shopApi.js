@@ -54,6 +54,18 @@ export const useDeleteProductFromCart = (id) =>{
   }
 }
 
+export const useEmptyCart = (id) =>{
+  
+
+  const emtpyCart = async () =>{
+    await fetchApi.del(baseUrl + `/emtpy-cart/${id}`);
+  }
+
+  return {
+    emtpyCart
+  }
+}
+
 
 
 export const useUserCart = (userId) =>{
@@ -69,5 +81,16 @@ export const useUserCart = (userId) =>{
   return {
       cart,
       setCart
+  }
+}
+
+export const useCreateOrder = (userId)=> {
+  
+  const createOrder = async (data) =>{
+    await fetchApi.post(baseUrl + `/order/${userId}`,data,{'Content-Type':'application/json'})
+  }
+
+  return {
+    createOrder
   }
 }

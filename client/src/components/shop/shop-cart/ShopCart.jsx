@@ -1,10 +1,9 @@
-import { useState } from "react"
 import {  useDeleteProductFromCart, useUserCart } from "../../../api/shopApi"
 import { useUserContext } from "../../../contexts/UserContext"
 import { useCart } from "../../../providers/CartProvider"
 import { updateCartOnDelete } from "../../../utils/updateCart"
 
-// import { CalculateTotal } from "../../../utils/CalculateTotal"
+import {Link} from 'react-router'
 
 export default function  ShopCart(){
   const {hideCart} = useCart()
@@ -63,19 +62,28 @@ export default function  ShopCart(){
     </ul>
   </div>
 
-  {/* Cart Footer */}
-  <div className="pt-4 bg-white mb-20">
-    <div className="flex justify-between text-lg font-semibold pl-2 pr-2">
-      <p>Total:</p>
-      <p>${CalculateTotalPrice().toFixed(2)}</p>
-    </div>
-    <button className="w-full bg-blue-500 text-white py-2 mt-4 rounded hover:bg-blue-600 transition">
-      Checkout
-    </button>
-    <button className="w-full text-blue-600 mt-2 hover:underline">
-      Continue Shopping → 
-    </button>
+
+ <div className="pt-4 bg-white mb-20">
+  <div className="flex justify-between text-lg font-semibold pl-2 pr-2">
+    <p>Total:</p>
+    <p>${CalculateTotalPrice().toFixed(2)}</p>
   </div>
+  {/* Make the Checkout button a link */}
+  <Link
+    className="w-full bg-blue-500 text-white py-2 mt-4 rounded hover:bg-blue-600 transition text-center block"
+    to="/fitzone/checkout"
+  >
+    Checkout
+  </Link>
+  {/* Continue Shopping link */}
+  <Link
+    className="w-full text-blue-600 mt-2 hover:underline text-center block"
+    to="/fitzone/shop"
+    onClick={hideCart}
+  >
+    Continue Shopping →
+  </Link>
+</div>
 </div>
         </>
     )
