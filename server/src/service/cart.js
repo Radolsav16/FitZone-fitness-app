@@ -25,13 +25,26 @@ export async function addToCart(userId,productId,quantity){
 
 
 export async function getCart(userId){
-    const user = await User.findById({_id:userId});
+    const user = await User.findById({_id:userId}).populate(
+        {
+            path:'cart.productId',
+            model:'Product'
+        }
+    );
 
 
-   
-    if(!user.cart){
-        return [];
-    }
+    
 
-    return await user.populate('cart').lean()
+    return user.cart
+}
+
+
+export async function deleteFromCart(userid,productId) {
+    const user = await User.findById({_id:userid});
+
+    const index = user.cart.findIndex(o => o.productId == productId);
+
+    user.cart.splice(index,1);
+
+    return user.save()
 }
