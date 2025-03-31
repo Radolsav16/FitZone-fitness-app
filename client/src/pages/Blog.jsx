@@ -3,9 +3,15 @@ import BlogCard from "../components/blog/blog-card/BlogCard";
 import BlogFilters from "../components/blog/blog-filters/BlogFilters";
 import NoPosts from "../components/blog/no-posts/NoPosts";
 import PostCreateCaller from "../components/blog/post-create-caller/PostCreateCaller";
+import { useLocation } from "react-router";
 
 export default function Blog(){
-    const { posts } = usePosts()
+    const queryObj = new URLSearchParams(useLocation().search);
+    const query = queryObj.get('searchedBy')
+
+    const { posts } = usePosts(query)
+
+    
     return(
         <>
 

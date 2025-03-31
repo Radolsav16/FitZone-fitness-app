@@ -20,7 +20,7 @@ export default function AdminEdit(){
     return(
         <>
          <div className="min-h-screen bg-gray-100 p-8 mt-20">
-        <h1 className="text-2xl font-bold mb-4">Add Product</h1>
+        <h1 className="text-2xl font-bold mb-4">Edit Product</h1>
         <form
           className="bg-white p-6 rounded shadow-md space-y-4"
           action={editProductHanlder}
@@ -80,7 +80,7 @@ export default function AdminEdit(){
             type="submit"
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
           >
-            Add Product
+            Edit Product
           </button>
         </form>
       </div>

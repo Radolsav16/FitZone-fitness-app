@@ -4,3 +4,18 @@ export async function createOrder (userId,data) {
     data.userId = userId
     await Order.create(data)
 }
+
+
+export async function orderRevenue () {
+    const orders = await Order.find().lean();
+
+    const revenue = orders.reduce((total,item)=>{
+        return total += item.total;
+    },0)
+
+    return revenue
+}
+
+export async function ordersCount() {
+    return (await Order.find()).length   
+}

@@ -59,3 +59,4 @@ export async function deleteFromCart(userid,productId) {
 
     return user.save()
 }
+

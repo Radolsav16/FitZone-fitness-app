@@ -27,6 +27,7 @@ export const useChallanges =  () => {
     
     return {
         challanges,
+        setChallanges
     }
 }
 
@@ -130,7 +131,7 @@ export const useDeleteChallange = (id) =>{
   }
 
 
-  const deleteChallange = () =>{
+  const deleteChallange = (id) =>{
     fetchApi.del(baseUrl + `/challanges/${id}`);
     setShowModal(!showModal);
   }
