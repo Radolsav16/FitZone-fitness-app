@@ -10,6 +10,12 @@ export async function getAllPosts(){
     return await Post.find().populate('author').lean();
 }
 
+export async function getLatestPosts(){
+    const post = await  Post.find().lean();
+
+    return post.slice(0,3)
+}
+
 export async function getPost(_id){
     return await Post.findById({_id}).populate('author').lean();
 }

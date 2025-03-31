@@ -23,6 +23,17 @@ export async function addToCart(userId,productId,quantity){
     return  user.save()
 }
 
+export async function emtpyCart(userId){
+
+
+    const user = await User.findById({_id:userId});
+   
+
+    user.cart = [];
+    
+    return  user.save()
+}
+
 
 export async function getCart(userId){
     const user = await User.findById({_id:userId}).populate(

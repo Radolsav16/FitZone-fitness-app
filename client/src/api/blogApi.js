@@ -22,6 +22,23 @@ export const usePosts = () => {
   };
 };
 
+export const useLatestPosts = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const result = await fetchApi.get(baseUrl + "/blog/latest-posts", {
+        "Content-Type": "application/json",
+      });
+      setPosts(result);
+    })();
+  }, []);
+
+  return {
+    posts,
+  };
+};
+
 export const usePost = (id) => {
     const [post, setPost] = useState({});
   

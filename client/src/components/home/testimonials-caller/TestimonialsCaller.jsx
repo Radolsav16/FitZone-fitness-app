@@ -1,6 +1,5 @@
 export default function TestimonialsCaller({
     setShowTestimonials,
-    showTestimonials
 }){
     return(
         <>
@@ -14,7 +13,7 @@ export default function TestimonialsCaller({
       
       <button
         className="bg-black text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-gray-800 transition"
-        onClick={() => setShowTestimonials(!showTestimonials)}
+        onClick={() => setShowTestimonials(true)}
       >
         Send Testimonial
       </button>

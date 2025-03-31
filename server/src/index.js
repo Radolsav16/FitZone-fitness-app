@@ -6,14 +6,15 @@ import cors from 'cors'
 import multer from 'multer'
 import { getUser, login, register } from './service/auth.js';
 import { createChallange, deleteChallange, editChallange, getAllChallanges, getChallange, getSaveChallangesCount, getUserChallangesCount, saveChallange} from './service/challanges.js';
-import { createPost, deletePost, editPost, getAllPosts, getLikes, getPost, likePost, pushComment } from './service/blog.js';
+import { createPost, deletePost, editPost, getAllPosts, getLatestPosts, getLikes, getPost, likePost, pushComment } from './service/blog.js';
 import { createComment, getAllComments } from './service/comments.js';
 import path from 'path'
 import { checkToken } from './utils/token.js';
 import { getLatestParticipants,  getParticipants, getUserParticipateCount, joinChallange } from './service/participants.js';
 import { createProduct, deleteProduct, editProduct, getAllProduct, getProduct, mostSellProduct } from './service/products.js';
 import { createTestimonial, getThreeTestimonails } from './service/testimonials.js';
-import { addToCart, deleteFromCart, getCart } from './service/cart.js';
+import { addToCart, deleteFromCart, emtpyCart, getCart } from './service/cart.js';
+import { createOrder } from './service/orders.js';
 
 
 const PORT = process.env.PORT;
@@ -212,6 +213,16 @@ app.post('/blog/create-post', async (req, res) => {
 app.get('/blog/posts', async (req, res) => {
   try {
     const data = await getAllPosts(req.body)
+    res.status(200).json(data);
+  } catch (error) {
+    console.log(error.message)
+    res.status(500).json({message:error.message})
+  }
+});
+
+app.get('/blog/latest-posts', async (req, res) => {
+  try {
+    const data = await getLatestPosts()
     res.status(200).json(data);
   } catch (error) {
     console.log(error.message)
@@ -423,5 +434,25 @@ app.delete('/delete-from-cart/:productId/:userId', async (req, res) => {
     res.status(500).json(error)
   }
 });
+
+app.delete('/emtpy-cart/:userId',async (req, res) => {
+  const { userId } = req.params
+  try {
+   await emtpyCart(userId);
+   res.status(204).json({message:"Succefully empty cart!"})
+  } catch (error) {
+    res.status(500).json(error)
+  }
+})
+
+app.post('/order/:userId',async (req,res) => {
+  const {userId} = req.params
+  try {
+    await createOrder(userId,req.body)
+   res.status(200).json({message:'Succesfull added'});
+ } catch (error) {
+   res.status(500).json({message:error.message})
+ }
+})
 
 app.listen(PORT,()=>console.log(`Server is running on port ${PORT}`))

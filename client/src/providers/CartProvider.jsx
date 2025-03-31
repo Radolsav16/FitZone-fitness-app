@@ -9,6 +9,7 @@ export const useCart = () => useContext(CartContext);
 // Provider component to wrap the app
 export const CartProvider = ({ children }) => {
   const [showCart, setShowCart] = useState(false);
+  const [showOrderModal,setOrderModal] = useState(false);
 
 
 
@@ -22,7 +23,7 @@ const hideCart = () =>{
 }
 
   return (
-    <CartContext.Provider value={{ showCart, setShowCart , hideCart}}>
+    <CartContext.Provider value={{ showCart, setShowCart , hideCart , showOrderModal , setOrderModal}}>
       {children}
     </CartContext.Provider>
   );

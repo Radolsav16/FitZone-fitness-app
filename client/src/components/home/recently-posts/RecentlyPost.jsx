@@ -1,4 +1,7 @@
+import { useLatestPosts } from "../../../api/blogApi"
+import {Link} from 'react-router'
 export default function RecentlyPost(){
+  const {posts} = useLatestPosts()
     return(
         <>
         <section className="bg-gray-100 py-12">
@@ -8,66 +11,29 @@ export default function RecentlyPost(){
       <p className="text-gray-600 mt-2">Stay updated with the latest insights, stories, and trends!</p>
     </div>
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {/* Blog Post Card 1 */}
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+     
+      {posts.map(p =>
+        <div className="bg-white shadow-lg rounded-lg overflow-hidden" key={p._id}>
         <img
-          src="https://via.placeholder.com/300x200"
-          alt="Blog Post 1"
+          src={p.image}
+          alt={p.name}
           className="w-full h-48 object-cover"
         />
         <div className="p-4">
-          <h3 className="text-xl font-semibold text-gray-800">How to Stay Fit</h3>
+          <h3 className="text-xl font-semibold text-gray-800">{p.name}</h3>
           <p className="text-gray-600 mt-2">
-            Discover simple ways to maintain a healthy lifestyle with minimal effort.
+           {p.description}
           </p>
-          <a
-            href="#"
+          <Link
+            to={`/fitzone/blog-details/${p._id}`}
             className="inline-block mt-4 text-primary font-semibold hover:underline"
           >
             Read More →
-          </a>
+          </Link>
         </div>
       </div>
-      {/* Blog Post Card 2 */}
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-        <img
-          src="https://via.placeholder.com/300x200"
-          alt="Blog Post 2"
-          className="w-full h-48 object-cover"
-        />
-        <div className="p-4">
-          <h3 className="text-xl font-semibold text-gray-800">10 Minute Workouts</h3>
-          <p className="text-gray-600 mt-2">
-            Short on time? Learn how to maximize your workouts in just 10 minutes.
-          </p>
-          <a
-            href="#"
-            className="inline-block mt-4 text-primary font-semibold hover:underline"
-          >
-            Read More →
-          </a>
-        </div>
-      </div>
-      {/* Blog Post Card 3 */}
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-        <img
-          src="https://via.placeholder.com/300x200"
-          alt="Blog Post 3"
-          className="w-full h-48 object-cover"
-        />
-        <div className="p-4">
-          <h3 className="text-xl font-semibold text-gray-800">The Power of Yoga</h3>
-          <p className="text-gray-600 mt-2">
-            Explore the benefits of yoga for both your mind and body.
-          </p>
-          <a
-            href="#"
-            className="inline-block mt-4 text-primary font-semibold hover:underline"
-          >
-            Read More →
-          </a>
-        </div>
-      </div>
+      )}
+
     </div>
   </div>
 </section>

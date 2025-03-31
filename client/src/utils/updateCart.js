@@ -1,5 +1,10 @@
 export  function updateCart(data){
     const auth = JSON.parse(localStorage.getItem('auth'));
+    
+    if(Array.isArray(data)){
+        auth.cart = [];
+        return auth;
+    }
 
     auth.cart.push(data);
 

@@ -1,95 +1,101 @@
-import React, { useState } from "react";
+import { useCreateOrder, useDeleteProductFromCart, useEmptyCart, useUserCart } from "../../../api/shopApi";
+import { useUserContext } from "../../../contexts/UserContext";
+import { useFormState } from "../../../hooks/FormStateHook";
+import { updateCart, updateCartOnDelete } from "../../../utils/updateCart";
+import { Link, useNavigate } from "react-router";
+import { ErrorSetter } from "../../../utils/Errors";
+import { useCart } from "../../../providers/CartProvider";
 
 const Checkout = () => {
-  // Mock Data
-  const initialCartItems = [
-    {
-      id: 1,
-      name: "Wireless Headphones",
-      price: 99.99,
-      quantity: 1,
-      image: "https://media1.popsugar-assets.com/files/thumbor/bL0CrivO7SwhytP_K4sxsjLLITI/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2022/05/03/710/n/1922729/e8c4738cf6980be7_614nOWKE_tL._AC_SL1500_/i/Best-Resistance-Bands-on-Amazon-Leekey-Resistance-Band-Set.jpg", // Replace with actual image
-    },
-    {
-      id: 2,
-      name: "Smartphone Case",
-      price: 19.99,
-      quantity: 2,
-      image: "https://media1.popsugar-assets.com/files/thumbor/bL0CrivO7SwhytP_K4sxsjLLITI/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2022/05/03/710/n/1922729/e8c4738cf6980be7_614nOWKE_tL._AC_SL1500_/i/Best-Resistance-Bands-on-Amazon-Leekey-Resistance-Band-Set.jpg", // Replace with actual image
-    },
-    {
-      id: 3,
-      name: "Laptop Stand",
-      price: 49.99,
-      quantity: 1,
-      image: "https://media1.popsugar-assets.com/files/thumbor/bL0CrivO7SwhytP_K4sxsjLLITI/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2022/05/03/710/n/1922729/e8c4738cf6980be7_614nOWKE_tL._AC_SL1500_/i/Best-Resistance-Bands-on-Amazon-Leekey-Resistance-Band-Set.jpg", // Replace with actual image
-    },
-  ];
-
-  const [cartItems, setCartItems] = useState(initialCartItems);
-  const [shippingDetails, setShippingDetails] = useState({
-    name: "",
+  const { id, name, email, userLoginHandler } = useUserContext();
+  const { cart, setCart } = useUserCart(id);
+  const { deleteProductFromCart} = useDeleteProductFromCart(id);
+  const {emtpyCart} = useEmptyCart(id)
+  const { setOrderModal , setShowCart} = useCart()
+  const { dataState, handleDataOnChange, errors, SetErrors } = useFormState({
     address: "",
     contact: "",
-    email: "",
   });
 
-  const subtotal = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+  const navigate = useNavigate()
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setShippingDetails({ ...shippingDetails, [name]: value });
+  const { createOrder } = useCreateOrder(id)
+  const CalculateTotalPrice = () => {
+    return cart.reduce((total, item) => {
+      return (total += Number(item.productId.price * item.quantity));
+    }, 0);
   };
 
-  const handleRemoveItem = (id) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
-  };
+  const orderHandler = async (formData) => {
+    const data = Object.fromEntries(formData);
 
-  const handleConfirmOrder = () => {
-    if (
-      !shippingDetails.name ||
-      !shippingDetails.address ||
-      !shippingDetails.contact ||
-      !shippingDetails.email
-    ) {
-      alert("Please fill in all shipping details!");
-      return;
+    if (!data.address) {
+      return ErrorSetter(errors, SetErrors, "address", "Adress is required!");
     }
-    alert("Order confirmed! Thank you for shopping with us.");
+
+    if (!data.contact) {
+      console.log("here");
+      return ErrorSetter(errors, SetErrors, "contact", "Contact is required!");
+    }
+
+    data.products = cart.map(i => i.productId._id);
+
+    if(!data.products.length){
+      return ErrorSetter(errors, SetErrors, "contact", "Should have products in the cart to make order!");
+    }
+    
+    data.total = CalculateTotalPrice()
+
+    await createOrder(data)
+    await emtpyCart()
+    setCart([]);
+
+    const updatedAuth = updateCart([]);
+    userLoginHandler(updatedAuth)
+    setOrderModal(true)
+    setShowCart(false);
+    navigate('/')
   };
+ 
 
   return (
     <div className="max-w-4xl mx-auto p-8">
       <h1 className="text-2xl font-bold mb-6">Checkout</h1>
 
-      {/* Cart Summary */}
       <section className="mb-8">
         <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
         <ul className="space-y-4">
-          {cartItems.map((item) => (
+          {cart.map((item) => (
             <li
-              key={item.id}
+              key={item.productId}
               className="flex justify-between items-center border-b pb-4"
             >
               <img
-                src={item.image}
-                alt={item.name}
+                src={item.productId?.image}
+                alt={item.productId?.name}
                 className="w-19 h-16 object-cover rounded"
               />
               <div className="flex-1 ml-4">
-                <h3 className="text-gray-900 font-medium">{item.name}</h3>
-                <p className="text-gray-600 text-sm">Quantity: {item.quantity}</p>
+                <h3 className="text-gray-900 font-medium">
+                  {item.productId?.name}
+                </h3>
+                <p className="text-gray-600 text-sm">
+                  Quantity: {item.quantity}
+                </p>
               </div>
               <p className="text-gray-900">
-                ${item.price.toFixed(2)} x {item.quantity} = $
-                {(item.price * item.quantity).toFixed(2)}
+                ${item.productId.price.toFixed(2)}
               </p>
               <button
-                className="text-red-500 hover:text-red-700 font-medium ml-3 mb-1"
-                onClick={() => handleRemoveItem(item.id)}
+                className="text-red-500 hover:text-red-700 font-medium ml-4 mb-1"
+                onClick={() => {
+                  deleteProductFromCart(item.productId);
+                  setCart([
+                    ...cart.filter((o) => o.productId != item.productId),
+                  ]);
+                  const updatedAuth = updateCartOnDelete(item.productId);
+                  userLoginHandler(updatedAuth);
+                }}
               >
                 Remove
               </button>
@@ -97,15 +103,15 @@ const Checkout = () => {
           ))}
         </ul>
         <div className="flex justify-between mt-6 text-lg">
-          <p>Subtotal:</p>
-          <p className="font-bold">${subtotal.toFixed(2)}</p>
+          <p>Total:</p>
+          <p className="font-bold">${CalculateTotalPrice().toFixed(2)}</p>
         </div>
       </section>
 
       {/* Shipping Details Form */}
       <section className="mb-8">
         <h2 className="text-lg font-semibold mb-4">Shipping Details</h2>
-        <form className="space-y-4">
+        <form className="space-y-4" action={orderHandler}>
           <div>
             <label
               htmlFor="name"
@@ -117,43 +123,10 @@ const Checkout = () => {
               type="text"
               id="name"
               name="name"
-              value={shippingDetails.name}
-              onChange={handleInputChange}
+              disabled
+              value={name}
               className="mt-1 block w-full border border-gray-300 rounded py-2 px-3 shadow-sm focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your full name"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="address"
-              className="block text-lg font-medium text-gray-700"
-            >
-              Address
-            </label>
-            <textarea
-              id="address"
-              name="address"
-              value={shippingDetails.address}
-              onChange={handleInputChange}
-              className="mt-1 block w-full border border-gray-300 rounded py-2 px-3 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Enter your shipping address"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="contact"
-              className="block text-lg font-medium text-gray-700"
-            >
-              Contact Number
-            </label>
-            <input
-              type="text"
-              id="contact"
-              name="contact"
-              value={shippingDetails.contact}
-              onChange={handleInputChange}
-              className="mt-1 block w-full border border-gray-300 rounded py-2 px-3 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Enter your contact number"
             />
           </div>
           <div>
@@ -167,27 +140,70 @@ const Checkout = () => {
               type="email"
               id="email"
               name="email"
-              value={shippingDetails.email}
-              onChange={handleInputChange}
+              disabled
+              value={email}
               className="mt-1 block w-full border border-gray-300 rounded py-2 px-3 shadow-sm focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your email address"
             />
+          </div>
+          <div>
+            <label
+              htmlFor="address"
+              className="block text-lg font-medium text-gray-700"
+            >
+              Address
+            </label>
+            <textarea
+              id="address"
+              name="address"
+              value={dataState.address}
+              onChange={handleDataOnChange}
+              className="mt-1 block w-full border border-gray-300 rounded py-2 px-3 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter your shipping address"
+            />
+            {errors["address"] && (
+              <p className="mt-2 text-sm text-red-600">{errors?.address}</p>
+            )}
+          </div>
+          <div>
+            <label
+              htmlFor="contact"
+              className="block text-lg font-medium text-gray-700"
+            >
+              Contact Number
+            </label>
+            <input
+              type="text"
+              id="contact"
+              name="contact"
+              value={dataState.contact}
+              onChange={handleDataOnChange}
+              className="mt-1 block w-full border border-gray-300 rounded py-2 px-3 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter your contact number"
+            />
+            {errors["contact"] && (
+              <p className="mt-2 text-sm text-red-600">{errors?.contact}</p>
+            )}
+          </div>
+
+          <div className="flex justify-center space-x-4">
+            <button
+              className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600"
+              type="submit"
+            >
+              Confirm Order
+            </button>
+            <Link
+              className="bg-gray-200 text-gray-700 px-6 py-3 rounded hover:bg-gray-300"
+              to={"/fitzone/shop"}
+            >
+              Back to Shop
+            </Link>
           </div>
         </form>
       </section>
 
       {/* Buttons */}
-      <div className="flex justify-center space-x-4">
-        <button
-          className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600"
-          onClick={handleConfirmOrder}
-        >
-          Confirm Order
-        </button>
-        <button className="bg-gray-200 text-gray-700 px-6 py-3 rounded hover:bg-gray-300">
-          Back to Shop
-        </button>
-      </div>
     </div>
   );
 };

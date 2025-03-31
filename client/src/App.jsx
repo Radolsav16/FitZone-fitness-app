@@ -82,9 +82,11 @@ function App() {
           <Route path='/fitzone/product/edit/:id' element={<AdminEdit />}/>
 
 
+          {/* SHOP */}
+
           <Route path="/fitzone/shop" element = {<Shop />}/>
           <Route path="/fitzone/shop/details" element = {<ShopDetails />}/>
-          <Route path="/fitzone/shop/checkout" element = {<Checkout />}/>
+          <Route path="/fitzone/checkout" element = {<Checkout />}/>
 
 
 

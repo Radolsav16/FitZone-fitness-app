@@ -1,13 +1,19 @@
 import { Link } from "react-router"
 
 
+
 export default function HeroShopCard({
-  product
+  product,
+  setProductId , 
+  setShowPreview 
 }){
     return(
         <>
        
-        <Link to={"/fitozne"}>
+        <Link onClick={()=>{
+          setProductId(product._id)
+          setShowPreview(true);
+        }}>
           <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300">
       <img
         src={product.image}
@@ -18,7 +24,10 @@ export default function HeroShopCard({
         <h3 className="text-xl font-semibold">{product.name}</h3>
         <p className="text-gray-600 mt-2">{product.description}</p>
         <p className="text-lg font-bold text-orange-500 mt-4">${product.price}</p>
-        <button className="mt-4 bg-orange-500 text-black py-2 px-4 rounded hover:bg-orange-600 transition-colors flex items-center justify-center gap-2">
+        <button className="mt-4 bg-orange-500 text-black py-2 px-4 rounded hover:bg-orange-600 transition-colors flex items-center justify-center gap-2" onClick={()=>{
+          setProductId(product._id)
+          setShowPreview(true);
+        }}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
