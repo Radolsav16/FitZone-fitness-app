@@ -4,9 +4,14 @@ export async function createProduct(data){
     return await Product.create(data)
 }
 
-export async function getAllProduct(startIndex,endIndex){
+export async function getProducts(startIndex,endIndex){
     return (await Product.find().lean()).slice(startIndex,endIndex);
 }
+
+export async function getAllProduct(){
+    return await Product.find().lean();
+}
+
 
 
 export async function getProduct(_id){

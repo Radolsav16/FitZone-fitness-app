@@ -26,6 +26,24 @@ export const useProducts = (currPage) => {
   };
 };
 
+export const useAllProducts = () => {
+  const [products, setProducts] = useState([]);
+ 
+
+  useEffect(() => {
+    (async () => {
+      const result = await fetchApi.get(`http://localhost:3030/all-products`,{
+        'Content-Type':'applciation/json'
+      });
+      setProducts(result);
+    })();
+  },[]);
+
+  return {
+    products,
+    setProducts
+  };
+};
 
 
   export const useProduct = (id) => {

@@ -61,3 +61,12 @@ export async function register(data,imageUrl){
 export async function getUser(userId){
     return await User.findById({_id:userId}).populate('likedPost').populate('savedChallanges').populate('joinedChallanges');
 }
+
+export async function getUsers(){
+    return await User.find();
+}
+
+
+export async function deleteUser(userId){
+    return await User.findByIdAndDelete({_id:userId});
+}

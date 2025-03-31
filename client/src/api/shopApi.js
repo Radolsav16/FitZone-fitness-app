@@ -96,3 +96,37 @@ export const useCreateOrder = (userId)=> {
     createOrder
   }
 }
+
+export const useOrderCount = () => {
+  const [count,setCount] = useState(0);
+
+  
+  useEffect(()=>{
+    (async ()=>{
+        const result = await fetchApi.get(baseUrl + `/orders-count`,{'Content-Type':'application/json'})
+        setCount(result)
+    })()
+},[])
+
+return {
+    count
+   
+}
+}
+
+export const useOrderRevenue = () =>{
+  const [revenue,setRevenue] = useState(0);
+
+  
+  useEffect(()=>{
+    (async ()=>{
+        const result = await fetchApi.get(baseUrl + `/orders/revenue`,{'Content-Type':'application/json'})
+        setRevenue(result)
+    })()
+},[])
+
+return {
+    revenue,
+    setRevenue
+}
+}

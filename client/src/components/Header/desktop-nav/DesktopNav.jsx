@@ -29,7 +29,7 @@ export default function DesktopNav() {
 
           <li className="nav-item relative">
             <Link to="/fitzone/shop" className="nav-link smoothScroll">
-              Store
+              Shop
             </Link>
             <ul className="dropdown-menu hidden absolute left-0 mt-2 bg-white shadow-lg rounded-lg">
               <li>
@@ -37,7 +37,7 @@ export default function DesktopNav() {
                   to="/fitzone/meal-plans"
                   className="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white"
                 >
-                  Meal Plans
+                  Accessories
                 </Link>
               </li>
               <li>
@@ -45,7 +45,7 @@ export default function DesktopNav() {
                   to="/fitzone/workout-programs"
                   className="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white"
                 >
-                  Workout Programs
+                  Martial Arts Gear
                 </Link>
               </li>
               <li>
@@ -53,7 +53,7 @@ export default function DesktopNav() {
                   to="/fitzone/gym-things"
                   className="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white"
                 >
-                  Gym Accesories
+                  Supplements
                 </Link>
               </li>
               <li>
@@ -61,7 +61,7 @@ export default function DesktopNav() {
                   to="/fitzone/books"
                   className="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white"
                 >
-                  Books
+                 Gym Essentials
                 </Link>
               </li>
             </ul>
@@ -128,6 +128,16 @@ export default function DesktopNav() {
               Challanges
             </Link>
           </li>
+
+        {email == 'todorovradoslav6@gmail.com' &&  <li className="nav-item">
+            <Link to="/fitzone/admin" className="nav-link smoothScroll">
+              Admin
+            </Link>
+          </li> 
+}
+
+         
+
         </ul>
       </div>
 

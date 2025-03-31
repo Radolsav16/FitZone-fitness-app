@@ -4,17 +4,17 @@ import dotenv from 'dotenv';
 dotenv.config()
 import cors from 'cors'
 import multer from 'multer'
-import { getUser, login, register } from './service/auth.js';
+import { deleteUser, getUser, getUsers, login, register } from './service/auth.js';
 import { createChallange, deleteChallange, editChallange, getAllChallanges, getChallange, getSaveChallangesCount, getUserChallangesCount, saveChallange} from './service/challanges.js';
 import { createPost, deletePost, editPost, getAllPosts, getLatestPosts, getLikes, getPost, likePost, pushComment } from './service/blog.js';
 import { createComment, getAllComments } from './service/comments.js';
 import path from 'path'
 import { checkToken } from './utils/token.js';
 import { getLatestParticipants,  getParticipants, getUserParticipateCount, joinChallange } from './service/participants.js';
-import { createProduct, deleteProduct, editProduct, getAllProduct, getProduct, mostSellProduct } from './service/products.js';
+import { createProduct, deleteProduct, editProduct, getAllProduct, getProduct, getProducts, mostSellProduct } from './service/products.js';
 import { createTestimonial, getThreeTestimonails } from './service/testimonials.js';
 import { addToCart, deleteFromCart, emtpyCart, getCart } from './service/cart.js';
-import { createOrder } from './service/orders.js';
+import { createOrder, orderRevenue, ordersCount } from './service/orders.js';
 
 
 const PORT = process.env.PORT;
@@ -313,6 +313,26 @@ app.get('/user/:userId/', async (req, res) => {
   }
 });
 
+app.get('/users', async (req, res) => {
+  try {
+     const users = await getUsers()
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+});
+
+app.delete('/user/:userId', async (req, res) => {
+  const { userId } = req.params
+  try {
+   await deleteUser(userId);
+   res.status(204).json({message:"Succefully delete user!"})
+  } catch (error) {
+    res.status(500).json(error)
+  }
+});
+
+
 app.post('/create-product/', async (req, res) => {
 
   try {
@@ -326,16 +346,20 @@ app.post('/create-product/', async (req, res) => {
 app.get('/products/', async (req, res) => {
   const page = Number(req.query.page);
   const limit = Number(req.query.limit);
-
- 
-
   const startIndex = (page - 1) * limit;
   const endIndex = startIndex + limit;
 
-
-  
   try {
-     const products = await getAllProduct(startIndex,endIndex)
+     const products = await getProducts(startIndex,endIndex)
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+});
+
+app.get('/all-products/', async (req, res) => {
+  try {
+     const products = await getAllProduct()
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({message:error.message})
@@ -450,6 +474,24 @@ app.post('/order/:userId',async (req,res) => {
   try {
     await createOrder(userId,req.body)
    res.status(200).json({message:'Succesfull added'});
+ } catch (error) {
+   res.status(500).json({message:error.message})
+ }
+})
+
+app.get('/orders/revenue',async (req,res) => {
+  try {
+    const revenue = await orderRevenue()
+   res.status(200).json(revenue);
+ } catch (error) {
+   res.status(500).json({message:error.message})
+ }
+})
+
+app.get('/orders-count',async (req,res) => {
+  try {
+    const count = await ordersCount()
+   res.status(200).json(count);
  } catch (error) {
    res.status(500).json({message:error.message})
  }

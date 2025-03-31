@@ -36,6 +36,7 @@ export const useLatestPosts = () => {
 
   return {
     posts,
+    setPosts
   };
 };
 
@@ -106,7 +107,7 @@ export const useEditPost = (id) => {
 };
 
 
-export const useDeletePost = (id) =>{
+export const useDeletePost = () =>{
   const [showModal,setShowModal] = useState(false);
 
   const cancel = () =>{
@@ -114,7 +115,7 @@ export const useDeletePost = (id) =>{
   }
 
 
-  const deletePost = () =>{
+  const deletePost = (id) =>{
     fetchApi.del(baseUrl + `/blog/post/${id}`);
     setShowModal(!showModal);
   }
