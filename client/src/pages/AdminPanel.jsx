@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
-import { useAllProducts, useDeleteProduct } from "../../api/productApi";
-import IsSureModal from "../util/is-sure-modal/IsSureModal";
-import { useDeleteUser, useUsers } from "../../api/userApi";
-import { useChallanges, useDeleteChallange } from "../../api/challangeApi";
-import { useDeletePost, usePosts } from "../../api/blogApi";
+import { useAllProducts, useDeleteProduct } from "../api/productApi";
+import IsSureModal from "../components/util/is-sure-modal/IsSureModal";
+import { useDeleteUser, useUsers } from "../api/userApi";
+import { useChallanges, useDeleteChallange } from "../api/challangeApi";
+import { useDeletePost, usePosts } from "../api/blogApi";
 import { FiDollarSign } from "react-icons/fi";
-import { DateConverter } from "../../utils/DateConverter";
-import { useOrderCount, useOrderRevenue } from "../../api/shopApi";
+import { DateConverter } from "../utils/DateConverter";
+import { useOrderCount, useOrderRevenue } from "../api/shopApi";
 
 const AdminPanel = () => {
   const { products, setProducts } = useAllProducts();

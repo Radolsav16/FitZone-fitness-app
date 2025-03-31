@@ -5,20 +5,23 @@ import { useFormState } from "../hooks/FormStateHook";
 
 const baseUrl = "http://localhost:3030";
 
-export const usePosts = () => {
+export const usePosts = (query) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     (async () => {
-      const result = await fetchApi.get(baseUrl + "/blog/posts", {
+      const result = await fetchApi.get(baseUrl + "/blog/posts",{
         "Content-Type": "application/json",
+      },{
+        filter:query
       });
       setPosts(result);
     })();
-  }, []);
+  }, [query]);
 
   return {
     posts,
+    setPosts
   };
 };
 

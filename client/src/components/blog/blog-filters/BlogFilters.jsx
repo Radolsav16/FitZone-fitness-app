@@ -1,4 +1,6 @@
-const filters = ["All", "Fitness", "Health", "Nutrition"]
+import { Link } from "react-router"
+
+const filters = ["All","Fitness", "Health", "Nutrition",'Motivation']
 
 
 export default function BlogFilters(){
@@ -7,7 +9,8 @@ export default function BlogFilters(){
 
 <div className="flex flex-wrap justify-center gap-4 mb-6">
   {filters.map((topic, index) => (
-    <button
+    <Link
+     to= { topic == 'All' ? '/fitzone/blog' : `/fitzone/blog/?searchedBy=${topic.toLowerCase()}`}
       key={index}
       className={`px-4 py-2 rounded-lg ${
         true
@@ -16,7 +19,7 @@ export default function BlogFilters(){
       }`}
     >
       {topic}
-    </button>
+    </Link>
   ))}
   </div>
         

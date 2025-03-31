@@ -211,8 +211,9 @@ app.post('/blog/create-post', async (req, res) => {
 });
 
 app.get('/blog/posts', async (req, res) => {
+  const {filter} = req.query;
   try {
-    const data = await getAllPosts(req.body)
+    const data = await getAllPosts(filter)
     res.status(200).json(data);
   } catch (error) {
     console.log(error.message)

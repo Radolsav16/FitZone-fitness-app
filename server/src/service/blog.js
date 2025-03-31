@@ -6,8 +6,16 @@ export async function createPost(data){
     return await Post.create(data)
 }
 
-export async function getAllPosts(){
+export async function getAllPosts(filter){
+   
+    if(filter){
+        filter = filter[0].toUpperCase() + filter.slice(1);
+        return await Post.find({category:filter}).populate('author').lean()
+    }
+
     return await Post.find().populate('author').lean();
+
+
 }
 
 export async function getLatestPosts(){

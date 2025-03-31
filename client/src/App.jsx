@@ -29,7 +29,7 @@ import ChallangeDetails from "./components/challanges/challange-details/Challang
 
 import { UserProvider } from "./providers/UserProvider";
 import { useScroll } from "./utils/scroll";
-import AdminPanel from "./components/admin/AdminPanel";
+import AdminPanel from "./pages/AdminPanel";
 import AdminProductsForm from "./components/admin/admin-products-form/AdminProductsForm";
 import AdminEdit from "./components/admin/admin-edit/AdminEdit";
 import Shop from "./pages/Shop";
@@ -76,6 +76,10 @@ function App() {
           <Route path="/fitzone/blog-details/:id" element={<BlogDetails />} />
           <Route path="/fitzone/post-create" element={<CreatePost />} />
           <Route path="/fitzone/post/edit/:id" element={<EditPost />} />
+  
+
+
+          {/* Admin */}
 
           <Route path="/fitzone/admin" element={<AdminPanel/>} />
           <Route path="/fitzone/add-product" element={<AdminProductsForm/>} />
