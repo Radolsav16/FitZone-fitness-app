@@ -13,7 +13,7 @@ import { checkToken } from './utils/token.js';
 import { getLatestParticipants,  getParticipants, getUserParticipateCount, joinChallange } from './service/participants.js';
 import { createProduct, deleteProduct, editProduct, getAllProduct, getProduct, mostSellProduct } from './service/products.js';
 import { createTestimonial, getThreeTestimonails } from './service/testimonials.js';
-import { addToCart, getCart } from './service/cart.js';
+import { addToCart, deleteFromCart, getCart } from './service/cart.js';
 
 
 const PORT = process.env.PORT;
@@ -408,11 +408,20 @@ app.get('/cart/:userId',async (req,res) => {
   const {userId} = req.params
   try {
     const cart = await getCart(userId)
-    console.log(cart)
    res.status(200).json(cart);
  } catch (error) {
    res.status(500).json({message:error.message})
  }
 })
+
+app.delete('/delete-from-cart/:productId/:userId', async (req, res) => {
+  const {productId , userId } = req.params
+  try {
+   await deleteFromCart(userId,productId);
+   res.status(204).json({message:"Succefully delete item!"})
+  } catch (error) {
+    res.status(500).json(error)
+  }
+});
 
 app.listen(PORT,()=>console.log(`Server is running on port ${PORT}`))

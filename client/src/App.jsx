@@ -35,6 +35,7 @@ import AdminEdit from "./components/admin/admin-edit/AdminEdit";
 import Shop from "./pages/Shop";
 import ShopDetails from "./components/shop/shop-details/ShopDetails";
 import Checkout from "./components/shop/checkout/CheckOut";
+import { CartProvider } from "./providers/CartProvider";
 
 function App() {
   useScroll();
@@ -42,6 +43,7 @@ function App() {
   return (
     <>
       <UserProvider>
+        <CartProvider>
         <Nav />
         <Routes>
           {/* Static */}
@@ -99,6 +101,7 @@ function App() {
         </Routes>
 
         <Footer />
+        </CartProvider>
       </UserProvider>
     </>
   );

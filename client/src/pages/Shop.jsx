@@ -6,6 +6,11 @@ import ShopGrid from "../components/shop/shop-grid/ShopGrid";
 import ShopPreview from "../components/shop/shop-preview/ShopPreview";
 import { useAddToCart, useShop } from "../api/shopApi";
 import { useUserContext } from "../contexts/UserContext";
+import { useCart } from "../providers/CartProvider";
+import ShopCart from "../components/shop/shop-cart/ShopCart";
+import { updateCart } from "../utils/updateCart";
+
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -39,11 +44,16 @@ export default function Shop() {
 
   const addToCartHandler = (data) =>{
     addToCart(id,data);
-    
+    const updatedData = updateCart(data);
+    userLoginHandler(updatedData)
   }
+
+  const {showCart,setShowCart} = useCart()
 
   return (
     <>
+    {showCart && <ShopCart />}
+
       <div className="bg-white mt-20">
         <div>
           <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

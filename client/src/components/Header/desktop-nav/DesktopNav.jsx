@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
+import { useCart } from "../../../providers/CartProvider";
+
 
 export default function DesktopNav() {
-  const { email, imageUrl, id } = useUserContext();
+  const { email, imageUrl, id ,cart} = useUserContext();
+  const {setShowCart,showCart} = useCart()
   return (
     <>
       <div className="collapse navbar-collapse" id="navbarNav">
@@ -138,7 +141,9 @@ export default function DesktopNav() {
               <img src={imageUrl} alt="Profile" className="profile-img" />
             </Link>
 
-            <Link to="/fitzone/cart" className="nav-link bag-link">
+            <Link className="nav-link bag-link" onClick={()=>{
+              setShowCart(!showCart)
+            }}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -159,7 +164,7 @@ export default function DesktopNav() {
                   d="M3 6h18M16 10a4 4 0 11-8 0"
                 />
               </svg>
-              <span className="cart-count">10</span>
+              <span className="cart-count">{cart.length}</span>
             </Link>
 
             <Link to="/fitzone/logout" className="nav-link logout">
