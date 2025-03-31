@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router"
 import { useUserContext } from "../../../contexts/UserContext"
 
 export default function HeroBeginOverlay(){

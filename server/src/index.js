@@ -6,7 +6,7 @@ import cors from 'cors'
 import multer from 'multer'
 import { getUser, login, register } from './service/auth.js';
 import { createChallange, deleteChallange, editChallange, getAllChallanges, getChallange, getSaveChallangesCount, getUserChallangesCount, saveChallange} from './service/challanges.js';
-import { createPost, deletePost, editPost, getAllPosts, getLikes, getPost, likePost, pushComment } from './service/blog.js';
+import { createPost, deletePost, editPost, getAllPosts, getLatestPosts, getLikes, getPost, likePost, pushComment } from './service/blog.js';
 import { createComment, getAllComments } from './service/comments.js';
 import path from 'path'
 import { checkToken } from './utils/token.js';
@@ -213,6 +213,16 @@ app.post('/blog/create-post', async (req, res) => {
 app.get('/blog/posts', async (req, res) => {
   try {
     const data = await getAllPosts(req.body)
+    res.status(200).json(data);
+  } catch (error) {
+    console.log(error.message)
+    res.status(500).json({message:error.message})
+  }
+});
+
+app.get('/blog/latest-posts', async (req, res) => {
+  try {
+    const data = await getLatestPosts()
     res.status(200).json(data);
   } catch (error) {
     console.log(error.message)

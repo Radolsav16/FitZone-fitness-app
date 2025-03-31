@@ -5,13 +5,7 @@ export async function createTestimonial(data){
 }
 
 export async function  getThreeTestimonails() {
-    const testimonials = await Testimonial.aggregate([
-        { $sample: { size: 3 } }, // Randomly select three testimonials
-      ]);
-  
-      const populatedTestimonials = await Testimonial.populate(testimonials, {
-        path: "author",
-      });
-  
-      return populatedTestimonials; 
+    const testimonials = await Testimonial.find().populate('author').lean()
+    
+      return testimonials.slice(0,3); 
 }

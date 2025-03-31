@@ -2,22 +2,20 @@ import { useCreateTestimonial } from "../../../api/testimonialApi";
 import { useUserContext } from "../../../contexts/UserContext";
 
 export default function TestimonialsForm({
-    setShowTestimonials,
-    showTestimonials
+  hideTestimonialForm 
 }){ 
     const { id } = useUserContext()
 
  
     const {createTestimonial} = useCreateTestimonial()
 
-    const formTestimonailsHanlder = async(formData) =>{
+    const formTestimonailsHanlder = async (formData) =>{
         const data = Object.fromEntries(formData);
         
         data.author = id;
 
         await createTestimonial(data)
-        setShowTestimonials(!showTestimonials);
-      
+        hideTestimonialForm()
     }
     
     return(
@@ -26,7 +24,7 @@ export default function TestimonialsForm({
           <button
             className="absolute top-4 right-4 text-black text-xl font-bold hover:text-gray-600 transition"
             aria-label="Close"
-            onClick={()=>setShowTestimonials(!showTestimonials)}
+            onClick={()=>hideTestimonialForm()}
           >
             &times;
           </button>

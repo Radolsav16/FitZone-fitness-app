@@ -31,6 +31,8 @@ export const challangeTypeOptions = [
   
   ];
 
+
+
   export const categoryOptions = [
     {value:"",label:"Select required category"},
     {value:"General",label:"General"},
@@ -101,4 +103,12 @@ export const selectionCategoryOptions = [
 { value: "endurance-tools", label: "Endurance-Tools" },
 { value: "recovery-equipment", label: "Recovery-Equipment" },
 { value: "Outdoor Gear", label: "Outdoor Gear" },
+]
+
+
+export  const collections = [
+  {id:'39JGu3yd',imageUrl:"https://th.bing.com/th/id/OIP.Duxekj2U3jM8AIkadngs7AHaE8?rs=1&pid=ImgDetMain",span:'Gym Essentials',p:'All need product!'},
+  {id:'3fJGurid',imageUrl:"https://th.bing.com/th/id/OIP.qHtuytg7ZaID7umEnLRo-AHaEK?w=1200&h=675&rs=1&pid=ImgDetMain",span:'Home Workout',p:' Products for home trainings!'},
+  {id:'3vJhrig',imageUrl:"https://th.bing.com/th/id/OIP.X84Hyf8h0Ye2i9fWPlr5NgHaE8?rs=1&pid=ImgDetMain",span:'Accessories',p:'Look Good While Training!'}
+
 ]
