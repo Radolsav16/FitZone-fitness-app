@@ -129,6 +129,9 @@ export default function DesktopNav() {
             </Link>
           </li>
 
+        
+         
+
         {email == 'todorovradoslav6@gmail.com' &&  <li className="nav-item">
             <Link to="/fitzone/admin" className="nav-link smoothScroll">
               Admin

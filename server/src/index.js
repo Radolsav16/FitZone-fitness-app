@@ -14,7 +14,7 @@ import { getLatestParticipants,  getParticipants, getUserParticipateCount, joinC
 import { createProduct, deleteProduct, editProduct, getAllProduct, getProduct, getProducts, mostSellProduct } from './service/products.js';
 import { createTestimonial, getThreeTestimonails } from './service/testimonials.js';
 import { addToCart, deleteFromCart, emtpyCart, getCart } from './service/cart.js';
-import { createOrder, orderRevenue, ordersCount } from './service/orders.js';
+import { createOrder, getAllOrders, getUserOrder, orderRevenue, ordersCount } from './service/orders.js';
 
 
 const PORT = process.env.PORT;
@@ -347,11 +347,13 @@ app.post('/create-product/', async (req, res) => {
 app.get('/products/', async (req, res) => {
   const page = Number(req.query.page);
   const limit = Number(req.query.limit);
+  const filter = req.query.filter
   const startIndex = (page - 1) * limit;
   const endIndex = startIndex + limit;
 
+  
   try {
-     const products = await getProducts(startIndex,endIndex)
+     const products = await getProducts(startIndex,endIndex,filter)
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({message:error.message})
@@ -480,6 +482,15 @@ app.post('/order/:userId',async (req,res) => {
  }
 })
 
+app.get('/orders',async (req,res) => {
+  try {
+    const orders = await getAllOrders()
+   res.status(200).json(orders);
+ } catch (error) {
+   res.status(500).json({message:error.message})
+ }
+})
+
 app.get('/orders/revenue',async (req,res) => {
   try {
     const revenue = await orderRevenue()
@@ -493,6 +504,16 @@ app.get('/orders-count',async (req,res) => {
   try {
     const count = await ordersCount()
    res.status(200).json(count);
+ } catch (error) {
+   res.status(500).json({message:error.message})
+ }
+})
+
+app.get('/orders/:userId',async (req,res) => {
+  const {userId} = req.params
+  try {
+    const orders = await getUserOrder(userId)
+   res.status(200).json(orders);
  } catch (error) {
    res.status(500).json({message:error.message})
  }

@@ -4,8 +4,28 @@ export async function createProduct(data){
     return await Product.create(data)
 }
 
-export async function getProducts(startIndex,endIndex){
+export async function getProducts(startIndex,endIndex,filter){
+    if(filter === 'newest'){
+        return (await (Product.find().sort({createdAt:-1}).lean())).slice(startIndex,endIndex);
+    }else if(filter === 'oldest'){
+        return (await (Product.find().sort({createdAt:1}).lean())).slice(startIndex,endIndex);
+    }else if(filter === 'A-Z'){
+        return (await Product.find().sort({name:1})).slice(startIndex,endIndex)
+    }else if(filter === 'Z-A'){
+        return (await Product.find().sort({name: -1})).slice(startIndex,endIndex)
+    }else if(filter === 'low'){
+        return (await Product.find().sort({price: 1})).slice(startIndex,endIndex)
+    }else if(filter === 'high'){
+        return (await Product.find().sort({price: -1})).slice(startIndex,endIndex)
+    }
+
+    if(filter){
+    return (await Product.find({category:filter}).lean()).slice(startIndex,endIndex);
+    
+    }
+  
     return (await Product.find().lean()).slice(startIndex,endIndex);
+    
 }
 
 export async function getAllProduct(){

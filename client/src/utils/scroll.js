@@ -4,13 +4,15 @@ export const useScroll = () =>{
 
     useEffect(()=>{
         const scrollHanlder = (event) =>{
-        if(event.target.tagName !== 'A'){
+        if(event.target.tagName !== 'A' && event.type !== 'submit'){
             return
         }
-            scroll({
-                top:0,
-                behavior:'smooth'
-            })
+
+        window.scrollTo({
+            top:0,
+            behavior:'smooth'
+        })
+            
         }
 
         window.addEventListener('click',scrollHanlder);
@@ -18,7 +20,8 @@ export const useScroll = () =>{
 
 
         return () =>{
-            document.removeEventListener("click", scrollHanlder);
+            window.removeEventListener("click", scrollHanlder);
+            window.removeEventListener("submit", scrollHanlder);
         }
-    })
+    },[])
 }

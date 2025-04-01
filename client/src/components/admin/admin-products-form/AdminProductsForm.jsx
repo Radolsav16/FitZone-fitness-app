@@ -38,7 +38,7 @@ export default function AdminProductsForm() {
             />
           </div>
           
-          <SelectElement options={selectionCategoryOptions}  />
+          <SelectElement options={selectionCategoryOptions} name={'category'}  />
           
           <div>
             <label className="block font-semibold mb-1">Price</label>

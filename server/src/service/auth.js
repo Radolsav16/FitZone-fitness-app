@@ -8,9 +8,13 @@ dotenv.config()
 const secret = process.env.JWT_SECRET;
 
 export async function login(data){
-    const user = await User.findOne({email:data.email});
-    
-    const isValid = await bcrypt.compare(data.password,user.password)
+
+    const user = await User.findOne({email:data.email}).lean();
+
+     data.password = data.password.trim()
+     
+     const isValid = await bcrypt.compare(data.password,user.password)
+
 
   
     if(!isValid){
@@ -40,6 +44,10 @@ export async function register(data,imageUrl){
     }
 
     const image = imageUrlConverter(imageUrl);
+
+    data.password = data.password.trim()
+
+    data.password = await bcrypt.hash(data.password,10);
 
     
 
