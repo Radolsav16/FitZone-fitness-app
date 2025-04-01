@@ -4,17 +4,20 @@ import BlogFilters from "../components/blog/blog-filters/BlogFilters";
 import NoPosts from "../components/blog/no-posts/NoPosts";
 import PostCreateCaller from "../components/blog/post-create-caller/PostCreateCaller";
 import { useLocation } from "react-router";
+import { useCart } from "../providers/CartProvider";
+import ShopCart from "../components/shop/shop-cart/ShopCart";
 
 export default function Blog(){
     const queryObj = new URLSearchParams(useLocation().search);
     const query = queryObj.get('searchedBy')
 
     const { posts } = usePosts(query)
+    const {showCart} = useCart()
 
     
     return(
         <>
-
+        {showCart && <ShopCart />}
          <div className="p-8 bg-gray-100 mt-20">
                 <h1 className="text-3xl font-bold text-center mb-6">Our Blog</h1>
                 <BlogFilters />

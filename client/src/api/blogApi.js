@@ -156,7 +156,6 @@ export const useDetailsPost = (postId,userId) =>{
 
 export const useLikePost = (postId,userId) =>{
 
-  const [isLiked,setIsLiked] = useState(false);
   const [likes,setLikes] = useState(Number)
 
 
@@ -169,15 +168,13 @@ export const useLikePost = (postId,userId) =>{
 
 
 
-  const like = () =>{
-    fetchApi.get(baseUrl + `/blog/like/${postId}/${userId}`,{'Content-Type':'application/json'})
-    setIsLiked(true);
+  const like = async () =>{
+    await fetchApi.get(baseUrl + `/blog/like/${postId}/${userId}`,{'Content-Type':'application/json'})
     setLikes(oldState => oldState + 1);
   }
 
   return {
     like,
-    isLiked,
     likes
   }
 }

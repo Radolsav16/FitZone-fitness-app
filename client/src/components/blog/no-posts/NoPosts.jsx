@@ -6,7 +6,7 @@ export default function NoPosts(){
               No Post Yet!
             </h2>
             <p className="text-blue-600 mb-8">
-              It seems like there are no post available right now. Scroll
+              It seems like there are no post. Scroll
               down to create one!
             </p>
             <svg

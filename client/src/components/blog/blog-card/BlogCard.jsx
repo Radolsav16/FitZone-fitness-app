@@ -8,9 +8,8 @@ export default function BlogCard({
     post
 }){
   const {id:userId} = useUserContext()
-  const {like ,isLiked,likes} = useLikePost(post._id,userId)
-  
-  console.log(likes)
+  const {like ,likes} = useLikePost(post._id,userId)
+ 
    
     return(
         <>
@@ -51,7 +50,7 @@ export default function BlogCard({
     </Link>
     <div className="flex items-center space-x-4 mt-4">
 
-    {(userId && userId != post.author._id && !isLiked) &&  
+    {(userId && userId != post.author._id && !post.likes.includes(userId)) &&  
     <button
       onClick={like}  
       className="flex items-center px-4 py-2 bg-white-500 text-black rounded-full hover:bg-white-600 transition"

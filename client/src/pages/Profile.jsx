@@ -8,12 +8,16 @@ import ProfileUserAction from "../components/profile/profile-user-action/Profile
 import ProfileCardJoined from "../components/profile/profile-card-joined/ProfileCardJoined"
 import ProfileCardSaved from "../components/profile/profile-card-saved/ProfileCardSaved"
 import ProfileCardLiked from "../components/profile/profile-card-liked/ProfileCardLiked"
+import { useCart } from "../providers/CartProvider";
+import ShopCart from "../components/shop/shop-cart/ShopCart";
 
 export default function Profile(){
      const {id} = useParams()
      const {user} = useUser(id)
      const navigate = useNavigate()
      const {id : currUser,userLogoutHandler} = useUserContext()
+
+     const {showCart} = useCart()
 
 
      const logoutHandler = () =>{
@@ -23,6 +27,7 @@ export default function Profile(){
 
     return(
         <>
+        {showCart && <ShopCart />}
         <div className="max-w-4xl mx-auto p-6 bg-gray-100 rounded-lg shadow-md mt-20">
         <ProfileUserSection user={user}/>
 
@@ -31,8 +36,9 @@ export default function Profile(){
         <ProfileCardLiked likedPost={user.likedPost}/> 
 
 
-        {user._id === currUser && <ProfileUserAction  logoutHandler={logoutHandler}/>}
-
+        {user._id === currUser && 
+        <>
+        <ProfileUserAction  logoutHandler={logoutHandler}/>
         <div className="text-center">
         <p className="text-gray-500 text-sm">View your orders</p>
         <Link
@@ -43,7 +49,13 @@ export default function Profile(){
           <span>Check Your Orders</span>
         </Link>
       </div>
+      </>
 
+        }
+
+
+
+        
         </div>
         
         </>

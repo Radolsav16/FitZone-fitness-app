@@ -14,7 +14,7 @@ export default function HeroExercise(){
             Discover the best exercises tailored for all fitness levels. From strength training to flexibility, enhance your workout routine with our expert-guided plans.
           </p>
           <Link 
-          to={'/fitzone/exercise-search'}
+          to={'/fitzone/exercises'}
           className="bg-black hover:bg-gray-800 text-orange-500 py-3 px-10 rounded-md text-lg font-semibold shadow-md transition-transform transform hover:scale-105">
             Browse Exercises
           </Link>

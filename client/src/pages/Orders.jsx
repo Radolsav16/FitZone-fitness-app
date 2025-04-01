@@ -1,14 +1,18 @@
 import { useOrders } from "../api/shopApi";
+import ShopCart from "../components/shop/shop-cart/ShopCart";
+import { useCart } from "../providers/CartProvider";
 import { DateConverter } from "../utils/DateConverter";
 import {Link} from 'react-router'
 
 export default function Orders() {
   const { orders } = useOrders();
+  const {showCart} = useCart()
 
   return (
     <>
-   <div className="container mx-auto p-6">
-  <h1 className="text-2xl font-bold mb-4">Your Orders</h1>
+    {showCart && <ShopCart />}
+   <div className="container mx-auto p-6 mt-20">
+  <h1 className="text-2xl font-bold mb-4">Shop Orders</h1>
   <div className="bg-white shadow-md rounded-lg p-4">
     <table className="w-full border-collapse border border-gray-200">
       <thead>
@@ -48,15 +52,9 @@ export default function Orders() {
           <tr>
             <td colSpan="6" className="text-center py-8">
               <div className="flex flex-col items-center justify-center">
-                <h1 className="text-gray-500 text-lg mb-4">
-                  You don't have any orders yet.
+                <h1 className="text-black-500 text-lg mb-4">
+                  Shop  don't have any orders yet!
                 </h1>
-                <Link
-                  to="/fitzone/shop"
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-                >
-                  Go to Shop
-                </Link>
               </div>
             </td>
           </tr>
