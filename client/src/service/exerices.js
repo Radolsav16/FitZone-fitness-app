@@ -20,6 +20,7 @@ export async function getAllExercises(offset){
     return exercises;
 }
 
+
 export async function getOneExercise(id){
     const exercise = await exerciseFetcher(`https://exercisedb.p.rapidapi.com/exercises/exercise/${id}`);
 

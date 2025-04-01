@@ -14,9 +14,9 @@ export default function Exercise() {
         (async () =>{
             const exercises = await getAllExercises(offset);
             SetExercises(exercises)
-            SetOffset(page - 1 * 9)
+            SetOffset((page - 1) * 9)
         })()
-    },[page])
+    },[page,offset])
 
   
 
@@ -42,7 +42,7 @@ export default function Exercise() {
         ))}
       </div>
     </div>
-   <Pagination  SetCurrentPage = {SetCurrentPage} page={page}/>
+   <Pagination  SetCurrentPage = {SetCurrentPage} page={page} SetOffset = {SetOffset}/>
    </>
   );
 }

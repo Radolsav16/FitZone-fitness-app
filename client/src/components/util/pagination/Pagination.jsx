@@ -1,60 +1,37 @@
-export default function Pagination({
-    SetCurrentPage,
-    page
-}){
-    return(
-        <>
-       
-       <div className="flex justify-center my-4">
-      <nav>
-        <ul className="flex list-none">
-            <li className="mx-1">
-              <button
-                className={`px-3 py-1 border bg-black text-white  border-black hover:bg-gray-200`}
-              >
-                {`<`}
-              </button>
-            </li>
+export default function Pagination({ SetCurrentPage, page, SetOffset }) {
+  return (
+    <>
+      <div className="flex justify-center my-4 items-center">
+     
+        <button
+          onClick={() => {
+            SetCurrentPage(page - 1);
+            SetOffset((oldState) => oldState - 9);
+          }}
+          disabled={page === 1}
+          className="mx-1 px-3 py-1 border bg-black text-white border-black hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          &lt;
+        </button>
 
-            <li className="mx-1">
-              <button
-                className={`px-3 py-1 border bg-white text-black  border-black hover:bg-gray-200`}
-              >
-                1
-              </button>
-            </li>
+        <span className="mx-1 px-3 py-1 border bg-white text-black border-black">
+          {page}
+        </span>
 
-            <li className="mx-1">
-              <button
-                className={`px-3 py-1 border  bg-white text-black border-black hover:bg-gray-200`}
-              >
-                ...
-              </button>
-            </li>
+        <span className="mx-1 px-3 py-1 border bg-white text-black border-black">
+          ...
+        </span>
 
-            <li className="mx-1">
-              <button
-                className={`px-3 py-1 border  bg-white text-black border-black hover:bg-gray-200`}
-              >
-                {length}
-              </button>
-            </li>
-
-            <li className="mx-1">
-              <button
-                className={`px-3 py-1 border bg-black text-white  border-black hover:bg-gray-200`}
-                onClick={()=>SetCurrentPage(page + 1)}
-              >
-                {`>`}
-              </button>
-            </li>
-
-        </ul>
-      </nav>
-    </div>
-
-        </>
-    )
+        <button
+          onClick={() => {
+            SetCurrentPage(page + 1);
+            SetOffset((page - 1) * 9);
+          }}
+          className="mx-1 px-3 py-1 border bg-black text-white border-black hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          &gt;
+        </button>
+      </div>
+    </>
+  );
 }
-
-// ${currentPage === page ? 'bg-black text-white' : 'bg-white text-black'}
