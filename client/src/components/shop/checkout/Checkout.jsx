@@ -70,11 +70,13 @@ const Checkout = () => {
               key={item.productId}
               className="flex justify-between items-center border-b pb-4"
             >
+              <Link to={`/fitzone/product/details/${item.productId?._id}`}>
               <img
                 src={item.productId?.image}
                 alt={item.productId?.name}
                 className="w-19 h-16 object-cover rounded"
               />
+                </Link>
               <div className="flex-1 ml-4">
                 <h3 className="text-gray-900 font-medium">
                   {item.productId?.name}
@@ -86,6 +88,7 @@ const Checkout = () => {
               <p className="text-gray-900">
                 ${item.productId.price.toFixed(2)}
               </p>
+            
               <button
                 className="text-red-500 hover:text-red-700 font-medium ml-4 mb-1"
                 onClick={() => {

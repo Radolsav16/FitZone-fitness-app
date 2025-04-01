@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { useUserOrders } from "../api/shopApi";
 import { useUserContext } from "../contexts/UserContext";
 import ShopCart from "../components/shop/shop-cart/ShopCart";
+import { useCart } from "../providers/CartProvider";
 
 export default function UsersOrders() {
   const { id } = useUserContext();

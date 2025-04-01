@@ -16,6 +16,7 @@ import { sortOptionsShop } from "../utils/selectionData";
 import { useState } from "react";
 import { useProducts } from "../api/productApi";
 import { useScroll } from "../utils/scroll";
+import { useRating } from "../api/reviewsApi";
 
 
 
@@ -47,7 +48,6 @@ export default function Shop() {
 
     const { products , lastPage ,setPage , page} = useProducts(query)
 
- 
   
   
 
