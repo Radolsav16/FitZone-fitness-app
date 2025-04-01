@@ -41,6 +41,8 @@ import UsersOrders from "./pages/UsersOrders";
 import GuestGuard from "./components/guards/Guest";
 import AuthGuard from "./components/guards/Auth";
 
+import ProductDetails from "./pages/ProductDetails";
+
 
 function App() {
   useScroll()
@@ -99,6 +101,10 @@ function App() {
           {/* Blog */}
           <Route path="/fitzone/blog" element={<Blog />} />
           <Route path="/fitzone/blog-details/:id" element={<BlogDetails />} />
+
+          <Route path="/fitzone/product/details/:id" element={<ProductDetails />} />
+
+          
 
 
           <Route path="/fitzone/shop" element = {<Shop />}/>

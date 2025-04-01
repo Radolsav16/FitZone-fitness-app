@@ -15,6 +15,7 @@ import { createProduct, deleteProduct, editProduct, getAllProduct, getProduct, g
 import { createTestimonial, getThreeTestimonails } from './service/testimonials.js';
 import { addToCart, deleteFromCart, emtpyCart, getCart } from './service/cart.js';
 import { createOrder, getAllOrders, getUserOrder, orderRevenue, ordersCount } from './service/orders.js';
+import { createReview, getProductRating, getReviews } from './service/reviews.js';
 
 
 const PORT = process.env.PORT;
@@ -518,5 +519,35 @@ app.get('/orders/:userId',async (req,res) => {
    res.status(500).json({message:error.message})
  }
 })
+
+app.post('/create-review',async (req,res) => {
+  try {
+    const review = await createReview(req.body)
+   res.status(200).json(review);
+ } catch (error) {
+   res.status(500).json({message:error.message})
+ }
+})
+
+app.get('/reviews/:productId',async (req,res) => {
+  const {productId} = req.params
+  try {
+    const reviews = await getReviews(productId)
+   res.status(200).json(reviews);
+ } catch (error) {
+   res.status(500).json({message:error.message})
+ }
+})
+
+app.get('/product/rating/:productId',async (req,res) => {
+  const {productId} = req.params
+  try {
+    const rating = await getProductRating(productId)
+   res.status(200).json(rating);
+ } catch (error) {
+   res.status(500).json({message:error.message})
+ }
+})
+
 
 app.listen(PORT,()=>console.log(`Server is running on port ${PORT}`))

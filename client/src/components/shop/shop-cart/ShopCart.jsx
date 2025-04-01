@@ -39,18 +39,21 @@ export default function  ShopCart(){
   <div className="flex-1 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
     <ul className="space-y-4">
       {cart.map((p) => (
-       <li key={p.productId} className="flex items-center space-x-4 border-b pb-2">
+       <li key={p.productId._id} className="flex items-center space-x-4 border-b pb-2">
+        <Link to={`/fitzone/product/details/${p.productId._id}`}>
        <img
          src={p.productId?.image}
          alt="Product Image"
          className="w-16 h-16 rounded"
        />
+       </Link>
        <div className="flex-1">
          <h3 className="text-sm font-medium">{p.productId?.name}</h3>
          <p className="text-gray-500 text-xs">{p.productId?.category}</p>
          <p className="text-gray-900 font-semibold">${p.productId?.price}</p>
          <p className="text-gray-500 text-xs">Quantity: {p.quantity}</p> 
        </div>
+       
        <button className="text-red-500 hover:text-red-700" onClick={()=>{
         deleteProductFromCart(p.productId);
         setCart([...cart.filter(o => o.productId != p.productId)])
