@@ -1,17 +1,18 @@
 # FitZone - Fitness Community App 🏋️‍♂️💪
 ## 🌟 Overview
-**FitZone** is a social fitness platform where users can ** join and  create challenges,see exercises,calculate their calories daily and their BMI, and interact with others** through posts,comments,likes.
+**FitZone** is a  fitness ecommerce shop and community app  where users can ** see ,join,save,create challenges,see exercises, and interact with others** through Blog with posts,comments,likes.Also user can browse and filter products in the shop ,added to cart ,see checkout,make review,rating products and buy product.Users also can see other people profiles and their saved and joined challanges ,liked post and send testimonails.App has and admin panel where admin can delete user,challanges and post,see,edit and add product and also see total revenue and count of orders and page to see all orders made.
 
 🔗 **Live Demo**: [FitZone on Netlify](https://fitzone-app.vercel.app)  
 
 ## 🚀 Features
 ✅ **Authentication** (Register/Login) with MongoDB,JWT.
-✅ **Community Feed** (Posts, Likes, Comments)  
+✅ **Community Feed** (Posts, Likes, Comments,Reviews)  
 ✅ **Exercise Library** (Fetched via External API)  
-✅ **Challenges System** (Join & create fitness challenges)  
+✅ **Challenges System** (Join,Save & create fitness challenges)  
 ✅ **Fitness Blog** (Read & comment on fitness articles)  
-✅ **Responsive Design** (Optimized for mobile & desktop)   
-✅ **Deployment** (Hosted on Firebase)  
+✅ **Fitness & Sport Shop** (Add to cart,checkout,previews,ratings)  
+✅ **Responsive Design** (Optimized for mobile & desktop) 
+✅ **Deployment** (Hosted)  
 
 ---
 
@@ -21,5 +22,21 @@
 - **Database**: MongoDB
 - **Authentication**: JWT
 - **Exercise Data**: ExerciseDB API
-- **Hosting**: Netlify
+
+- ## Project Setup
+- ### Installation Steps
+- #### Clone the Repositary
+- https://github.com/Radolsav16/FitZone-fitness-app.git
+-  #### Install Dependencies
+- npm install on the server and client.
+- #### Set Up Environment Variables
+- Create a .env file in the root directory in the server.
+- Fill it with that info
+- PORT=3030
+-JWT_SECRET =fitzone-secret_sdfhbksjfb8374
+-MONGO_URI =mongodb://localhost:27017/fitzone-app
+- #### Run the Development Server
+- npm run dev on the server and client
+
+
 
