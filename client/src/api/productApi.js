@@ -5,15 +5,18 @@ import { useFormState } from "../hooks/FormStateHook";
 const baseUrl = 'http://localhost:3030';
 
 
-export const useProducts = (currPage,query) => {
+export const useProducts = (query) => {
   const [products, setProducts] = useState([]);
   const [lastPage,setLastPage] = useState(0);
   const [allProducts,setAllProducts] = useState(0);
+  const [page, setPage] = useState(1);
+
   const limitIndex = 8;
 
 
   useEffect(() => {
     (async () => {
+  
       const result = await fetchApi.get(`http://localhost:3030/all-products`,{
         'Content-Type':'applciation/json'
       });
@@ -24,28 +27,37 @@ export const useProducts = (currPage,query) => {
 
   useEffect(() => {
     (async () => {
+     
+
       const result = await fetchApi.get(`http://localhost:3030/products`,{
         'Content-Type':'applciation/json'
       },{
-        page:currPage,limit:9,filter:query
+        page,limit:9,filter:query
       });
       setProducts(result);
       
     })();
-  },[currPage,query]);
+  },[page,query]);
 
 
   useEffect(()=>{
+    console.log(products)
  
     if(products.length ===  1){
-      return setLastPage(oldState => oldState)
+      return setLastPage(page)
     }
 
     if(['A-Z','Z-A','newest','oldest','low','high'].includes(query) || !query){
       return setLastPage(Math.floor(allProducts.length / limitIndex))
     }else if(!['A-Z','Z-A','newest','oldest','low','high'].includes(query)){
+      if(!products.length){
+        return setPage(1)
+      }
+
       return setLastPage(Math.ceil(products.length / limitIndex))
     }
+
+    
 
     
     
@@ -58,6 +70,8 @@ export const useProducts = (currPage,query) => {
     products,
     setProducts,
     lastPage,
+    page,
+    setPage
   };
 };
 

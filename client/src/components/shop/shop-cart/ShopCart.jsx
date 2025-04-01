@@ -25,12 +25,12 @@ export default function  ShopCart(){
      <div className="fixed top-0 right-0 w-full sm:w-96 h-full bg-gray-100 p-8 shadow-lg transition-transform transform translate-x-0 sm:translate-x-0 mt-20 flex flex-col sm:max-w-xs sm:right-0 overflow-hidden z-50">
   {/* Close Button */}
   <button
-    className="absolute top-4 right-4 text-black text-xl font-bold hover:text-gray-600 transition"
-    aria-label="Close"
-    onClick={hideCart}
-  >
-    &times;
-  </button>
+  className="absolute top-4 right-4 text-black text-xl font-bold hover:text-gray-600 transition focus:outline-none focus:ring-0"
+  aria-label="Close"
+  onClick={hideCart}
+>
+  &times;
+</button>
 
   {/* Header */}
   <h2 className="text-lg font-bold mb-4">Shopping Cart</h2>

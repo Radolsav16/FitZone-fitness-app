@@ -5,27 +5,19 @@ const baseUrl = 'http://localhost:3030';
 
 
 export const useShop = () => {
-    const [page, setPage] = useState(1);
-  
+
      const [productId, setProductId] = useState("");
      const [showPreview, setShowPreview] = useState(false);
       
      const cancel = () => {
        setShowPreview(false);
      };
-
-     
-
-
      return {
        cancel,
        productId,
        setProductId,
        showPreview,
        setShowPreview,
-       page,
-       setPage,
-
      }
 }
 

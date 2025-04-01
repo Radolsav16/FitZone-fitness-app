@@ -13,6 +13,7 @@ export default function RecentlyPost(){
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
      
       {posts.map(p =>
+      <Link to={`/fitzone/blog-details/${p._id}`}>
         <div className="bg-white shadow-lg rounded-lg overflow-hidden" key={p._id}>
         <img
           src={p.image}
@@ -32,6 +33,7 @@ export default function RecentlyPost(){
           </Link>
         </div>
       </div>
+      </Link>
       )}
 
     </div>

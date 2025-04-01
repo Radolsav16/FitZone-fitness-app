@@ -34,7 +34,7 @@ export default function DesktopNav() {
             <ul className="dropdown-menu hidden absolute left-0 mt-2 bg-white shadow-lg rounded-lg">
               <li>
                 <Link
-                  to="/fitzone/meal-plans"
+                  to="/fitzone/shop/?searchedBy=accessories"
                   className="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white"
                 >
                   Accessories
@@ -42,7 +42,7 @@ export default function DesktopNav() {
               </li>
               <li>
                 <Link
-                  to="/fitzone/workout-programs"
+                  to="/fitzone/shop/?searchedBy=martial-arts-gear"
                   className="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white"
                 >
                   Martial Arts Gear
@@ -50,7 +50,7 @@ export default function DesktopNav() {
               </li>
               <li>
                 <Link
-                  to="/fitzone/gym-things"
+                  to="/fitzone/shop/?searchedBy=supplements"
                   className="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white"
                 >
                   Supplements
@@ -58,10 +58,10 @@ export default function DesktopNav() {
               </li>
               <li>
                 <Link
-                  to="/fitzone/books"
+                  to="/fitzone/?searchedBy=gym-equipment"
                   className="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white"
                 >
-                 Gym Essentials
+                 Gym Equipment
                 </Link>
               </li>
             </ul>

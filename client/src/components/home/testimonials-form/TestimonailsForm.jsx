@@ -21,13 +21,13 @@ export default function TestimonialsForm({
     return(
         <>
          <div className="fixed top-0 right-0 w-full sm:w-80 h-full bg-gray-100 p-8 shadow-lg transition-transform transform translate-x-0 mt-20" >
-          <button
-            className="absolute top-4 right-4 text-black text-xl font-bold hover:text-gray-600 transition"
-            aria-label="Close"
-            onClick={()=>hideTestimonialForm()}
-          >
-            &times;
-          </button>
+         <button
+  className="absolute top-4 right-4 text-black text-xl font-bold hover:text-gray-600 transition focus:outline-none focus:ring-0"
+  aria-label="Close"
+  onClick={() => hideTestimonialForm()}
+>
+  &times;
+</button>
           <form action={formTestimonailsHanlder}>
             <div className="mb-4">
               <label htmlFor="testimonial" className="block text-sm font-medium mb-2">

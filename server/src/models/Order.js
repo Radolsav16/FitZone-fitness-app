@@ -11,10 +11,7 @@ const orderSchema = new Schema({
     contact:{
         type:String
     },
-    products:[{
-        type:Types.ObjectId,
-        ref:'Product'
-    }],
+    products:[{ type: Types.ObjectId, ref: "Product" }],
     total:{
         type:Number
     }

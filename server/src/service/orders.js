@@ -7,16 +7,13 @@ export async function createOrder (userId,data) {
 }
 
 export async function getAllOrders() {
-   const orders = await Order.find().populate({
-    path:'products',
-   }).lean();
+  const orders = await Order.find().populate('products').lean()
 
-   return orders
+  return orders
 } 
 
 export async function getUserOrder(userId) {
-    console.log(userId)
-    const orders = await Order.find({userId})
+    const orders = await Order.find({userId}).populate('products')
  
     return orders
  } 

@@ -26,8 +26,6 @@ export default function Shop() {
 
   const {
     cancel,
-    setPage,
-    page,
     showPreview,
     productId,
     setProductId,
@@ -47,9 +45,9 @@ export default function Shop() {
   const {showCart,setShowCart} = useCart()
 
 
-    const { products , lastPage } = useProducts(page,query)
+    const { products , lastPage ,setPage , page} = useProducts(query)
 
-    console.log(products)
+ 
   
   
 
@@ -132,8 +130,7 @@ export default function Shop() {
   <button
     className="bg-blue-500 text-white px-6 py-3 text-xl rounded flex items-center"
     disabled={page === lastPage}
-    onClick={() => 
-      setPage((oldState) => oldState + 1)}
+    onClick={() => setPage(oldState => oldState + 1)}
   >
     <span>{`>`}</span>
   </button>

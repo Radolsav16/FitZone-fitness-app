@@ -31,14 +31,14 @@ export default function Home() {
       <HeroBeginOverlay />
       {showOrderModal && <SuccesfullOrderModal/>}
       {showCart && <ShopCart />}
-      {showTestimonials && <TestimonialsForm  hideTestimonialForm = {hideTestimonialForm} />}
       <PromoSection />
       <HeroCollections />
       <HeroShop />
       {email ? <HeroCreatePost /> : <HeroFeature />  }
       <RecentlyPost />
-      <HeroJoinChallanges />
       <HeroExercise />
+      <HeroJoinChallanges />
+      {showTestimonials && <TestimonialsForm  hideTestimonialForm = {hideTestimonialForm} />}
       {email && <TestimonialsCaller showTestimonials={showTestimonials} setShowTestimonials={setShowTestimonials}/> }
       
 

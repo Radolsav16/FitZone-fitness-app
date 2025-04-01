@@ -7,10 +7,10 @@ export default function MobileNav({ close }) {
   return (
     <>
       <nav id="mobile-menu" className="mobile-menu">
-        <button class="close-btn" onClick={close}>
+        <button className="close-btn" onClick={close}>
           ×
         </button>
-        <ul class="menu-list">
+        <ul className="menu-list">
           <li>
             <Link to={"/"} className="menu-item" onClick={close}>
               Home

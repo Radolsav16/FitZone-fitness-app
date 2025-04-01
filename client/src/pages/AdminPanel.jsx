@@ -9,9 +9,12 @@ import { FiDollarSign } from "react-icons/fi";
 import { DateConverter } from "../utils/DateConverter";
 import { useOrderCount, useOrderRevenue } from "../api/shopApi";
 import { FiShoppingCart } from "react-icons/fi";
+import { useCart } from "../providers/CartProvider";
+import ShopCart from "../components/shop/shop-cart/ShopCart";
 
 
 const AdminPanel = () => {
+  const {showCart} = useCart()
   const { products, setProducts } = useAllProducts();
   const { users, setUsers } = useUsers();
   const { challanges, setChallanges } = useChallanges();
@@ -91,6 +94,7 @@ const AdminPanel = () => {
 
   return (
     <>
+    {showCart && <ShopCart />}
       <div className="min-h-screen bg-gray-100 p-8 mt-20">
         <h1 className="text-2xl font-bold mb-4">Admin Panel</h1>
         <div className="bg-white rounded shadow p-4 mb-8">
@@ -296,13 +300,13 @@ const AdminPanel = () => {
 
       {/* Shortened Orders Link */}
         <div className="text-center">
-             <p className="text-gray-500 text-sm">View your orders</p>
+             <p className="text-gray-500 text-sm">View orders</p>
              <Link
                to={`/fitzone/orders`}
                className="flex items-center justify-center gap-2 text-blue-600 hover:underline font-medium mt-2"
              >
                <FiShoppingCart size={20} />
-               <span>Check Your Orders</span>
+               <span>Check Orders</span>
              </Link>
            </div>
      

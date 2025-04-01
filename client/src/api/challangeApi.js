@@ -12,6 +12,7 @@ const baseUrl = 'http://localhost:3030';
 export const useChallanges =  () => {
 
     const [challanges, setChallanges] = useState([]);
+    const [filteredChallanges,setFilteredChallanges] = useState([])
   
 
     useEffect(() => {
@@ -19,7 +20,7 @@ export const useChallanges =  () => {
       
       const result = await fetchApi.get(baseUrl + '/challanges',{'Content-Type':'application/json'});
       setChallanges(result)
-
+      setFilteredChallanges(result)
   
      })()
     }, []);
@@ -27,7 +28,8 @@ export const useChallanges =  () => {
     
     return {
         challanges,
-        setChallanges
+        filteredChallanges,
+        setFilteredChallanges
     }
 }
 

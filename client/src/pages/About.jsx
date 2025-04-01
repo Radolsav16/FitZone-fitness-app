@@ -1,6 +1,11 @@
+import ShopCart from "../components/shop/shop-cart/ShopCart";
+import { useCart } from "../providers/CartProvider";
+
 export default function About() {
+  const {showCart} = useCart()
   return (
     <>
+    {showCart && <ShopCart />}
       <div className="relative flex flex-col lg:flex-row items-center justify-center min-h-screen px-8 lg:px-20 gap-12 mt-20">
         <div className="lg:w-1/2 text-left">
           <h1 className="text-6xl font-extrabold text-black-500 drop-shadow-lg">
@@ -13,11 +18,9 @@ export default function About() {
             <strong>Welcome to Fitzone</strong>, the ultimate fitness platform designed to help
             you achieve your goals while staying inspired! Whether you're a
             beginner or a pro, our app has everything you need to stay on track:<br/>
-            🔥 <strong>Online Magazine</strong> – Stay updated with the latest fitness trends,
-            expert tips, workout routines, and nutrition guides. <br/>
-            🛍 <strong>Fitness Gear </strong>– Buy high-quality gym equipment, supplements, and workout
+            🔥 <strong>Fitness Shop</strong>– Buy high-quality gym equipment, supplements, and workout
             apparel right from the app. <br />
-            🏆 <strong>Join & Create Challenges</strong> – Set goals,
+            🏆<strong>Join & Create Challenges</strong> – Set goals,
             challenge yourself, and compete with friends to stay motivated.<br />
             💬 <strong>Community & Blog</strong> – Post, comment, and like blogs to share
             experiences and connect with fellow fitness enthusiasts. <br/>
