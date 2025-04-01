@@ -1,9 +1,26 @@
+
 import Order from "../models/Order.js";
 
 export async function createOrder (userId,data) {
     data.userId = userId
     await Order.create(data)
 }
+
+export async function getAllOrders() {
+   const orders = await Order.find().populate({
+    path:'products',
+   }).lean();
+
+   return orders
+} 
+
+export async function getUserOrder(userId) {
+    console.log(userId)
+    const orders = await Order.find({userId})
+ 
+    return orders
+ } 
+    
 
 
 export async function orderRevenue () {

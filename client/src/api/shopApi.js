@@ -6,7 +6,7 @@ const baseUrl = 'http://localhost:3030';
 
 export const useShop = () => {
     const [page, setPage] = useState(1);
-     const lastPage = Math.ceil(44 / 9);
+  
      const [productId, setProductId] = useState("");
      const [showPreview, setShowPreview] = useState(false);
       
@@ -24,8 +24,8 @@ export const useShop = () => {
        showPreview,
        setShowPreview,
        page,
-       lastPage,
-       setPage
+       setPage,
+
      }
 }
 
@@ -129,4 +129,38 @@ return {
     revenue,
     setRevenue
 }
+}
+
+export const useOrders = () =>{
+  const [orders,setOrders] = useState([]);
+
+  useEffect(()=>{
+    (async ()=>{
+        const result = await fetchApi.get(baseUrl + `/orders`,{'Content-Type':'application/json'})
+        setOrders(result)
+    })()
+},[])
+
+
+
+  return{
+    orders
+  }
+}
+
+export const useUserOrders = (id) =>{
+  const [orders,setOrders] = useState([]);
+
+  useEffect(()=>{
+    (async ()=>{
+        const result = await fetchApi.get(baseUrl + `/orders/${id}`,{'Content-Type':'application/json'})
+        setOrders(result)
+    })()
+},[])
+
+
+
+  return{
+    orders
+  }
 }

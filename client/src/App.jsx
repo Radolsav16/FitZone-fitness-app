@@ -28,7 +28,7 @@ import CreateChallange from "./components/challanges/create-challange/CreateChal
 import ChallangeDetails from "./components/challanges/challange-details/ChallangeDetails";
 
 import { UserProvider } from "./providers/UserProvider";
-import { useScroll } from "./utils/scroll";
+
 import AdminPanel from "./pages/AdminPanel";
 import AdminProductsForm from "./components/admin/admin-products-form/AdminProductsForm";
 import AdminEdit from "./components/admin/admin-edit/AdminEdit";
@@ -36,10 +36,12 @@ import Shop from "./pages/Shop";
 import ShopDetails from "./components/shop/shop-details/ShopDetails";
 import Checkout from "./components/shop/checkout/CheckOut";
 import { CartProvider } from "./providers/CartProvider";
+import Orders from "./pages/Orders";
+import { useScroll } from "./utils/scroll";
+import UsersOrders from "./pages/UsersOrders";
 
 function App() {
-  useScroll();
-
+  useScroll()
   return (
     <>
       <UserProvider>
@@ -91,6 +93,11 @@ function App() {
           <Route path="/fitzone/shop" element = {<Shop />}/>
           <Route path="/fitzone/shop/details" element = {<ShopDetails />}/>
           <Route path="/fitzone/checkout" element = {<Checkout />}/>
+          <Route path="/fitzone/orders" element = {<Orders/>}/>
+          <Route path="/fitzone/orders/:id" element = {<UsersOrders/>}/>
+
+
+          
 
 
 

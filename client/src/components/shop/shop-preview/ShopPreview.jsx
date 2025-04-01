@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { useProduct } from "../../../api/productApi";
+import { useUserContext } from "../../../contexts/UserContext";
+import {useNavigate} from 'react-router'
 
 
 
 export default function ShopPreview({ productId, cancel, addToCart }) {
   const { product } = useProduct(productId);
   const [quantity,setQantity] = useState(1)
+  const {id} = useUserContext()
+  const navigate = useNavigate()
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 mt-20">
@@ -42,6 +46,9 @@ export default function ShopPreview({ productId, cancel, addToCart }) {
         />
       </div>
       <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 w-full mb-2" onClick={()=>{
+        if(!id){
+          return navigate('/fitzone/login')
+        }
         addToCart({quantity:Number(quantity),productId:product._id})
         cancel()
       }}>

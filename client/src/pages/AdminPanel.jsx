@@ -8,6 +8,8 @@ import { useDeletePost, usePosts } from "../api/blogApi";
 import { FiDollarSign } from "react-icons/fi";
 import { DateConverter } from "../utils/DateConverter";
 import { useOrderCount, useOrderRevenue } from "../api/shopApi";
+import { FiShoppingCart } from "react-icons/fi";
+
 
 const AdminPanel = () => {
   const { products, setProducts } = useAllProducts();
@@ -278,20 +280,35 @@ const AdminPanel = () => {
       </div>
 
       <div className="bg-white shadow-lg rounded-2xl p-6 m-10">
-        <div className="flex items-center space-x-4 mb-4">
-          <div className="bg-green-100 text-green-600 p-3 rounded-full">
-            <FiDollarSign size={32} />
-          </div>
-          <div>
-            <p className="text-gray-500 text-sm">Total Revenue</p>
-            <p className="text-2xl font-bold">${revenue.toFixed(2)}</p>
-          </div>
-          <div className="ml-auto text-right">
-            <p className="text-gray-500 text-sm">Total Orders</p>
-            <p className="text-2xl font-bold">{count}</p>
-          </div>
+      <div className="flex items-center space-x-4 mb-4">
+        <div className="bg-green-100 text-green-600 p-3 rounded-full">
+          <FiDollarSign size={32} />
+        </div>
+        <div>
+          <p className="text-gray-500 text-sm">Total Revenue</p>
+          <p className="text-2xl font-bold">${revenue.toFixed(2)}</p>
+        </div>
+        <div className="ml-auto text-right">
+          <p className="text-gray-500 text-sm">Total Orders</p>
+          <p className="text-2xl font-bold">{count}</p>
         </div>
       </div>
+
+      {/* Shortened Orders Link */}
+        <div className="text-center">
+             <p className="text-gray-500 text-sm">View your orders</p>
+             <Link
+               to={`/fitzone/orders`}
+               className="flex items-center justify-center gap-2 text-blue-600 hover:underline font-medium mt-2"
+             >
+               <FiShoppingCart size={20} />
+               <span>Check Your Orders</span>
+             </Link>
+           </div>
+     
+    </div>
+     
+
     </>
   );
 };

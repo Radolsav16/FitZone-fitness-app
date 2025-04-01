@@ -1,5 +1,5 @@
 import { subCategories } from "../../../utils/selectionData"
-
+import {Link} from 'react-router'
 
 export default function ShopFilters(){
     
@@ -10,7 +10,7 @@ export default function ShopFilters(){
                 <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
                   {subCategories.map((category) => (
                     <li key={category.name}>
-                      <a href={category.href}>{category.name}</a>
+                      <Link to={category.href}>{category.name}</Link>
                     </li>
                   ))}
                 </ul>
