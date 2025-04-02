@@ -9,7 +9,7 @@
 - **View other users' profiles**, including their saved and joined challenges, liked posts, and testimonials
 - **Access an admin panel** to manage users, challenges, posts, products, orders, and track total revenue
 
-🔗 **Live Demo**: [FitZone on Netlify](https://fitzone-app.vercel.app)
+🔗 **Live Demo**: (https://fitzone2.netlify.app/)
 
 ---
 
