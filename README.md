@@ -37,7 +37,6 @@
 -MONGO_URI =mongodb://localhost:27017/fitzone-app
 - #### Run the Development Server
 - npm run dev on the server and client
-  
-/project-root │── /src │ │── /components # Reusable UI components │ │── /pages # Page components │ │── App.jsx # Main component managing views and routing │ │── main.jsx # Entry point rendering the App component │ │── index.css # Global styles │── /public │ │── index.html # Main HTML file │
+
 
 
