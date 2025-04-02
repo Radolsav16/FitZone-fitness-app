@@ -1,19 +1,23 @@
 import  { useEffect ,useState } from "react";
 import { getOneExercise } from "../../../service/exerices.js";
 import { useParams } from "react-router-dom";
+import { useLoadingContext } from "../../../providers/LoadingProvider.jsx";
 
 export default function ExerciseDetails() {
 
     const [exercise,SetExercise] = useState({});
+    const {showLoading,hideLoading} = useLoadingContext()
 
     let params = useParams();
 
     const id = params.id;
 
+
       useEffect(()=>{
             (async () =>{
+                showLoading()
                 const exercise = await getOneExercise(id);
-                console.log(exercise)
+                hideLoading()
                 SetExercise(exercise)
             })()
         },[])

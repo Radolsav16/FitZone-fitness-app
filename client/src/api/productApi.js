@@ -1,6 +1,7 @@
 import { useState , useEffect } from "react";
 import { fetchApi } from "../utils/requester";
 import { useFormState } from "../hooks/FormStateHook";
+import { useLoadingContext } from "../providers/LoadingProvider";
 
 const baseUrl = 'http://localhost:3030';
 
@@ -13,13 +14,16 @@ export const useProducts = (query) => {
 
   const limitIndex = 8;
 
+  const {showLoading,hideLoading} = useLoadingContext()
+
 
   useEffect(() => {
     (async () => {
-  
+      showLoading()
       const result = await fetchApi.get(`http://localhost:3030/all-products`,{
         'Content-Type':'applciation/json'
       });
+      hideLoading()
       setAllProducts(result);
     })();
   },[]);
@@ -28,12 +32,13 @@ export const useProducts = (query) => {
   useEffect(() => {
     (async () => {
      
-
+      showLoading()
       const result = await fetchApi.get(`http://localhost:3030/products`,{
         'Content-Type':'applciation/json'
       },{
         page,limit:9,filter:query
       });
+      hideLoading()
       setProducts(result);
       
     })();
@@ -41,7 +46,6 @@ export const useProducts = (query) => {
 
 
   useEffect(()=>{
-    console.log(products)
  
     if(products.length ===  1){
       return setLastPage(page)
@@ -57,11 +61,6 @@ export const useProducts = (query) => {
       return setLastPage(Math.ceil(products.length / limitIndex))
     }
 
-    
-
-    
-    
-    // setLastPage(Math.ceil(products.length / limitIndex))
 
   },[query,products,allProducts,limitIndex])
 

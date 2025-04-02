@@ -2,6 +2,7 @@ import { useEffect , useState } from "react";
 import { getAllExercises } from "../../service/exerices.js";
 import { Link } from "react-router-dom";
 import Pagination from "../util/pagination/Pagination.jsx";
+import { useLoadingContext } from "../../providers/LoadingProvider.jsx";
 
 
 export default function Exercise() {
@@ -9,10 +10,13 @@ export default function Exercise() {
     const [exercises,SetExercises] = useState([]);
     const [page,SetCurrentPage] = useState(1);
     const [offset,SetOffset] = useState(0);
+    const {showLoading,hideLoading} = useLoadingContext()
 
     useEffect(()=>{
         (async () =>{
+            showLoading()
             const exercises = await getAllExercises(offset);
+            hideLoading()
             SetExercises(exercises)
             SetOffset((page - 1) * 9)
         })()

@@ -1,19 +1,22 @@
 import { useState } from "react";
 import { DateConverter } from "../utils/DateConverter";
 import ShopReviewForm from "../components/shop/shop-review-form/ShopReviewForm";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router";
 import { useProduct } from "../api/productApi";
 import { useRating, useReviews } from "../api/reviewsApi";
 import { useCart } from "../providers/CartProvider";
 import ShopCart from "../components/shop/shop-cart/ShopCart";
+import { useUserContext } from "../contexts/UserContext";
 
 const ProductDetails = () => {
   const {id:productId} = useParams() 
+  const {id} = useUserContext()
   const {product} = useProduct(productId);
   const {reviews,setReviews} = useReviews(productId)
   const {rating} = useRating(productId)
   const  {showCart} = useCart()
 
+  const navigate = useNavigate()
 
   
 
@@ -96,7 +99,13 @@ const ProductDetails = () => {
       <div className="mt-10 text-center">
         <button
           className="bg-gradient-to-r from-blue-500 to-blue-700 text-white text-lg font-semibold px-6 py-3 rounded-lg shadow-lg hover:scale-105 transform transition-all duration-300 focus:outline-none mb-20"
-          onClick={() => setShowForm(true)}
+          onClick={() => {
+            if(!id){
+              return navigate('/fitzone/login')
+            }
+            setShowForm(true)
+          
+          }}
         >
           Click here to add your review
         </button>

@@ -11,13 +11,6 @@ export const CartProvider = ({ children }) => {
   const [showCart, setShowCart] = useState(false);
   const [showOrderModal,setOrderModal] = useState(false);
 
-
-
-  // Function to remove items from the cart
-  // const removeFromCart = (productId) => {
-  //   setCart((prevCart) => prevCart.filter((item) => item.productId !== productId));
-  // };
-
 const hideCart = () =>{
   setShowCart(false);
 }

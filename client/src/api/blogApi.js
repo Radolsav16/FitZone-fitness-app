@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
 import { fetchApi } from "../utils/requester";
 import { useFormState } from "../hooks/FormStateHook";
-
+import { useLoadingContext } from "../providers/LoadingProvider";
 
 const baseUrl = "http://localhost:3030";
 
 export const usePosts = (query) => {
   const [posts, setPosts] = useState([]);
+  const {showLoading,hideLoading} = useLoadingContext()
 
   useEffect(() => {
     (async () => {
+      showLoading()
       const result = await fetchApi.get(baseUrl + "/blog/posts",{
         "Content-Type": "application/json",
       },{
         filter:query
       });
+      hideLoading()
       setPosts(result);
     })();
   }, [query]);
@@ -45,11 +48,15 @@ export const useLatestPosts = () => {
 
 export const usePost = (id) => {
     const [post, setPost] = useState({});
+  const {showLoading,hideLoading} = useLoadingContext()
+
   
     useEffect(() => {
       (async () => {
+        showLoading()
         const result = await fetchApi.get(`http://localhost:3030/blog/post/${id}`);
         setPost(result);
+        hideLoading()
       })();
     }, [id]);
   

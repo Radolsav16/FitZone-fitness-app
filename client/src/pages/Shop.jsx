@@ -13,10 +13,9 @@ import { updateCart } from "../utils/updateCart";
 
 
 import { sortOptionsShop } from "../utils/selectionData";
-import { useState } from "react";
 import { useProducts } from "../api/productApi";
-import { useScroll } from "../utils/scroll";
-import { useRating } from "../api/reviewsApi";
+import { scrollTop} from "../utils/scroll";
+
 
 
 
@@ -120,7 +119,10 @@ export default function Shop() {
   <button
     className="bg-blue-500 text-white px-6 py-3 text-xl rounded flex items-center"
       disabled={page === 1 ? true : false}
-      onClick={() => setPage((oldState) => oldState - 1)}
+      onClick={() => {
+        setPage((oldState) => oldState - 1)
+        scrollTop()
+      }}
   >
     <span>{`<`}</span>
   </button>
@@ -130,7 +132,10 @@ export default function Shop() {
   <button
     className="bg-blue-500 text-white px-6 py-3 text-xl rounded flex items-center"
     disabled={page === lastPage}
-    onClick={() => setPage(oldState => oldState + 1)}
+    onClick={() => {
+      setPage(oldState => oldState + 1)
+      scrollTop()
+    }}
   >
     <span>{`>`}</span>
   </button>
