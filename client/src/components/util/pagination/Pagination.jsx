@@ -1,3 +1,5 @@
+import { scrollTop } from "../../../utils/scroll";
+
 export default function Pagination({ SetCurrentPage, page, SetOffset }) {
   return (
     <>
@@ -26,6 +28,7 @@ export default function Pagination({ SetCurrentPage, page, SetOffset }) {
           onClick={() => {
             SetCurrentPage(page + 1);
             SetOffset((page - 1) * 9);
+            scrollTop()
           }}
           className="mx-1 px-3 py-1 border bg-black text-white border-black hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
         >

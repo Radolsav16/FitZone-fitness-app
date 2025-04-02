@@ -1,10 +1,12 @@
 import { useEffect , useState  } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getTargetMuscleExercises } from "../../../service/exerices.js";
+import { useLoadingContext } from "../../../providers/LoadingProvider.jsx";
 
 export default function TargetExercise() {
 
     const [exercises,SetExercises] = useState([]);
+    const {showLoading,hideLoading} = useLoadingContext()
 
     const params = useParams();
 
@@ -12,8 +14,9 @@ export default function TargetExercise() {
 
     useEffect(()=>{
         (async () =>{
+            showLoading()
             const exercises = await getTargetMuscleExercises(target);
-            console.log(exercises)
+            hideLoading()
             SetExercises(exercises)
         })()
     },[])

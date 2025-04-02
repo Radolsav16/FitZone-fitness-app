@@ -1,7 +1,8 @@
 import { useState , useEffect } from "react"
 import { fetchApi } from "../utils/requester";
 import { useFormState } from "../hooks/FormStateHook";
-import { useLoadingContext } from "../contexts/LoadingContext";
+import { useLoadingContext } from "../providers/LoadingProvider";
+
 
 
 const baseUrl = 'http://localhost:3030';
@@ -13,12 +14,14 @@ export const useChallanges =  () => {
 
     const [challanges, setChallanges] = useState([]);
     const [filteredChallanges,setFilteredChallanges] = useState([])
+    const {showLoading,hideLoading} = useLoadingContext()
   
 
     useEffect(() => {
      (async ()=>{
-      
+      showLoading()
       const result = await fetchApi.get(baseUrl + '/challanges',{'Content-Type':'application/json'});
+      hideLoading()
       setChallanges(result)
       setFilteredChallanges(result)
   
@@ -37,12 +40,14 @@ export const useChallange = (id) =>{
     const [challange, setChallange] = useState({});
     const [isJoin,setIsJoin] = useState(false);
     const [isParticipants,setIsParticipants] = useState(false);
+    const {showLoading,hideLoading} = useLoadingContext()
+
 
     useEffect(() => {
      (async ()=>{
-
+      showLoading()
       const result = await fetchApi.get(baseUrl + `/challanges/${id}`,{'Content-Type':'application/json'});
-      
+      hideLoading()
         setChallange(result)
     
       

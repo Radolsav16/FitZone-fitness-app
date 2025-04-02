@@ -36,21 +36,26 @@ import Shop from "./pages/Shop";
 import Checkout from "./components/shop/checkout/CheckOut";
 import { CartProvider } from "./providers/CartProvider";
 import Orders from "./pages/Orders";
-import { useScroll } from "./utils/scroll";
 import UsersOrders from "./pages/UsersOrders";
 import GuestGuard from "./components/guards/Guest";
 import AuthGuard from "./components/guards/Auth";
 
 import ProductDetails from "./pages/ProductDetails";
+import AdminGuard from "./components/guards/AdminGuard";
+import { scrollTop } from "./utils/scroll";
+import { LoadingProvider } from "./providers/LoadingProvider";
+import Spinner from "./components/util/spinner/Spinner";
 
 
 function App() {
-  useScroll()
+  scrollTop()
   return (
     <>
       <UserProvider>
         <CartProvider>
+          <LoadingProvider>
         <Nav />
+        <Spinner />
         <Routes>
           {/* Static */}
           <Route index element={<Home />} />
@@ -73,11 +78,13 @@ function App() {
           <Route path="/fitzone/post-create" element={<CreatePost />} />
           <Route path="/fitzone/post/edit/:id" element={<EditPost />} />
 
+          <Route element={<AdminGuard />}>
           <Route path="/fitzone/admin" element={<AdminPanel/>} />
           <Route path="/fitzone/add-product" element={<AdminProductsForm/>} />
           <Route path='/fitzone/product/edit/:id' element={<AdminEdit />}/>
 
           <Route path="/fitzone/orders" element = {<Orders/>}/>
+          </Route>
 
           <Route path="/fitzone/orders/:id" element = {<UsersOrders/>}/>
           <Route path="/fitzone/checkout" element = {<Checkout />}/>
@@ -85,6 +92,7 @@ function App() {
             <Route path="/fitzone/exercises/:id" element={<ExerciseDetails />} />
           <Route path="/fitzone/exercises" element={<Exercises />} />
           <Route path="/fitzone/:target/exercises" element={<TargetExercise />}/>
+          
 
   
 
@@ -115,7 +123,9 @@ function App() {
         </Routes>
 
         <Footer />
+        </LoadingProvider>
         </CartProvider>
+        
       </UserProvider>
     </>
   );
