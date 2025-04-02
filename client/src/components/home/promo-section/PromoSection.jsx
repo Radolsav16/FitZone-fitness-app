@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 export default function PromoSection() {
   return (
@@ -8,15 +8,15 @@ export default function PromoSection() {
           <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
             <div className="sm:max-w-lg">
               <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Take your workouts to the next level
+                Take your workouts to the next level
               </h1>
               <p className="mt-4 text-xl text-gray-500">
-              With our products and essentials your goals are closer than ever!
+                With our products and essentials your goals are closer than
+                ever!
               </p>
             </div>
             <div>
               <div className="mt-10">
-                {/* Decorative image grid */}
                 <div
                   aria-hidden="true"
                   className="pointer-events-none lg:absolute lg:inset-y-0 lg:mx-auto lg:w-full lg:max-w-7xl"
@@ -83,11 +83,11 @@ export default function PromoSection() {
                 </div>
 
                 <Link
-  to={'/fitzone/shop'}
-  className="inline-block rounded-md border border-transparent bg-black px-8 py-3 text-center font-medium text-white hover:bg-gray-800"
->
-  Shop Now
-</Link>
+                  to={"/fitzone/shop"}
+                  className="inline-block rounded-md border border-transparent bg-black px-8 py-3 text-center font-medium text-white hover:bg-gray-800"
+                >
+                  Shop Now
+                </Link>
               </div>
             </div>
           </div>

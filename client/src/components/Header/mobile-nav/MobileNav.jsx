@@ -1,11 +1,15 @@
 import { Link } from "react-router";
 import "./MobileNav";
 import { useUserContext } from "../../../contexts/UserContext";
+import { useCart } from "../../../providers/CartProvider";
+import ShopCart from "../../shop/shop-cart/ShopCart";
 
 export default function MobileNav({ close }) {
   const { email, id } = useUserContext();
+  const {showCart,setShowCart} = useCart()
   return (
     <>
+    {showCart && <ShopCart />}
       <nav id="mobile-menu" className="mobile-menu">
         <button className="close-btn" onClick={close}>
           ×
@@ -35,6 +39,15 @@ export default function MobileNav({ close }) {
               Blog
             </Link>
           </li>
+          {email == 'todorovradoslav6@gmail.com' &&  <li>
+                <Link
+                  to={`/fitzone/admin`}
+                  className="menu-item"
+                  onClick={close}
+                >
+                  Admin
+                </Link>
+              </li>}
           {email ? (
             <>
               <li>
@@ -48,6 +61,14 @@ export default function MobileNav({ close }) {
               </li>
               <li>
                 <Link
+                  className="menu-item"
+                  onClick={()=>setShowCart(true)}
+                >
+                  Cart
+                </Link>
+              </li>
+              <li>
+                <Link
                   to={`/fitzone/profile/${id}`}
                   className="menu-item"
                   onClick={close}
@@ -55,6 +76,7 @@ export default function MobileNav({ close }) {
                   Profile
                 </Link>
               </li>
+            
               <li>
                 <Link
                   className="menu-item logout"
@@ -89,6 +111,7 @@ export default function MobileNav({ close }) {
           )}
         </ul>
       </nav>
+      
     </>
   );
 }

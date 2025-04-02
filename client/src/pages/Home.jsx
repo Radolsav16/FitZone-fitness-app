@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import HeroBeginOverlay from "../components/home/hero-begin-overlay/HeroBeginOverlay";
 import StatsSection from "../components/home/stats-section/StatsSection";
@@ -20,30 +19,35 @@ import RecentlyPost from "../components/home/recently-posts/RecentlyPost";
 
 export default function Home() {
   const { email } = useUserContext();
-  const {showCart,showOrderModal} = useCart()
-  const [showTestimonials,setShowTestimonials] = useState(false);
+  const { showCart, showOrderModal } = useCart();
+  const [showTestimonials, setShowTestimonials] = useState(false);
 
-  const hideTestimonialForm = () =>{
+  const hideTestimonialForm = () => {
     setShowTestimonials(false);
-  }
+  };
   return (
     <>
       <HeroBeginOverlay />
-      {showOrderModal && <SuccesfullOrderModal/>}
+      {showOrderModal && <SuccesfullOrderModal />}
       {showCart && <ShopCart />}
       <PromoSection />
       <HeroCollections />
       <HeroShop />
-      {email ? <HeroCreatePost /> : <HeroFeature />  }
+      {email ? <HeroCreatePost /> : <HeroFeature />}
       <RecentlyPost />
       <HeroExercise />
       <HeroJoinChallanges />
-      {showTestimonials && <TestimonialsForm  hideTestimonialForm = {hideTestimonialForm} />}
-      {email && <TestimonialsCaller showTestimonials={showTestimonials} setShowTestimonials={setShowTestimonials}/> }
-      
+      {showTestimonials && (
+        <TestimonialsForm hideTestimonialForm={hideTestimonialForm} />
+      )}
+      {email && (
+        <TestimonialsCaller
+          showTestimonials={showTestimonials}
+          setShowTestimonials={setShowTestimonials}
+        />
+      )}
 
       <Testimonials />
-      
 
       <StatsSection />
     </>

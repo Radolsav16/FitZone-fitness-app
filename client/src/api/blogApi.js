@@ -7,24 +7,28 @@ const baseUrl = "http://localhost:3030";
 
 export const usePosts = (query) => {
   const [posts, setPosts] = useState([]);
-  const {showLoading,hideLoading} = useLoadingContext()
+  const { showLoading, hideLoading } = useLoadingContext();
 
   useEffect(() => {
     (async () => {
-      showLoading()
-      const result = await fetchApi.get(baseUrl + "/blog/posts",{
-        "Content-Type": "application/json",
-      },{
-        filter:query
-      });
-      hideLoading()
+      showLoading();
+      const result = await fetchApi.get(
+        baseUrl + "/blog/posts",
+        {
+          "Content-Type": "application/json",
+        },
+        {
+          filter: query,
+        }
+      );
+      hideLoading();
       setPosts(result);
     })();
   }, [query]);
 
   return {
     posts,
-    setPosts
+    setPosts,
   };
 };
 
@@ -42,30 +46,27 @@ export const useLatestPosts = () => {
 
   return {
     posts,
-    setPosts
+    setPosts,
   };
 };
 
 export const usePost = (id) => {
-    const [post, setPost] = useState({});
-  const {showLoading,hideLoading} = useLoadingContext()
+  const [post, setPost] = useState({});
+  const { showLoading, hideLoading } = useLoadingContext();
 
-  
-    useEffect(() => {
-      (async () => {
-        showLoading()
-        const result = await fetchApi.get(`http://localhost:3030/blog/post/${id}`);
-        setPost(result);
-        hideLoading()
-      })();
-    }, [id]);
-  
-    return {
-      post,
-    };
+  useEffect(() => {
+    (async () => {
+      showLoading();
+      const result = await fetchApi.get(baseUrl + `/blog/post/${id}`);
+      setPost(result);
+      hideLoading();
+    })();
+  }, [id]);
+
+  return {
+    post,
   };
-
-
+};
 
 export const useCreatePost = () => {
   const createPost = (data, id) => {
@@ -80,76 +81,77 @@ export const useCreatePost = () => {
   };
 };
 
-
 export const useEditPost = (id) => {
-
-    
-    const {errors , SetErrors, dataState ,handleDataOnChange,SetDataState} = useFormState({
+  const { errors, SetErrors, dataState, handleDataOnChange, SetDataState } =
+    useFormState({
       title: "",
       category: "",
       description: "",
       content: "",
       image: "",
-    })
+    });
 
-     useEffect(()=>{
-                (async()=>{
-                  const res = await fetchApi.get(baseUrl + `/blog/post/${id}`,{'Content-Type':'application/json'})
-                  SetDataState(res);
-                })()
-            },[id])
-  
+  useEffect(() => {
+    (async () => {
+      const res = await fetchApi.get(baseUrl + `/blog/post/${id}`, {
+        "Content-Type": "application/json",
+      });
+      SetDataState(res);
+    })();
+  }, [id]);
 
+  const editPost = (data) => {
+    fetchApi.put(baseUrl + `/blog/post/${id}`, data, {
+      "Content-Type": "application/json",
+    });
+  };
 
-    const editPost = (data) => {
-         fetchApi.put(baseUrl + `/blog/post/${id}`, data, {
-            "Content-Type": "application/json",
-          });
-    };
-  
-    return {
-      editPost,
-      errors,
-      SetErrors,
-      dataState,
-      handleDataOnChange
-    };
+  return {
+    editPost,
+    errors,
+    SetErrors,
+    dataState,
+    handleDataOnChange,
+  };
 };
 
+export const useDeletePost = () => {
+  const [showModal, setShowModal] = useState(false);
 
-export const useDeletePost = () =>{
-  const [showModal,setShowModal] = useState(false);
-
-  const cancel = () =>{
+  const cancel = () => {
     setShowModal(!showModal);
-  }
+  };
 
-
-  const deletePost = (id) =>{
+  const deletePost = (id) => {
     fetchApi.del(baseUrl + `/blog/post/${id}`);
     setShowModal(!showModal);
-  }
+  };
 
-  return {deletePost ,cancel , showModal , setShowModal}
-}
+  return { deletePost, cancel, showModal, setShowModal };
+};
 
+export const useDetailsPost = (postId, userId) => {
+  const [showComments, setShowComments] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [addComment, setAddComment] = useState(false);
 
-export const useDetailsPost = (postId,userId) =>{
-  const [showComments,setShowComments] = useState(false);
-  const [comments,setComments] = useState([]);
-  const [addComment,setAddComment] = useState(false);
+  useEffect(() => {
+    (async () => {
+      const result = await fetchApi.get(baseUrl + `/blog/comments/${postId}`, {
+        "Content-Type": "application/json",
+      });
+      setComments(result);
+    })();
+  }, []);
 
-  useEffect(()=>{
-    (async()=>{
-      const result = await fetchApi.get(baseUrl + `/blog/comments/${postId}`,{'Content-Type':'application/json'})
-      setComments(result)
-    })()
-  },[])
-
-  const comment = async (comment) =>{
-    const result = await  fetchApi.post(baseUrl + '/blog/comment/',{postId,userId,comment},{'Content-Type':'application/json'})
-    setComments(oldState => [...oldState , result]);
-  }
+  const comment = async (comment) => {
+    const result = await fetchApi.post(
+      baseUrl + "/blog/comment/",
+      { postId, userId, comment },
+      { "Content-Type": "application/json" }
+    );
+    setComments((oldState) => [...oldState, result]);
+  };
 
   return {
     showComments,
@@ -157,31 +159,31 @@ export const useDetailsPost = (postId,userId) =>{
     comment,
     comments,
     setAddComment,
-    addComment
-  }
-}
+    addComment,
+  };
+};
 
-export const useLikePost = (postId,userId) =>{
+export const useLikePost = (postId, userId) => {
+  const [likes, setLikes] = useState(Number);
 
-  const [likes,setLikes] = useState(Number)
-
-
-  useEffect(()=>{
-    (async ()=>{
-      const result = await fetchApi.get(baseUrl + `/blog/likes/${postId}/`,{'Content-Type':'application/json'})
+  useEffect(() => {
+    (async () => {
+      const result = await fetchApi.get(baseUrl + `/blog/likes/${postId}/`, {
+        "Content-Type": "application/json",
+      });
       setLikes(result);
-    })()
-  },[postId])
+    })();
+  }, [postId]);
 
-
-
-  const like = async () =>{
-    await fetchApi.get(baseUrl + `/blog/like/${postId}/${userId}`,{'Content-Type':'application/json'})
-    setLikes(oldState => oldState + 1);
-  }
+  const like = async () => {
+    await fetchApi.get(baseUrl + `/blog/like/${postId}/${userId}`, {
+      "Content-Type": "application/json",
+    });
+    setLikes((oldState) => oldState + 1);
+  };
 
   return {
     like,
-    likes
-  }
-}
+    likes,
+  };
+};

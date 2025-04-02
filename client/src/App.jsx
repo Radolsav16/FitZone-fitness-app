@@ -46,86 +46,91 @@ import { scrollTop } from "./utils/scroll";
 import { LoadingProvider } from "./providers/LoadingProvider";
 import Spinner from "./components/util/spinner/Spinner";
 
-
 function App() {
-  scrollTop()
+  scrollTop();
   return (
     <>
       <UserProvider>
         <CartProvider>
           <LoadingProvider>
-        <Nav />
-        <Spinner />
-        <Routes>
-          {/* Static */}
-          <Route index element={<Home />} />
+            <Nav />
+            <Spinner />
+            <Routes>
+              <Route index element={<Home />} />
+              <Route path="/fitzone/about" element={<About />} />
 
-          <Route path="/fitzone/about" element={<About />} />
+              <Route element={<GuestGuard />}>
+                <Route path="/fitzone/register" element={<Register />} />
+                <Route path="/fitzone/login" element={<Login />} />
+              </Route>
 
-          <Route element={<GuestGuard />}>
-          <Route path="/fitzone/register" element={<Register />} />
-          <Route path="/fitzone/login" element={<Login />} />
-          </Route>
+              <Route element={<AuthGuard />}>
+                <Route path="/fitzone/logout" element={<Logout />} />
 
-          <Route element={<AuthGuard />}>
+                <Route
+                  path="/fitzone/create-challenge"
+                  element={<CreateChallange />}
+                />
+                <Route
+                  path="/fitzone/challenges/edit/:id"
+                  element={<ChallangeEdit />}
+                />
 
-          <Route path="/fitzone/logout" element={<Logout />} />
-    
+                <Route path="/fitzone/post-create" element={<CreatePost />} />
+                <Route path="/fitzone/post/edit/:id" element={<EditPost />} />
 
-          <Route path="/fitzone/create-challenge" element={<CreateChallange />}/>
-          <Route path="/fitzone/challenges/edit/:id" element={<ChallangeEdit />} />
+                <Route element={<AdminGuard />}>
+                  <Route path="/fitzone/admin" element={<AdminPanel />} />
+                  <Route
+                    path="/fitzone/add-product"
+                    element={<AdminProductsForm />}
+                  />
+                  <Route
+                    path="/fitzone/product/edit/:id"
+                    element={<AdminEdit />}
+                  />
+                  <Route path="/fitzone/orders" element={<Orders />} />
+                </Route>
 
-          <Route path="/fitzone/post-create" element={<CreatePost />} />
-          <Route path="/fitzone/post/edit/:id" element={<EditPost />} />
+                <Route path="/fitzone/orders/:id" element={<UsersOrders />} />
+                <Route path="/fitzone/checkout" element={<Checkout />} />
 
-          <Route element={<AdminGuard />}>
-          <Route path="/fitzone/admin" element={<AdminPanel/>} />
-          <Route path="/fitzone/add-product" element={<AdminProductsForm/>} />
-          <Route path='/fitzone/product/edit/:id' element={<AdminEdit />}/>
+                <Route
+                  path="/fitzone/exercises/:id"
+                  element={<ExerciseDetails />}
+                />
+                <Route path="/fitzone/exercises" element={<Exercises />} />
+                <Route
+                  path="/fitzone/:target/exercises"
+                  element={<TargetExercise />}
+                />
+              </Route>
 
-          <Route path="/fitzone/orders" element = {<Orders/>}/>
-          </Route>
+              <Route path="/fitzone/profile/:id" element={<Profile />} />
+              <Route path="/fitzone/challenges" element={<Challanges />} />
+              <Route
+                path="/fitzone/challenges/details/:id"
+                element={<ChallangeDetails />}
+              />
 
-          <Route path="/fitzone/orders/:id" element = {<UsersOrders/>}/>
-          <Route path="/fitzone/checkout" element = {<Checkout />}/>
+              <Route path="/fitzone/blog" element={<Blog />} />
+              <Route
+                path="/fitzone/blog-details/:id"
+                element={<BlogDetails />}
+              />
 
-            <Route path="/fitzone/exercises/:id" element={<ExerciseDetails />} />
-          <Route path="/fitzone/exercises" element={<Exercises />} />
-          <Route path="/fitzone/:target/exercises" element={<TargetExercise />}/>
-          
+              <Route
+                path="/fitzone/product/details/:id"
+                element={<ProductDetails />}
+              />
+              <Route path="/fitzone/shop" element={<Shop />} />
 
-  
+              <Route path={"*"} element={<ErrorPage />} />
+            </Routes>
 
-          </Route>
-
-       
-
-          {/* Challanges  */}
-          <Route path="/fitzone/profile/:id" element={<Profile />} />
-          <Route path="/fitzone/challenges" element={<Challanges />} />
-          <Route path="/fitzone/challenges/details/:id" element={<ChallangeDetails />}/>
-         
-
-          {/* Blog */}
-          <Route path="/fitzone/blog" element={<Blog />} />
-          <Route path="/fitzone/blog-details/:id" element={<BlogDetails />} />
-
-          <Route path="/fitzone/product/details/:id" element={<ProductDetails />} />
-
-          
-
-
-          <Route path="/fitzone/shop" element = {<Shop />}/>
-          
-        
-
-          <Route path={"*"} element={<ErrorPage />} />
-        </Routes>
-
-        <Footer />
-        </LoadingProvider>
+            <Footer />
+          </LoadingProvider>
         </CartProvider>
-        
       </UserProvider>
     </>
   );

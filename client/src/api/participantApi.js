@@ -1,65 +1,60 @@
 import { useEffect, useState } from "react";
 import { fetchApi } from "../utils/requester";
 
-const baseUrl = 'http://localhost:3030';
+const baseUrl = "http://localhost:3030";
 
+export const useParticipates = (id) => {
+  const [participates, setParticipants] = useState([]);
 
-export const useParticipates = (id) =>{
+  useEffect(() => {
+    (async () => {
+      const result = await fetchApi.get(
+        baseUrl + `/challange-participants/${id}`,
+        { "Content-Type": "application/json" }
+      );
+      setParticipants(result);
+    })();
+  }, []);
 
-      const [participates, setParticipants] = useState([]);
-    
-        useEffect(() => {
-         (async ()=>{
-    
-          const result = await fetchApi.get(baseUrl + `/challange-participants/${id}`,{'Content-Type':'application/json'});
-          setParticipants(result)
-         })()
-        }, []);
+  return {
+    participates,
+    setParticipants,
+  };
+};
 
-    
- 
+export const useLatestParticipants = () => {
+  const [participants, setParticipants] = useState([]);
 
-    return {
-        participates,
-        setParticipants
-    }
-}
+  useEffect(() => {
+    (async () => {
+      const result = await fetchApi.get(
+        baseUrl + "/latest-participants-challanges",
+        { "Content-Type": "application/json" }
+      );
+      setParticipants(result);
+    })();
+  }, []);
 
+  return {
+    participants,
+  };
+};
 
-export const useLatestParticipants = () =>{
-    const [challanges, setChallanges] = useState([]);
-  
-    useEffect(() => {
-     (async ()=>{
-  
-      const result = await fetchApi.get(baseUrl + '/latest-participants-challanges',{'Content-Type':'application/json'});
-      setChallanges(result)
-     })()
-    }, []);
-  
-    
-    return {
-        challanges
-    }
-  }
+export const useUserParticipants = (userId) => {
+  const [count, setCount] = useState(Number);
 
+  useEffect(() => {
+    (async () => {
+      const result = await fetchApi.get(
+        baseUrl + `/user-participant-count/${userId}`,
+        { "Content-Type": "application/json" }
+      );
+      setCount(result);
+    })();
+  }, []);
 
-  export const useUserParticipants = (userId) =>{
-    const [count, setCount] = useState(Number);
-  
-    useEffect(() => {
-     (async ()=>{
-  
-      const result = await fetchApi.get(baseUrl + `/user-participant-count/${userId}`,{'Content-Type':'application/json'});
-      setCount(result)
-     })()
-    }, []);
-  
-    
-    return {
-        count,
-        setCount
-    }
-  }
-
-  
+  return {
+    count,
+    setCount,
+  };
+};

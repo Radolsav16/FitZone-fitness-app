@@ -1,17 +1,17 @@
 import { useParams, Link, useNavigate } from "react-router";
 
 import { DateConverter } from "../../../utils/DateConverter";
-import { useDeletePost , useDetailsPost , usePost } from "../../../api/blogApi";
+import { useDeletePost, useDetailsPost, usePost, usePosts } from "../../../api/blogApi";
 import IsSureModal from "../../util/is-sure-modal/IsSureModal";
 import { MessageSquare, Edit, Trash } from "lucide-react";
 import { useUserContext } from "../../../contexts/UserContext";
-
 
 export default function BlogDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { post } = usePost(id);
   const { id: userId } = useUserContext();
+  const {setPosts} = usePosts()
 
   const {
     showComments,
@@ -21,7 +21,7 @@ export default function BlogDetails() {
     setAddComment,
     addComment,
   } = useDetailsPost(id, userId);
-  const { showModal, setShowModal, cancel, deletePost } = useDeletePost(id);
+  const { showModal, setShowModal, cancel, deletePost } = useDeletePost();
 
   const commentHandler = async (formData) => {
     const data = Object.fromEntries(formData);
@@ -33,12 +33,19 @@ export default function BlogDetails() {
     navigate(`/fitzone/blog-details/${id}`);
   };
 
+  
+
+  const deleteHandler = async ( ) =>{
+    await deletePost(id);
+    setPosts(oldState => [...oldState.filter(p => p._id != id )])
+  }
+
   return (
     <>
       {showModal && (
         <IsSureModal
           cancel={cancel}
-          deleteFunc={deletePost}
+          deleteFunc={deleteHandler}
           text={"Are you sure you  want to delete this post?"}
           preText={"Delete Post"}
           navigatePath={"/fitzone/blog"}
@@ -46,13 +53,14 @@ export default function BlogDetails() {
       )}
 
       <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-2xl overflow-hidden mt-20">
-        {/* Creator Info */}
         <div className="flex items-center gap-4 mb-6">
-          <Link to={`/fitzone/profile/${post.author?._id}`}><img
-            src={post.author?.imageUrl}
-            alt={post.author?.name}
-            className="w-9 h-10 rounded-full"
-          /></Link>
+          <Link to={`/fitzone/profile/${post.author?._id}`}>
+            <img
+              src={post.author?.imageUrl}
+              alt={post.author?.name}
+              className="w-9 h-10 rounded-full"
+            />
+          </Link>
           <div>
             <h3 className="text-lg font-semibold">{post.author?.name}</h3>
             <p className="text-sm text-gray-500">
@@ -61,14 +69,12 @@ export default function BlogDetails() {
           </div>
         </div>
 
-        {/* Blog Post Image */}
         <img
           src={post.image}
           alt="Blog Post"
           className="w-full h-64 object-cover rounded-xl mb-4"
         />
 
-        {/* Blog Content */}
         <div className="overflow-hidden break-words">
           <h1 className="text-2xl font-bold mb-2">{post.title}</h1>
           <p className="text-gray-600 mb-4">{post.description}</p>
@@ -92,7 +98,6 @@ export default function BlogDetails() {
           </div>
         )}
 
-        {/* Toggle Comments */}
         <div className="mt-6">
           <button
             className="flex items-center gap-2 text-blue-500 focus:outline-none focus:ring-0 border-none"
@@ -117,12 +122,12 @@ export default function BlogDetails() {
                         key={c._id}
                         className="flex items-start space-x-4 border-b pb-2"
                       >
-                         <Link to={`/fitzone/profile/${c.userId?._id}`}>
-                        <img
-                          src={c.userId?.imageUrl}
-                          alt={c.userId?.name}
-                          className="w-10 h-11 rounded-full"
-                        />
+                        <Link to={`/fitzone/profile/${c.userId?._id}`}>
+                          <img
+                            src={c.userId?.imageUrl}
+                            alt={c.userId?.name}
+                            className="w-10 h-11 rounded-full"
+                          />
                         </Link>
                         <div>
                           <p className="font-bold">{c.userId?.name}</p>
@@ -133,7 +138,7 @@ export default function BlogDetails() {
                   </ul>
 
                   <div className="mt-6 flex justify-end">
-                    {!addComment && userId&& (
+                    {!addComment && userId && (
                       <button
                         className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
                         onClick={() => setAddComment(true)}
@@ -178,13 +183,17 @@ export default function BlogDetails() {
                     </p>
                     <button
                       className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
-                      onClick={userId ? () => setAddComment(true):() => navigate('/fitzone/login')}
+                      onClick={
+                        userId
+                          ? () => setAddComment(true)
+                          : () => navigate("/fitzone/login")
+                      }
                     >
                       Add a Comment
                     </button>
                   </div>
 
-                  {(userId && addComment) && (
+                  {userId && addComment && (
                     <>
                       <div className="bg-white p-4 rounded-lg shadow-md">
                         <form action={commentHandler}>

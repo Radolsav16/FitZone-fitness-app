@@ -11,20 +11,15 @@ import { useFormState } from "../hooks/FormStateHook";
 
 export default function Register() {
   const navigate = useNavigate();
-  const {userLoginHandler } = useUserContext()
-  const {
-    onRegister,
-    fileChangeHandler,
-    file,
-    preview,
-  } = useRegister();
+  const { userLoginHandler } = useUserContext();
+  const { onRegister, fileChangeHandler, file, preview } = useRegister();
 
-  const {errors  , SetErrors , dataState , handleDataOnChange} = useFormState({
-    name:"",
-    email:"",
-    password:"",
-    repeatPassword:""
-  })
+  const { errors, SetErrors, dataState, handleDataOnChange } = useFormState({
+    name: "",
+    email: "",
+    password: "",
+    repeatPassword: "",
+  });
 
   const image = "/src/assets/DefaultProfileImage.png";
 
@@ -70,17 +65,20 @@ export default function Register() {
     data.append("email", dataEntries.email);
     data.append("password", dataEntries.password);
 
-    try{
+    try {
       const user = await onRegister(data);
 
-    userLoginHandler(user);
+      userLoginHandler(user);
 
-    navigate("/");
-    } catch(err){
-      return ErrorSetter(errors, SetErrors, "email", "User with this email already exist!");
+      navigate("/");
+    } catch (err) {
+      return ErrorSetter(
+        errors,
+        SetErrors,
+        "email",
+        "User with this email already exist!"
+      );
     }
-
-    
   };
 
   return (

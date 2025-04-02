@@ -5,26 +5,49 @@ export async function createProduct(data){
 }
 
 export async function getProducts(startIndex,endIndex,filter){
+
+    const totalItems = (await Product.find()).length;
+    const limit = 8;
+    let lastPage = Math.floor(totalItems / limit);
+
+
+   
     if(filter === 'newest'){
-        return (await (Product.find().sort({createdAt:-1}).lean())).slice(startIndex,endIndex);
+        lastPage = Math.floor(totalItems / limit)
+        return {products:(await (Product.find().sort({createdAt:-1}).lean())).slice(startIndex,endIndex),lastPage};
     }else if(filter === 'oldest'){
-        return (await (Product.find().sort({createdAt:1}).lean())).slice(startIndex,endIndex);
+        lastPage = Math.floor(totalItems / limit)
+        return {products:(await (Product.find().sort({createdAt:1}).lean())).slice(startIndex,endIndex),lastPage};
     }else if(filter === 'A-Z'){
-        return (await Product.find().sort({name:1})).slice(startIndex,endIndex)
+        lastPage = Math.floor(totalItems / limit)
+        return {products:(await Product.find().sort({name:1})).slice(startIndex,endIndex),lastPage}
     }else if(filter === 'Z-A'){
-        return (await Product.find().sort({name: -1})).slice(startIndex,endIndex)
+        lastPage = Math.floor(totalItems / limit)
+        return {products:(await Product.find().sort({name: -1})).slice(startIndex,endIndex),lastPage}
     }else if(filter === 'low'){
-        return (await Product.find().sort({price: 1})).slice(startIndex,endIndex)
+        lastPage = Math.floor(totalItems / limit)
+        return {products:(await Product.find().sort({price: 1})).slice(startIndex,endIndex),lastPage}
     }else if(filter === 'high'){
-        return (await Product.find().sort({price: -1})).slice(startIndex,endIndex)
+        lastPage = Math.floor(totalItems / limit)
+        return {products:(await Product.find().sort({price: -1})).slice(startIndex,endIndex),lastPage}
     }
 
     if(filter){
-    return (await Product.find({category:filter}).lean()).slice(startIndex,endIndex);
+        const filteredProducts= (await Product.find({category:filter}));
+
+        if(filteredProducts.length === 9){
+            lastPage = 1;
+        }else{
+            lastPage = Math.ceil(filteredProducts.length / limit);
+        }
+    
+
+
+     return {products:filteredProducts.slice(startIndex,endIndex),lastPage};
     
     }
   
-    return (await Product.find().lean()).slice(startIndex,endIndex);
+    return {products:(await Product.find().lean()).slice(startIndex,endIndex),lastPage};
     
 }
 

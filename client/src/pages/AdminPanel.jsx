@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
-import { useAllProducts, useDeleteProduct } from "../api/productApi";
+import { useDeleteProduct, useProducts } from "../api/productApi";
 import IsSureModal from "../components/util/is-sure-modal/IsSureModal";
 import { useDeleteUser, useUsers } from "../api/userApi";
 import { useChallanges, useDeleteChallange } from "../api/challangeApi";
@@ -12,10 +12,10 @@ import { FiShoppingCart } from "react-icons/fi";
 import { useCart } from "../providers/CartProvider";
 import ShopCart from "../components/shop/shop-cart/ShopCart";
 
-
 const AdminPanel = () => {
-  const {showCart} = useCart()
-  const { products, setProducts } = useAllProducts();
+  const { showCart } = useCart();
+  const { allProducts, setAllProducts } = useProducts();
+
   const { users, setUsers } = useUsers();
   const { challanges, setChallanges } = useChallanges();
   const { posts, setPosts } = usePosts();
@@ -25,8 +25,8 @@ const AdminPanel = () => {
   const [preText, setPreText] = useState("");
   const [deleteFunction, setDeleteFunction] = useState(() => null);
 
-  const {count} = useOrderCount()
-  const {revenue} = useOrderRevenue()
+  const { count } = useOrderCount();
+  const { revenue } = useOrderRevenue();
 
   const cancel = () => {
     setShowModal(false);
@@ -46,7 +46,7 @@ const AdminPanel = () => {
       return () => {
         deleteProduct(id);
         setShowModal(false);
-        setProducts([...products.filter((p) => p._id != id)]);
+        setAllProducts([...allProducts.filter((p) => p._id != id)]);
       };
     });
   };
@@ -94,106 +94,118 @@ const AdminPanel = () => {
 
   return (
     <>
-    {showCart && <ShopCart />}
+      {showCart && <ShopCart />}
       <div className="min-h-screen bg-gray-100 p-8 mt-20">
         <h1 className="text-2xl font-bold mb-4">Admin Panel</h1>
         <div className="bg-white rounded shadow p-4 mb-8">
           <h2 className="text-xl font-semibold mb-2">Users</h2>
           <ul className="space-y-2">
-            {users.length > 0 ? users.map((user) => (
-              <li
-                className="flex items-center justify-between bg-gray-200 p-2 rounded"
-                key={user._id}
-              >
-                <Link to={`/fitzone/profile/${user._id}`}>
-                  <div className="flex items-center space-x-4">
-                    <img
-                      src={user.imageUrl}
-                      alt={user.name}
-                      className="w-12 h-12 rounded"
-                    />
-                    <span>{user.name}</span>
-                  </div>
-                </Link>
-                <button
-                  className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
-                  onClick={() => {
-                    deleteUserHanlder(user._id);
-                  }}
+            {users.length > 0 ? (
+              users.map((user) => (
+                <li
+                  className="flex items-center justify-between bg-gray-200 p-2 rounded"
+                  key={user._id}
                 >
-                  Delete
-                </button>
-              </li>
-            )):<p className="font-bold mt-3 mb-3">Don't have users yet!</p>}
+                  <Link to={`/fitzone/profile/${user._id}`}>
+                    <div className="flex items-center space-x-4">
+                      <img
+                        src={user.imageUrl}
+                        alt={user.name}
+                        className="w-12 h-12 rounded"
+                      />
+                      <span>{user.name}</span>
+                    </div>
+                  </Link>
+                  <button
+                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
+                    onClick={() => {
+                      deleteUserHanlder(user._id);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </li>
+              ))
+            ) : (
+              <p className="font-bold mt-3 mb-3">Don't have users yet!</p>
+            )}
           </ul>
         </div>
 
         <div className="bg-white rounded shadow p-4 mb-8 mt-5">
           <h2 className="text-xl font-semibold mb-2">Challenges</h2>
           <ul className="space-y-2 mb-4">
-            {challanges.length > 0 ? challanges.map((challange) => (
-              <li
-                className="flex items-center justify-between bg-gray-200 p-2 rounded"
-                key={challange._id}
-              >
-                <Link
-                  to={`/fitzone/challenges/details/${challange._id}`}
+            {challanges.length > 0 ? (
+              challanges.map((challange) => (
+                <li
+                  className="flex items-center justify-between bg-gray-200 p-2 rounded"
                   key={challange._id}
                 >
-                  <div className="flex items-center space-x-4">
-                    <img
-                      src={challange.image}
-                      alt={challange.name}
-                      className="w-16 h-16 rounded"
-                    />
-                    <span>{challange.name}</span>
-                  </div>
-                </Link>
-                <div className="flex space-x-2">
-                  <button
-                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
-                    onClick={() => {
-                      deleteChallangeHanlder(challange._id);
-                    }}
+                  <Link
+                    to={`/fitzone/challenges/details/${challange._id}`}
+                    key={challange._id}
                   >
-                    Delete
-                  </button>
-                </div>
-              </li>
-            )):<p className="font-bold mt-3 mb-3">Don't have challanges yet!</p>}
+                    <div className="flex items-center space-x-4">
+                      <img
+                        src={challange.image}
+                        alt={challange.name}
+                        className="w-16 h-16 rounded"
+                      />
+                      <span>{challange.name}</span>
+                    </div>
+                  </Link>
+                  <div className="flex space-x-2">
+                    <button
+                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
+                      onClick={() => {
+                        deleteChallangeHanlder(challange._id);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </li>
+              ))
+            ) : (
+              <p className="font-bold mt-3 mb-3">Don't have challanges yet!</p>
+            )}
           </ul>
         </div>
 
         <div className="bg-white rounded shadow p-4 mb-8 mt-5">
           <h2 className="text-xl font-semibold mb-2">Posts</h2>
           <ul className="space-y-2 mb-4">
-            {posts.length ? posts.map((p) => (
-              <li
-                className="flex items-center justify-between bg-gray-200 p-2 rounded"
-                key={p._id}
-              >
-                <Link to={`/fitzone/blog-details/${p._id}`} key={p._id}>
-                  <div className="flex items-center space-x-4">
-                    <img
-                      src={p.image}
-                      alt={p.title}
-                      className="w-16 h-16 rounded"
-                    />
-                    <span>{p.title}</span>
+            {posts.length ? (
+              posts.map((p) => (
+                <li
+                  className="flex items-center justify-between bg-gray-200 p-2 rounded"
+                  key={p._id}
+                >
+                  <Link to={`/fitzone/blog-details/${p._id}`} key={p._id}>
+                    <div className="flex items-center space-x-4">
+                      <img
+                        src={p.image}
+                        alt={p.title}
+                        className="w-16 h-16 rounded"
+                      />
+                      <span>{p.title}</span>
+                    </div>
+                  </Link>
+                  <div className="flex space-x-2">
+                    <button
+                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
+                      onClick={() => {
+                        deletePostHanlder(p._id);
+                      }}
+                    >
+                      Delete
+                    </button>
                   </div>
-                </Link>
-                <div className="flex space-x-2">
-                  <button
-                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
-                    onClick={() => {
-                      deletePostHanlder(p._id);
-                    }}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </li>
-            )):<p className="font-bold mt-3 mb-3">Don't have posts yet!</p>}
+                </li>
+              ))
+            ) : (
+              <p className="font-bold mt-3 mb-3">Don't have posts yet!</p>
+            )}
           </ul>
         </div>
 
@@ -222,7 +234,7 @@ const AdminPanel = () => {
 
           {/* Table Rows */}
           <ul className="space-y-2 mb-4">
-            {products?.map((product) => (
+            {allProducts?.map((product) => (
               <li
                 key={product._id}
                 className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 items-center bg-gray-200 p-2 rounded"
@@ -284,35 +296,31 @@ const AdminPanel = () => {
       </div>
 
       <div className="bg-white shadow-lg rounded-2xl p-6 m-10">
-      <div className="flex items-center space-x-4 mb-4">
-        <div className="bg-green-100 text-green-600 p-3 rounded-full">
-          <FiDollarSign size={32} />
+        <div className="flex items-center space-x-4 mb-4">
+          <div className="bg-green-100 text-green-600 p-3 rounded-full">
+            <FiDollarSign size={32} />
+          </div>
+          <div>
+            <p className="text-gray-500 text-sm">Total Revenue</p>
+            <p className="text-2xl font-bold">${revenue.toFixed(2)}</p>
+          </div>
+          <div className="ml-auto text-right">
+            <p className="text-gray-500 text-sm">Total Orders</p>
+            <p className="text-2xl font-bold">{count}</p>
+          </div>
         </div>
-        <div>
-          <p className="text-gray-500 text-sm">Total Revenue</p>
-          <p className="text-2xl font-bold">${revenue.toFixed(2)}</p>
-        </div>
-        <div className="ml-auto text-right">
-          <p className="text-gray-500 text-sm">Total Orders</p>
-          <p className="text-2xl font-bold">{count}</p>
+
+        <div className="text-center">
+          <p className="text-gray-500 text-sm">View orders</p>
+          <Link
+            to={`/fitzone/orders`}
+            className="flex items-center justify-center gap-2 text-blue-600 hover:underline font-medium mt-2"
+          >
+            <FiShoppingCart size={20} />
+            <span>Check Orders</span>
+          </Link>
         </div>
       </div>
-
-      {/* Shortened Orders Link */}
-        <div className="text-center">
-             <p className="text-gray-500 text-sm">View orders</p>
-             <Link
-               to={`/fitzone/orders`}
-               className="flex items-center justify-center gap-2 text-blue-600 hover:underline font-medium mt-2"
-             >
-               <FiShoppingCart size={20} />
-               <span>Check Orders</span>
-             </Link>
-           </div>
-     
-    </div>
-     
-
     </>
   );
 };

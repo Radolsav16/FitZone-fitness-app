@@ -1,30 +1,34 @@
-import { useCreateOrder, useDeleteProductFromCart, useEmptyCart, useUserCart } from "../../../api/shopApi";
+import {
+  useCreateOrder,
+  useDeleteProductFromCart,
+  useEmptyCart,
+  useUserCart,
+} from "../../../api/shopApi";
 import { useUserContext } from "../../../contexts/UserContext";
 import { useFormState } from "../../../hooks/FormStateHook";
 import { updateCart, updateCartOnDelete } from "../../../utils/updateCart";
 import { Link, useNavigate } from "react-router";
 import { ErrorSetter } from "../../../utils/Errors";
 import { useCart } from "../../../providers/CartProvider";
+import { CalculateTotalPrice } from "../../../utils/CalculateTotalPrice";
 
 const Checkout = () => {
   const { id, name, email, userLoginHandler } = useUserContext();
   const { cart, setCart } = useUserCart(id);
-  const { deleteProductFromCart} = useDeleteProductFromCart(id);
-  const {emtpyCart} = useEmptyCart(id)
-  const { setOrderModal , setShowCart} = useCart()
+  const { deleteProductFromCart } = useDeleteProductFromCart(id);
+  const { emtpyCart } = useEmptyCart(id);
+  const { setOrderModal, setShowCart } = useCart();
   const { dataState, handleDataOnChange, errors, SetErrors } = useFormState({
     address: "",
     contact: "",
   });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const { createOrder } = useCreateOrder(id)
-  const CalculateTotalPrice = () => {
-    return cart.reduce((total, item) => {
-      return (total += Number(item.productId.price * item.quantity));
-    }, 0);
-  };
+  const { createOrder } = useCreateOrder(id);
+  
+  
+
 
   const orderHandler = async (formData) => {
     const data = Object.fromEntries(formData);
@@ -38,25 +42,29 @@ const Checkout = () => {
       return ErrorSetter(errors, SetErrors, "contact", "Contact is required!");
     }
 
-    data.products = cart.map(i => i.productId._id);
+    data.products = cart.map((i) => i.productId._id);
 
-    if(!data.products.length){
-      return ErrorSetter(errors, SetErrors, "contact", "Should have products in the cart to make order!");
+    if (!data.products.length) {
+      return ErrorSetter(
+        errors,
+        SetErrors,
+        "contact",
+        "Should have products in the cart to make order!"
+      );
     }
-    
-    data.total = CalculateTotalPrice()
 
-    await createOrder(data)
-    await emtpyCart()
+    data.total = CalculateTotalPrice(cart);
+
+    await createOrder(data);
+    await emtpyCart();
     setCart([]);
 
     const updatedAuth = updateCart([]);
-    userLoginHandler(updatedAuth)
-    setOrderModal(true)
+    userLoginHandler(updatedAuth);
+    setOrderModal(true);
     setShowCart(false);
-    navigate('/')
+    navigate("/");
   };
- 
 
   return (
     <div className="max-w-4xl mx-auto p-8">
@@ -71,12 +79,12 @@ const Checkout = () => {
               className="flex justify-between items-center border-b pb-4"
             >
               <Link to={`/fitzone/product/details/${item.productId?._id}`}>
-              <img
-                src={item.productId?.image}
-                alt={item.productId?.name}
-                className="w-19 h-16 object-cover rounded"
-              />
-                </Link>
+                <img
+                  src={item.productId?.image}
+                  alt={item.productId?.name}
+                  className="w-19 h-16 object-cover rounded"
+                />
+              </Link>
               <div className="flex-1 ml-4">
                 <h3 className="text-gray-900 font-medium">
                   {item.productId?.name}
@@ -88,7 +96,7 @@ const Checkout = () => {
               <p className="text-gray-900">
                 ${item.productId.price.toFixed(2)}
               </p>
-            
+
               <button
                 className="text-red-500 hover:text-red-700 font-medium ml-4 mb-1"
                 onClick={() => {
@@ -107,7 +115,7 @@ const Checkout = () => {
         </ul>
         <div className="flex justify-between mt-6 text-lg">
           <p>Total:</p>
-          <p className="font-bold">${CalculateTotalPrice().toFixed(2)}</p>
+          <p className="font-bold">${CalculateTotalPrice(cart).toFixed(2)}</p>
         </div>
       </section>
 
@@ -205,8 +213,6 @@ const Checkout = () => {
           </div>
         </form>
       </section>
-
-      {/* Buttons */}
     </div>
   );
 };
