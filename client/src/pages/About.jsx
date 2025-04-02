@@ -39,7 +39,7 @@ export default function About() {
         </div>
         <div className="lg:w-1/2">
           <img
-            src="/images/banner.png"
+            src="/assets/banner.png"
             alt="FitZone Community"
             className="rounded-2xl shadow-lg w-full max-w-lg"
           />
