@@ -6,10 +6,10 @@
 - **Browse and filter exercises** using an external API
 - **Engage in the fitness blog** through posts, comments, and likes
 - **Shop for fitness products**, add items to cart, checkout, leave reviews, and rate products
-- **View other users' profiles**, including their saved and joined challenges, liked posts, and testimonials
+- **View other users' profiles**, including their saved and joined challenges, liked posts.
 - **Access an admin panel** to manage users, challenges, posts, products, orders, and track total revenue
 
-🔗 **Live Demo**: (https://fitzone2.netlify.app/)
+🔗 **Live Demo**: (https://fitzone3.netlify.app/)
 
 ---
 
@@ -81,9 +81,8 @@ FitZone/
 |   |└── package.json        # Frontend Dependencies
 |├── server/               # Backend Node.js Application
 |   |├── models/          # Mongoose Models (User, Product, Post, Challenge, Order)
-|   |├── routes/          # Express Routes
-|   |├── controllers/     # Request Handlers
-|   |├── middleware/      # Authentication & Error Handling Middleware
+|   |├── service/         # Servces for models
+|   |├── index.js/        # Main function request handler
 |   |├── config/          # Database Connection & JWT Configurations
 |   |└── package.json     # Backend Dependencies
 |├── .gitignore           # Ignore node_modules, .env, etc.
