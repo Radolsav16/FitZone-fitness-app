@@ -1,5 +1,6 @@
 import ShopCart from "../components/shop/shop-cart/ShopCart";
 import { useCart } from "../providers/CartProvider";
+import image from '../../images/banner.png'
 
 export default function About() {
   const { showCart } = useCart();
@@ -39,7 +40,7 @@ export default function About() {
         </div>
         <div className="lg:w-1/2">
           <img
-            src="/assets/banner.png"
+            src={image}
             alt="FitZone Community"
             className="rounded-2xl shadow-lg w-full max-w-lg"
           />
