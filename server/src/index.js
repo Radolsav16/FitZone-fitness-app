@@ -18,9 +18,9 @@ import { createOrder, getAllOrders, getUserOrder, orderRevenue, ordersCount } fr
 import { createReview, getProductRating, getReviews } from './service/reviews.js';
 
 
-const PORT = process.env.PORT;
-const Uri = process.env.MONGO_URI;
-const JWT_SECRET = process.env.JWT_SECRET
+const PORT = process.env.PORT || 3030;
+const Uri = process.env.MONGO_URI || 'mongodb://localhost:27017/fitzone-app';
+const JWT_SECRET = process.env.JWT_SECRET || 'fitzone-secret_sdfhbksjfb8374'
 
 
 
