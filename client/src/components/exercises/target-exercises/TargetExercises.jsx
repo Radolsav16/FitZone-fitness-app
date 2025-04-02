@@ -1,27 +1,20 @@
-import { useEffect , useState  } from "react";
-import { Link, useParams } from "react-router-dom";
-import { getTargetMuscleExercises } from "../../../service/exerices.js";
-import { useLoadingContext } from "../../../providers/LoadingProvider.jsx";
+import { Link, useParams } from "react-router";
+import { useTargetExercise } from "../../../api/exerciseApi.js";
+import { useCart } from "../../../providers/CartProvider.jsx";
+import ShopCart from "../../shop/shop-cart/ShopCart.jsx";
 
 export default function TargetExercise() {
-
-    const [exercises,SetExercises] = useState([]);
-    const {showLoading,hideLoading} = useLoadingContext()
-
     const params = useParams();
 
     const target = params.target;
 
-    useEffect(()=>{
-        (async () =>{
-            showLoading()
-            const exercises = await getTargetMuscleExercises(target);
-            hideLoading()
-            SetExercises(exercises)
-        })()
-    },[])
+    const {exercises} = useTargetExercise(target)
+  const {showCart} = useCart()
+ 
 
   return (
+    <>
+    {showCart && <ShopCart />}
     <div className="max-w-6xl mx-auto p-8 mt-20">
       <h1 className="text-4xl font-bold text-center mb-8">{target}</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -42,5 +35,6 @@ export default function TargetExercise() {
         ))}
       </div>
     </div>
+    </>
   );
 }

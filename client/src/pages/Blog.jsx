@@ -7,31 +7,30 @@ import { useLocation } from "react-router";
 import { useCart } from "../providers/CartProvider";
 import ShopCart from "../components/shop/shop-cart/ShopCart";
 
-export default function Blog(){
-    const queryObj = new URLSearchParams(useLocation().search);
-    const query = queryObj.get('searchedBy')
+export default function Blog() {
+  const queryObj = new URLSearchParams(useLocation().search);
+  const query = queryObj.get("searchedBy");
 
-    const { posts } = usePosts(query)
-    const {showCart} = useCart()
+  const { posts } = usePosts(query);
+  const { showCart } = useCart();
 
-    
-    return(
-        <>
-        {showCart && <ShopCart />}
-         <div className="p-8 bg-gray-100 mt-20">
-                <h1 className="text-3xl font-bold text-center mb-6">Our Blog</h1>
-                <BlogFilters />
-                {posts.length === 0 ? (
-                <NoPosts/>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {posts.map((p) => (
-                      <BlogCard key={p._id} post={p} />
-                    ))}
-                  </div>
-                )}
-              </div>
-        <PostCreateCaller />
-        </>
-    )
+  return (
+    <>
+      {showCart && <ShopCart />}
+      <div className="p-8 bg-gray-100 mt-20">
+        <h1 className="text-3xl font-bold text-center mb-6">Our Blog</h1>
+        <BlogFilters />
+        {posts.length === 0 ? (
+          <NoPosts />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {posts.map((p) => (
+              <BlogCard key={p._id} post={p} />
+            ))}
+          </div>
+        )}
+      </div>
+      <PostCreateCaller />
+    </>
+  );
 }

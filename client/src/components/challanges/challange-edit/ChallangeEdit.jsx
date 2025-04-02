@@ -1,4 +1,4 @@
-import SelectElement from "../create-challange/SelectElement";
+
 import Input from "../../util/default-input-item/Input";
 import {
   challangeTypeOptions,
@@ -7,11 +7,11 @@ import {
   equipmentOptions,
 } from "../../../utils/selectionData";
 
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router";
+import { useNavigate } from "react-router";
 import { ErrorSetter } from "../../../utils/Errors";
 import { useEditChallange } from "../../../api/challangeApi";
-
+import SelectElement from "../../util/SelectElement";
 
 export default function ChallangeEdit() {
   const navigate = useNavigate();

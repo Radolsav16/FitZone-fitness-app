@@ -1,6 +1,5 @@
-
 import Input from "../../util/default-input-item/Input";
-import SelectElement from "./SelectElement";
+
 import { useNavigate } from "react-router-dom";
 import {
   challangeTypeOptions,
@@ -11,75 +10,73 @@ import {
 import { ErrorSetter } from "../../../utils/Errors";
 import { useCreateChallange } from "../../../api/challangeApi";
 import { useUserContext } from "../../../contexts/UserContext";
+import SelectElement from "../../util/SelectElement";
 
 export default function CreateChallange() {
   const navigate = useNavigate();
-  const {id} = useUserContext()
+  const { id } = useUserContext();
 
-  const {handleDataOnChange , SetErrors , errors , createChallange,dataState} = useCreateChallange()
+  const { handleDataOnChange, SetErrors, errors, createChallange, dataState } =
+    useCreateChallange();
 
- 
+  const createChallangeHandler = async (formData) => {
+    const data = Object.fromEntries(formData);
 
-  const createChallangeHandler = async (formData) =>{
-      const data = Object.fromEntries(formData);
-   
-      if (!data.name) {
-        return ErrorSetter(
-          errors,
-          SetErrors,
-          "name",
-          "Challange name is required!"
-        );
-      } else if (data.type === ' ') {
-        
-        return ErrorSetter(
-          errors,
-          SetErrors,
-          "type",
-          "Challange Type is required!"
-        );
-      } else if (data.difficulty === " ") {
-        return ErrorSetter(
-          errors,
-          SetErrors,
-          "difficulty",
-          "Challange Difficulty is required!"
-        );
-      } else if (data.duration === " ") {
-        return ErrorSetter(
-          errors,
-          SetErrors,
-          "duration",
-          "Challange Duration is required!"
-        );
-      }else if (data.equipment === " ") {
-        return ErrorSetter(
-          errors,
-          SetErrors,
-          "equipment",
-          "Challange Equipment is required!"
-        );
-      } else if (!data.image) {
-        return ErrorSetter(
-          errors,
-          SetErrors,
-          "image",
-          "Challange Image is required!"
-        );
-      } else if (!data.description) {
-        return ErrorSetter(
-          errors,
-          SetErrors,
-          "description",
-          "Challange Description is required!"
-        );
-      }
+    if (!data.name) {
+      return ErrorSetter(
+        errors,
+        SetErrors,
+        "name",
+        "Challange name is required!"
+      );
+    } else if (data.type === " ") {
+      return ErrorSetter(
+        errors,
+        SetErrors,
+        "type",
+        "Challange Type is required!"
+      );
+    } else if (data.difficulty === " ") {
+      return ErrorSetter(
+        errors,
+        SetErrors,
+        "difficulty",
+        "Challange Difficulty is required!"
+      );
+    } else if (data.duration === " ") {
+      return ErrorSetter(
+        errors,
+        SetErrors,
+        "duration",
+        "Challange Duration is required!"
+      );
+    } else if (data.equipment === " ") {
+      return ErrorSetter(
+        errors,
+        SetErrors,
+        "equipment",
+        "Challange Equipment is required!"
+      );
+    } else if (!data.image) {
+      return ErrorSetter(
+        errors,
+        SetErrors,
+        "image",
+        "Challange Image is required!"
+      );
+    } else if (!data.description) {
+      return ErrorSetter(
+        errors,
+        SetErrors,
+        "description",
+        "Challange Description is required!"
+      );
+    }
 
-      await createChallange(data,id)
+    await createChallange(data, id);
 
-      navigate('/fitzone/challenges');
-  }
-
+    navigate("/fitzone/challenges");
+  };
 
   return (
     <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
@@ -101,7 +98,10 @@ export default function CreateChallange() {
           Create Challenge 💪
         </h2>
       </div>
-      <form action={createChallangeHandler} className="mx-auto mt-16 max-w-xl sm:mt-20">
+      <form
+        action={createChallangeHandler}
+        className="mx-auto mt-16 max-w-xl sm:mt-20"
+      >
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div className="sm:col-span-2">
             <label
@@ -149,7 +149,6 @@ export default function CreateChallange() {
               options={difficultyOptions}
               onChangeHandler={handleDataOnChange}
               value={dataState.difficulty}
-
             />
             {errors["difficulty"] && (
               <p className="mt-2 text-sm text-red-600 font-bold">

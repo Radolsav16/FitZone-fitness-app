@@ -1,6 +1,5 @@
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 import { fetchApi } from "../utils/requester";
-
 
 const baseUrl = "http://localhost:3030";
 
@@ -20,10 +19,6 @@ export const useTestmonials = () => {
     testimonials,
   };
 };
-
-
-
-
 
 export const useCreateTestimonial = () => {
   const createTestimonial = (data) => {

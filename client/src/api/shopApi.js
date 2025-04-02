@@ -1,158 +1,155 @@
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 import { fetchApi } from "../utils/requester";
 
-const baseUrl = 'http://localhost:3030';
-
+const baseUrl = "http://localhost:3030";
 
 export const useShop = () => {
+  const [productId, setProductId] = useState("");
+  const [showPreview, setShowPreview] = useState(false);
 
-     const [productId, setProductId] = useState("");
-     const [showPreview, setShowPreview] = useState(false);
-      
-     const cancel = () => {
-       setShowPreview(false);
-     };
-     return {
-       cancel,
-       productId,
-       setProductId,
-       showPreview,
-       setShowPreview,
-     }
-}
-
-export const useAddToCart = () => {
-
- const addToCart = async (userId,data) => {
-   await fetchApi.post(baseUrl + `/add-to-cart/${userId}/${data.productId}`,{quantity:data.quantity},{
-     "Content-Type": "application/json",
-   });
- };
-
-
- return{
-   addToCart
- }
+  const cancel = () => {
+    setShowPreview(false);
+  };
+  return {
+    cancel,
+    productId,
+    setProductId,
+    showPreview,
+    setShowPreview,
+  };
 };
 
-export const useDeleteProductFromCart = (id) =>{
-  
+export const useAddToCart = () => {
+  const addToCart = async (userId, data) => {
+    await fetchApi.post(
+      baseUrl + `/add-to-cart/${userId}/${data.productId}`,
+      { quantity: data.quantity },
+      {
+        "Content-Type": "application/json",
+      }
+    );
+  };
 
-  const deleteProductFromCart = (productId) =>{
+  return {
+    addToCart,
+  };
+};
+
+export const useDeleteProductFromCart = (id) => {
+  const deleteProductFromCart = (productId) => {
     fetchApi.del(baseUrl + `/delete-from-cart/${productId}/${id}`);
-    
-  }
+  };
 
   return {
-    deleteProductFromCart
-  }
-}
+    deleteProductFromCart,
+  };
+};
 
-export const useEmptyCart = (id) =>{
-  
-
-  const emtpyCart = async () =>{
+export const useEmptyCart = (id) => {
+  const emtpyCart = async () => {
     await fetchApi.del(baseUrl + `/emtpy-cart/${id}`);
-  }
+  };
 
   return {
-    emtpyCart
-  }
-}
+    emtpyCart,
+  };
+};
 
+export const useUserCart = (userId) => {
+  const [cart, setCart] = useState([]);
 
-
-export const useUserCart = (userId) =>{
-  const [cart,setCart] = useState([])
-
-  useEffect(()=>{
-      (async ()=>{
-          const result = await fetchApi.get(baseUrl + `/cart/${userId}`,{'Content-Type':'application/json'})
-          setCart(result)
-      })()
-  },[userId])
-
-  return {
-      cart,
-      setCart
-  }
-}
-
-export const useCreateOrder = (userId)=> {
-  
-  const createOrder = async (data) =>{
-    await fetchApi.post(baseUrl + `/order/${userId}`,data,{'Content-Type':'application/json'})
-  }
+  useEffect(() => {
+    (async () => {
+      const result = await fetchApi.get(baseUrl + `/cart/${userId}`, {
+        "Content-Type": "application/json",
+      });
+      setCart(result);
+    })();
+  }, [userId]);
 
   return {
-    createOrder
-  }
-}
+    cart,
+    setCart,
+  };
+};
+
+export const useCreateOrder = (userId) => {
+  const createOrder = async (data) => {
+    await fetchApi.post(baseUrl + `/order/${userId}`, data, {
+      "Content-Type": "application/json",
+    });
+  };
+
+  return {
+    createOrder,
+  };
+};
 
 export const useOrderCount = () => {
-  const [count,setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
-  
-  useEffect(()=>{
-    (async ()=>{
-        const result = await fetchApi.get(baseUrl + `/orders-count`,{'Content-Type':'application/json'})
-        setCount(result)
-    })()
-},[])
+  useEffect(() => {
+    (async () => {
+      const result = await fetchApi.get(baseUrl + `/orders-count`, {
+        "Content-Type": "application/json",
+      });
+      setCount(result);
+    })();
+  }, []);
 
-return {
-    count
-   
-}
-}
+  return {
+    count,
+  };
+};
 
-export const useOrderRevenue = () =>{
-  const [revenue,setRevenue] = useState(0);
+export const useOrderRevenue = () => {
+  const [revenue, setRevenue] = useState(0);
 
-  
-  useEffect(()=>{
-    (async ()=>{
-        const result = await fetchApi.get(baseUrl + `/orders/revenue`,{'Content-Type':'application/json'})
-        setRevenue(result)
-    })()
-},[])
+  useEffect(() => {
+    (async () => {
+      const result = await fetchApi.get(baseUrl + `/orders/revenue`, {
+        "Content-Type": "application/json",
+      });
+      setRevenue(result);
+    })();
+  }, []);
 
-return {
+  return {
     revenue,
-    setRevenue
-}
-}
+    setRevenue,
+  };
+};
 
-export const useOrders = () =>{
-  const [orders,setOrders] = useState([]);
+export const useOrders = () => {
+  const [orders, setOrders] = useState([]);
 
-  useEffect(()=>{
-    (async ()=>{
-        const result = await fetchApi.get(baseUrl + `/orders`,{'Content-Type':'application/json'})
-        setOrders(result)
-    })()
-},[])
+  useEffect(() => {
+    (async () => {
+      const result = await fetchApi.get(baseUrl + `/orders`, {
+        "Content-Type": "application/json",
+      });
+      setOrders(result);
+    })();
+  }, []);
 
+  return {
+    orders,
+  };
+};
 
+export const useUserOrders = (id) => {
+  const [orders, setOrders] = useState([]);
 
-  return{
-    orders
-  }
-}
+  useEffect(() => {
+    (async () => {
+      const result = await fetchApi.get(baseUrl + `/orders/${id}`, {
+        "Content-Type": "application/json",
+      });
+      setOrders(result);
+    })();
+  }, []);
 
-export const useUserOrders = (id) =>{
-  const [orders,setOrders] = useState([]);
-
-  useEffect(()=>{
-    (async ()=>{
-        const result = await fetchApi.get(baseUrl + `/orders/${id}`,{'Content-Type':'application/json'})
-        setOrders(result)
-    })()
-},[])
-
-
-
-  return{
-    orders
-  }
-}
+  return {
+    orders,
+  };
+};

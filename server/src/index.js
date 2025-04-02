@@ -113,9 +113,9 @@ app.put('/challanges/:id', async (req, res) => {
 
 
 app.delete('/challanges/:id', async (req, res) => {
-  const { id } = req.params
+  const { id,userId } = req.params
   try {
-   await deleteChallange(id);
+   await deleteChallange(id,userId);
    res.status(204).json({message:"Succefully delete challange!"})
   } catch (error) {
     res.status(500).json(error)
@@ -355,6 +355,7 @@ app.get('/products/', async (req, res) => {
   
   try {
      const products = await getProducts(startIndex,endIndex,filter)
+     
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({message:error.message})

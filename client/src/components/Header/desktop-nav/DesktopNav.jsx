@@ -1,11 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useUserContext } from "../../../contexts/UserContext";
 import { useCart } from "../../../providers/CartProvider";
 
-
 export default function DesktopNav() {
-  const { email, imageUrl, id ,cart} = useUserContext();
-  const {setShowCart,showCart} = useCart()
+  const { email, imageUrl, id, cart } = useUserContext();
+  const { setShowCart, showCart } = useCart();
   return (
     <>
       <div className="collapse navbar-collapse" id="navbarNav">
@@ -17,7 +16,7 @@ export default function DesktopNav() {
           </li>
           <li className="nav-item">
             <Link to="/fitzone/about" className="nav-link smoothScroll">
-              About 
+              About
             </Link>
           </li>
 
@@ -58,10 +57,10 @@ export default function DesktopNav() {
               </li>
               <li>
                 <Link
-                  to="/fitzone/?searchedBy=gym-equipment"
+                  to="/fitzone/shop/?searchedBy=gym-equipment"
                   className="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white"
                 >
-                 Gym Equipment
+                  Gym Equipment
                 </Link>
               </li>
             </ul>
@@ -129,18 +128,13 @@ export default function DesktopNav() {
             </Link>
           </li>
 
-        
-         
-
-        {email == 'todorovradoslav6@gmail.com' &&  <li className="nav-item">
-            <Link to="/fitzone/admin" className="nav-link smoothScroll">
-              Admin
-            </Link>
-          </li> 
-}
-
-         
-
+          {email == "todorovradoslav6@gmail.com" && (
+            <li className="nav-item">
+              <Link to="/fitzone/admin" className="nav-link smoothScroll">
+                Admin Panel
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
 
@@ -154,9 +148,12 @@ export default function DesktopNav() {
               <img src={imageUrl} alt="Profile" className="profile-img" />
             </Link>
 
-            <Link className="nav-link bag-link" onClick={()=>{
-              setShowCart(!showCart)
-            }}>
+            <Link
+              className="nav-link bag-link"
+              onClick={() => {
+                setShowCart(!showCart);
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

@@ -31,6 +31,18 @@ export async function editChallange(_id,data) {
 
 export async  function deleteChallange(_id){
     await Participant.deleteMany({challangeId:_id})
+  
+    await User.updateMany(
+        {}, // Update all users
+        { 
+          $pull: { 
+            savedChallanges: _id, 
+            joinedChallanges:_id 
+          } 
+        }
+      );
+    
+    
     return await Challange.findByIdAndDelete(_id);
 }
 

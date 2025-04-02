@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useCreateProduct } from "../../../api/productApi";
-import SelectElement from "../../challanges/create-challange/SelectElement";
+
 import { selectionCategoryOptions } from "../../../utils/selectionData";
+import SelectElement from "../../util/SelectElement";
 
 export default function AdminProductsForm() {
   const navigate = useNavigate();
@@ -37,16 +38,16 @@ export default function AdminProductsForm() {
               className="border w-full px-3 py-2 rounded"
             />
           </div>
-          
-          <SelectElement options={selectionCategoryOptions} name={'category'}  />
-          
+
+          <SelectElement options={selectionCategoryOptions} name={"category"} />
+
           <div>
             <label className="block font-semibold mb-1">Price</label>
             <input
               type="number"
               name="price"
               className="border w-full px-3 py-2 rounded"
-              step="0.01" 
+              step="0.01"
             />
           </div>
           <div>

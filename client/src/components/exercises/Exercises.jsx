@@ -1,31 +1,19 @@
-import { useEffect , useState } from "react";
-import { getAllExercises } from "../../service/exerices.js";
 import { Link } from "react-router-dom";
 import Pagination from "../util/pagination/Pagination.jsx";
-import { useLoadingContext } from "../../providers/LoadingProvider.jsx";
+import { useExercises } from "../../api/exerciseApi.js";
+import { useCart } from "../../providers/CartProvider.jsx";
+import ShopCart from "../shop/shop-cart/ShopCart.jsx";
 
 
 export default function Exercise() {
 
-    const [exercises,SetExercises] = useState([]);
-    const [page,SetCurrentPage] = useState(1);
-    const [offset,SetOffset] = useState(0);
-    const {showLoading,hideLoading} = useLoadingContext()
-
-    useEffect(()=>{
-        (async () =>{
-            showLoading()
-            const exercises = await getAllExercises(offset);
-            hideLoading()
-            SetExercises(exercises)
-            SetOffset((page - 1) * 9)
-        })()
-    },[page,offset])
-
+    const {exercises,SetCurrentPage,SetOffset,page} = useExercises()
+    const  {showCart} = useCart()
   
 
   return (
     <>
+    {showCart && <ShopCart />}
     <div className="max-w-6xl mx-auto p-8 mt-20">
       <h1 className="text-4xl font-bold text-center mb-8">All Exercises 🏋️</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

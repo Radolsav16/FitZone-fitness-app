@@ -1,68 +1,52 @@
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 import { fetchApi } from "../utils/requester";
 import { useFormState } from "../hooks/FormStateHook";
 import { useLoadingContext } from "../providers/LoadingProvider";
 
-const baseUrl = 'http://localhost:3030';
-
+const baseUrl = "http://localhost:3030";
 
 export const useProducts = (query) => {
   const [products, setProducts] = useState([]);
-  const [lastPage,setLastPage] = useState(0);
-  const [allProducts,setAllProducts] = useState(0);
+  const [lastPage, setLastPage] = useState(0);
+  const [allProducts, setAllProducts] = useState([]);
   const [page, setPage] = useState(1);
 
-  const limitIndex = 8;
-
-  const {showLoading,hideLoading} = useLoadingContext()
-
-
-  useEffect(() => {
-    (async () => {
-      showLoading()
-      const result = await fetchApi.get(`http://localhost:3030/all-products`,{
-        'Content-Type':'applciation/json'
-      });
-      hideLoading()
-      setAllProducts(result);
-    })();
-  },[]);
- 
-
-  useEffect(() => {
-    (async () => {
-     
-      showLoading()
-      const result = await fetchApi.get(`http://localhost:3030/products`,{
-        'Content-Type':'applciation/json'
-      },{
-        page,limit:9,filter:query
-      });
-      hideLoading()
-      setProducts(result);
-      
-    })();
-  },[page,query]);
-
+  const { showLoading, hideLoading } = useLoadingContext();
 
   useEffect(()=>{
- 
-    if(products.length ===  1){
-      return setLastPage(page)
-    }
+    setPage(1)
+  },[query])
 
-    if(['A-Z','Z-A','newest','oldest','low','high'].includes(query) || !query){
-      return setLastPage(Math.floor(allProducts.length / limitIndex))
-    }else if(!['A-Z','Z-A','newest','oldest','low','high'].includes(query)){
-      if(!products.length){
-        return setPage(1)
-      }
+  useEffect(() => {
+    (async () => {
+      showLoading();
+      const result = await fetchApi.get(baseUrl + `/all-products`, {
+        "Content-Type": "applciation/json",
+      });
+      hideLoading();
+      setAllProducts(result);
+    })();
+  }, []);
 
-      return setLastPage(Math.ceil(products.length / limitIndex))
-    }
-
-
-  },[query,products,allProducts,limitIndex])
+  useEffect(() => {
+    (async () => {
+      showLoading();
+      const result = await fetchApi.get(
+        baseUrl + `/products`,
+        {
+          "Content-Type": "applciation/json",
+        },
+        {
+          page,
+          limit: 9,
+          filter: query,
+        }
+      );
+      hideLoading();
+      setProducts(result.products);
+      setLastPage(result.lastPage)
+    })();
+  }, [page, query]);
 
 
   return {
@@ -70,48 +54,28 @@ export const useProducts = (query) => {
     setProducts,
     lastPage,
     page,
-    setPage
+    setPage,
+    allProducts,
+    setAllProducts,
   };
 };
 
-export const useAllProducts = () => {
-  const [products, setProducts] = useState([]);
- 
+export const useProduct = (id) => {
+  const [product, setProduct] = useState({});
 
   useEffect(() => {
     (async () => {
-      const result = await fetchApi.get(`http://localhost:3030/all-products`,{
-        'Content-Type':'applciation/json'
+      const result = await fetchApi.get(baseUrl + `/products/${id}`, {
+        "Content-Type": "application/json",
       });
-      setProducts(result);
+      setProduct(result);
     })();
-  },[]);
+  }, [id]);
 
   return {
-    products,
-    setProducts
+    product,
   };
 };
-
-
-  export const useProduct = (id) => {
-    const [product, setProduct] = useState({});
-  
-    useEffect(() => {
-      (async () => {
-        const result = await fetchApi.get(baseUrl + `/products/${id}`,{'Content-Type':'application/json'});
-        setProduct(result);
-      })();
-    }, [id]);
-  
-    return {
-      product,
-    };
-  };
-  
-
-
-
 
 export const useCreateProduct = () => {
   const createProduct = (data) => {
@@ -125,70 +89,67 @@ export const useCreateProduct = () => {
   };
 };
 
-
-
 export const useEditProduct = (id) => {
+  const { dataState, handleDataOnChange, SetDataState } = useFormState({
+    name: "",
+    description: "",
+    category: "",
+    price: 0,
+    stock: 0,
+    image: "",
+  });
 
-    const {dataState ,handleDataOnChange,SetDataState} = useFormState({
-      name: "",
-      description: "",
-      category: "",
-      price: 0,
-      stock: 0,
-      image:""
-    })
-
-     useEffect(()=>{
-                (async()=>{
-                  const res = await fetchApi.get(baseUrl + `/products/${id}`,{'Content-Type':'application/json'})
-                  SetDataState(res);
-                })()
-            },[id])
-  
-
-
-    const editProduct = (data) => {
-         fetchApi.put(baseUrl + `/product/${id}`, data, {
-            "Content-Type": "application/json",
-          });
-    };
-  
-    return {
-      editProduct,
-      dataState,
-      handleDataOnChange
-    };
-};
-
-
-export const useDeleteProduct = () =>{
-  const [showModal,setShowModal] = useState(false);
-
-  const cancel = () =>{
-    setShowModal(!showModal);
-  }
-
-
-  const deleteProduct = (id) =>{
-    fetchApi.del(baseUrl + `/product/${id}`);
-    setShowModal(!showModal);
-  }
-
-  return {deleteProduct ,cancel , showModal , setShowModal}
-}
-
-export const useMostBuyingProducts = () =>{
-  const [products, setProducts] = useState([]);
-  
   useEffect(() => {
     (async () => {
-      const result = await fetchApi.get(baseUrl + '/most-sell-products/',{'Content-Type':'application/json'});
+      const res = await fetchApi.get(baseUrl + `/products/${id}`, {
+        "Content-Type": "application/json",
+      });
+      SetDataState(res);
+    })();
+  }, [id]);
+
+  const editProduct = (data) => {
+    fetchApi.put(baseUrl + `/product/${id}`, data, {
+      "Content-Type": "application/json",
+    });
+  };
+
+  return {
+    editProduct,
+    dataState,
+    handleDataOnChange,
+  };
+};
+
+export const useDeleteProduct = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const cancel = () => {
+    setShowModal(!showModal);
+  };
+
+  const deleteProduct = (id) => {
+    fetchApi.del(baseUrl + `/product/${id}`);
+    setShowModal(!showModal);
+  };
+
+  return { deleteProduct, cancel, showModal, setShowModal };
+};
+
+export const useMostBuyingProducts = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const result = await fetchApi.get(baseUrl + "/most-sell-products/", {
+        "Content-Type": "application/json",
+      });
       setProducts(result);
     })();
-  },[]);
+  }, []);
 
   return {
     products,
-    setProducts
+    setProducts,
   };
-}
+};

@@ -19,9 +19,6 @@ export default function ErrorPage(){
                       >
                         Go back home
                       </Link>
-                      <Link to="/send-message" className="text-sm font-semibold text-gray-900">
-                        Send Message<span aria-hidden="true">&rarr;</span>
-                      </Link>
                     </div>
                   </div>
                 </main>

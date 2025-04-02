@@ -35,6 +35,14 @@ export async function editPost(_id,data) {
 
 export async  function deletePost(_id){
     await Comment.deleteMany({postId : _id})
+    await User.updateMany(
+        {},
+        { 
+          $pull: { 
+            likedPost: _id, 
+          } 
+        }
+      );
     return await Post.findByIdAndDelete(_id);
 }
 

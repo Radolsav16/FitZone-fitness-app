@@ -1,49 +1,45 @@
-import { useEffect, useState} from "react"
+import { useEffect, useState } from "react";
 import { fetchApi } from "../utils/requester";
-
 
 const baseUrl = "http://localhost:3030";
 
-export const useUser = (id)=>{
+export const useUser = (id) => {
+  const [user, setUser] = useState({});
 
-    const [user,setUser] = useState({});
+  useEffect(() => {
+    (async () => {
+      const result = await fetchApi.get(baseUrl + `/user/${id}`);
+      setUser(result);
+    })();
+  }, [id]);
 
-    useEffect(()=>{
-        (async()=>{
-            const result = await fetchApi.get(baseUrl + `/user/${id}`)
-            setUser(result)
-        })()
-    },[id])
+  return {
+    user,
+  };
+};
 
-    return{
-        user
-    }
-}
+export const useUsers = () => {
+  const [users, setUsers] = useState([]);
 
-export const useUsers = ()=>{
+  useEffect(() => {
+    (async () => {
+      const result = await fetchApi.get(baseUrl + `/users`);
+      setUsers(result);
+    })();
+  }, []);
 
-    const [users,setUsers] = useState([]);
+  return {
+    users,
+    setUsers,
+  };
+};
 
-    useEffect(()=>{
-        (async()=>{
-            const result = await fetchApi.get(baseUrl + `/users`)
-            setUsers(result)
-        })()
-    },[])
+export const useDeleteUser = () => {
+  const deleteUser = async (id) => {
+    await fetchApi.del(baseUrl + `/user/${id}`);
+  };
 
-    return{
-        users,
-        setUsers
-    }
-}
-
-export const useDeleteUser = () =>{
-    const deleteUser = async (id) =>{
-        await fetchApi.del(baseUrl + `/user/${id}`)
-    }
-
-    return {
-        deleteUser
-    };
-}
-
+  return {
+    deleteUser,
+  };
+};

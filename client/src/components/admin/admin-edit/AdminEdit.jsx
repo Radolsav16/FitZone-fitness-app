@@ -1,25 +1,23 @@
-import {useNavigate, useParams } from "react-router"
-import { useEditProduct, useProduct } from "../../../api/productApi"
-import SelectElement from "../../challanges/create-challange/SelectElement";
+import { useNavigate, useParams } from "react-router";
+import { useEditProduct } from "../../../api/productApi";
 import { selectionCategoryOptions } from "../../../utils/selectionData";
+import SelectElement from "../../util/SelectElement";
 
+export default function AdminEdit() {
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-export default function AdminEdit(){
-    const {id} = useParams()
-    const navigate = useNavigate()
-    
-    const {dataState , handleDataOnChange , editProduct} = useEditProduct(id);
-    
+  const { dataState, handleDataOnChange, editProduct } = useEditProduct(id);
 
-    const editProductHanlder = async (formData) =>{
-        const data = Object.fromEntries(formData);
-        await editProduct(data)
-        navigate('/fitzone/admin')
-    }
+  const editProductHanlder = async (formData) => {
+    const data = Object.fromEntries(formData);
+    await editProduct(data);
+    navigate("/fitzone/admin");
+  };
 
-    return(
-        <>
-         <div className="min-h-screen bg-gray-100 p-8 mt-20">
+  return (
+    <>
+      <div className="min-h-screen bg-gray-100 p-8 mt-20">
         <h1 className="text-2xl font-bold mb-4">Edit Product</h1>
         <form
           className="bg-white p-6 rounded shadow-md space-y-4"
@@ -44,7 +42,12 @@ export default function AdminEdit(){
               onChange={handleDataOnChange}
             />
           </div>
-            <SelectElement  options={selectionCategoryOptions} value={dataState.category} onChangeHandler={handleDataOnChange}/>
+          <SelectElement
+            options={selectionCategoryOptions}
+            value={dataState.category}
+            onChangeHandler={handleDataOnChange}
+            name={'category'}
+          />
           <div>
             <label className="block font-semibold mb-1">Price</label>
             <input
@@ -84,7 +87,6 @@ export default function AdminEdit(){
           </button>
         </form>
       </div>
-        
-        </>
-    )
+    </>
+  );
 }

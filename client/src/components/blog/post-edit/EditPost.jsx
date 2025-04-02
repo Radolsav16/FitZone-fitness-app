@@ -1,50 +1,57 @@
 import { useNavigate, useParams } from "react-router-dom";
-import SelectElement from "../../challanges/create-challange/SelectElement.jsx";
 import { categoryOptions } from "../../../utils/selectionData.js";
 import { ErrorSetter } from "../../../utils/Errors.js";
 import { useEditPost } from "../../../api/blogApi.js";
-
-
+import SelectElement from "../../util/SelectElement.jsx";
 
 export default function EditPost() {
   const navigate = useNavigate();
   const params = useParams();
   const { id } = params;
-  const {handleDataOnChange , SetErrors , errors ,dataState,editPost} = useEditPost(id)
-  
-
+  const { handleDataOnChange, SetErrors, errors, dataState, editPost } =
+    useEditPost(id);
 
   const editPostHanlder = async (formData) => {
     const data = Object.fromEntries(formData);
 
-     if(data.title === ''){
-          return ErrorSetter(errors,SetErrors,"title","Post Title is required!");
-        } else if(data.description === ''){
-          return ErrorSetter(errors,SetErrors,"description","Description is required!");
-        } else if(data.content === ''){
-          return ErrorSetter(errors,SetErrors,"content","Content is required!");
-        } else if(data.image === ''){
-          return ErrorSetter(errors,SetErrors,"image","Image is required!");
-        }else if(data.category === ''){
-          return ErrorSetter(errors,SetErrors,"category","Category is required!");
-        }
+    if (data.title === "") {
+      return ErrorSetter(errors, SetErrors, "title", "Post Title is required!");
+    } else if (data.description === "") {
+      return ErrorSetter(
+        errors,
+        SetErrors,
+        "description",
+        "Description is required!"
+      );
+    } else if (data.content === "") {
+      return ErrorSetter(errors, SetErrors, "content", "Content is required!");
+    } else if (data.image === "") {
+      return ErrorSetter(errors, SetErrors, "image", "Image is required!");
+    } else if (data.category === "") {
+      return ErrorSetter(
+        errors,
+        SetErrors,
+        "category",
+        "Category is required!"
+      );
+    }
 
-        await editPost(data);
-        navigate(`/fitzone/blog-details/${id}`)
+    await editPost(data);
+    navigate(`/fitzone/blog-details/${id}`);
   };
 
   return (
     <>
-
-    
-     <div className="max-w-4xl mx-auto p-6 mt-20 bg-gray-50 rounded-lg shadow-lg mt-20">
-      
-      
-        
-        <form className="bg-white p-8 rounded-lg shadow-md" action={editPostHanlder}>
-       
+      <div className="max-w-4xl mx-auto p-6 mt-20 bg-gray-50 rounded-lg shadow-lg mt-20">
+        <form
+          className="bg-white p-8 rounded-lg shadow-md"
+          action={editPostHanlder}
+        >
           <div className="mb-4">
-            <label htmlFor="title" className="block text-lg font-bold mb-2 text-gray-700">
+            <label
+              htmlFor="title"
+              className="block text-lg font-bold mb-2 text-gray-700"
+            >
               Post Title
             </label>
             <input
@@ -56,18 +63,20 @@ export default function EditPost() {
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             {errors["title"] && (
-                <p className="mt-2 text-sm text-red-600 font-bold">
-                  {errors?.title}
-                </p>
-              )}
+              <p className="mt-2 text-sm text-red-600 font-bold">
+                {errors?.title}
+              </p>
+            )}
           </div>
-      
-          {/* Description */}
+
           <div className="mb-4">
-            <label htmlFor="description" className="block text-lg font-bold mb-2 text-gray-700">
+            <label
+              htmlFor="description"
+              className="block text-lg font-bold mb-2 text-gray-700"
+            >
               Description
             </label>
-            
+
             <textarea
               id="description"
               name="description"
@@ -76,16 +85,18 @@ export default function EditPost() {
               onChange={handleDataOnChange}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             ></textarea>
-              {errors["description"] && (
-                <p className="mt-2 text-sm text-red-600 font-bold">
-                  {errors?.description}
-                </p>
-              )}
+            {errors["description"] && (
+              <p className="mt-2 text-sm text-red-600 font-bold">
+                {errors?.description}
+              </p>
+            )}
           </div>
-      
-          {/* Content */}
+
           <div className="mb-4">
-            <label htmlFor="content" className="block text-lg font-bold mb-2 text-gray-700">
+            <label
+              htmlFor="content"
+              className="block text-lg font-bold mb-2 text-gray-700"
+            >
               Content
             </label>
             <textarea
@@ -97,16 +108,18 @@ export default function EditPost() {
               value={dataState.content}
               onChange={handleDataOnChange}
             ></textarea>
-             {errors["content"] && (
-                <p className="mt-2 text-sm text-red-600 font-bold">
-                  {errors?.content}
-                </p>
-              )}
+            {errors["content"] && (
+              <p className="mt-2 text-sm text-red-600 font-bold">
+                {errors?.content}
+              </p>
+            )}
           </div>
-      
-          {/* Image URL */}
+
           <div className="mb-4">
-            <label htmlFor="imageUrl" className="block text-lg font-bold mb-2 text-gray-700">
+            <label
+              htmlFor="imageUrl"
+              className="block text-lg font-bold mb-2 text-gray-700"
+            >
               Image URL
             </label>
             <input
@@ -116,18 +129,20 @@ export default function EditPost() {
               value={dataState.image}
               onChange={handleDataOnChange}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            
             />
-             {errors["image"] && (
-                <p className="mt-2 text-sm text-red-600 font-bold">
-                  {errors?.image}
-                </p>
-              )}
+            {errors["image"] && (
+              <p className="mt-2 text-sm text-red-600 font-bold">
+                {errors?.image}
+              </p>
+            )}
           </div>
-      
+
           {/* Category */}
           <div className="mb-6">
-            <label htmlFor="category" className="block text-lg font-bold mb-2 text-gray-700">
+            <label
+              htmlFor="category"
+              className="block text-lg font-bold mb-2 text-gray-700"
+            >
               Category
             </label>
             <SelectElement
@@ -136,14 +151,13 @@ export default function EditPost() {
               name="category"
               value={dataState.category}
             />
-             {errors["category"] && (
-                <p className="mt-2 text-sm text-red-600 font-bold">
-                  {errors?.category}
-                </p>
-              )}
+            {errors["category"] && (
+              <p className="mt-2 text-sm text-red-600 font-bold">
+                {errors?.category}
+              </p>
+            )}
           </div>
-      
-          {/* Submit Button */}
+
           <button
             type="submit"
             className="flex w-full justify-center rounded-md bg-indigo-600 px-4 py-2 text-lg font-semibold text-white shadow-md hover:bg-indigo-500 transition duration-300"
