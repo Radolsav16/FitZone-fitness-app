@@ -63,6 +63,13 @@ To start both the server and client, run:
 npm run dev
 ```
 
+#### 5. Admin View Credentials
+To be admin login with this data:
+```bash
+email-todorovradoslav6@gmail.com
+password-123
+```
+
 ---
 
 ## 📁 File Architecture
